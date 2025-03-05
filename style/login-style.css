@@ -1,0 +1,17 @@
+.header, .footer{
+    width: auto;
+    height: 4.2vw;
+    background-color: blueviolet;
+}
+.main{
+    background-color: black;
+    height: 82.3vh;
+}
+.content{
+    background-color: red;
+    height: 85vh;
+    
+}
+.container-sm{
+    background-color: aqua;
+}
