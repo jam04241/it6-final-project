@@ -1,0 +1,201 @@
+DELIMITER $$
+--
+-- Procedures
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_tbl_payment` (IN `get_student_id` INT(11))   BEGIN
+	SELECT * 
+    FROM 
+		tbl_payment 
+    WHERE
+		student_id = get_student_id;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_tbl_payment_success` ()   BEGIN
+	SELECT
+		student_id, pay, total, balance
+    FROM
+		tbl_payment
+	WHERE
+		balance = 0;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_tbl_schoolyear` (IN `get_name` VARCHAR(12), IN `get_fee_price` DECIMAL(11,2), IN `get_effective_year` YEAR(4), IN `get_end_year` YEAR(4))   BEGIN
+    INSERT INTO tbl_schoolyear (
+        name, fee_price, effective_year, end_year, timestamp
+    ) 
+    VALUES (
+        get_name, get_fee_price, get_effective_year, get_end_year, NOW()
+    );
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_tbl_student_info` (IN `get_isactive` INT, IN `get_student_id` INT)   BEGIN
+	SELECT 
+		enroll_category, 
+        schoolyear,
+        isactive,
+        last_name,
+        first_name, 
+        middle_name,
+        address, 
+        birthdate, 
+        sex,
+        parent1,
+        parent1_contact,
+        parent2,
+        parent2_contact,
+        emergency_fullname,
+        emergency_relationship,
+        emergency_address,
+        emergency_contact_no
+    FROM 
+		tbl_student_info
+	WHERE
+		isactive = get_isactive
+	AND
+		student_id= get_student_id;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_userpass` (IN `get_username` VARCHAR(50))   BEGIN
+	SELECT 
+		employee_id, password
+    FROM 
+		tbl_employee 
+    WHERE 
+		username = get_username;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insert_payment` (IN `get_pay` DECIMAL(8,2), IN `get_student_id` INT(12), IN `get_admin_id` INT(12))   BEGIN
+    INSERT INTO tbl_payment (pay, student_id, admin_id, timestamp)
+    VALUES (get_pay, get_student_id, get_admin_id, NOW());
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insert_tbl_employee` (IN `insert_employee_position` VARCHAR(50), IN `insert_username` VARCHAR(12), IN `insert_password` VARCHAR(255), IN `insert_last_name` VARCHAR(50), IN `insert_first_name` VARCHAR(50), IN `insert_middle_name` VARCHAR(50), IN `insert_verify_pass` VARCHAR(12))   BEGIN
+	INSERT INTO tbl_employee(
+    employee_position,
+	username,
+    password,
+	last_name,
+    first_name,
+    middle_name,
+    verify_pass,
+    timestamp
+    )
+    VALUES(
+    insert_employee_position,
+	insert_username,
+    insert_password,
+	insert_last_name,
+    insert_first_name,
+    insert_middle_name,
+    insert_verify_pass,
+    NOW()
+    );
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insert_tbl_schoolyear` (IN `get_name` VARCHAR(12), IN `get_fee_price` DECIMAL(11,2), IN `get_effective_year` YEAR(4), IN `get_end_year` YEAR(4))   BEGIN
+    INSERT INTO tbl_schoolyear (
+        name, fee_price, effective_year, end_year, timestamp
+    ) 
+    VALUES (
+        get_name, get_fee_price, get_effective_year, get_end_year, NOW()
+    );
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insert_tbl_student_info` (IN `get_enroll_category` VARCHAR(50), IN `get_schoolyear` VARCHAR(10), IN `get_last_name` VARCHAR(100), IN `get_first_name` VARCHAR(100), IN `get_middle_name` VARCHAR(10), IN `get_address` TEXT, IN `get_birthdate` DATE, IN `get_sex` VARCHAR(50), IN `get_parent1` VARCHAR(100), IN `get_parent1_contact` VARCHAR(20), IN `get_parent2` VARCHAR(100), IN `get_parent2_contact` VARCHAR(20), IN `get_emergency_fullname` VARCHAR(100), IN `get_emergency_relationship` VARCHAR(50), IN `get_emergency_address` TEXT, IN `get_emergency_contact_no` VARCHAR(20), IN `get_created_by` INT)   BEGIN
+    INSERT INTO tbl_student_info (
+        enroll_category, 
+        schoolyear, 
+        last_name, 
+        first_name,
+        middle_name, 
+        address, 
+        birthdate, 
+        sex, 
+        parent1, 
+        parent1_contact, 
+        parent2, 
+        parent2_contact, 
+        emergency_fullname, 
+        emergency_relationship, 
+        emergency_address, 
+        emergency_contact_no, 
+        created_by,
+        date_created, 
+        isactive
+    ) 
+    VALUES (
+        get_enroll_category, 
+        get_schoolyear, 
+        get_last_name, 
+        get_first_name, 
+        get_middle_name, 
+        get_address, 
+        get_birthdate, 
+        get_sex, 
+        get_parent1,
+        get_parent1_contact, 
+        get_parent2, 
+        get_parent2_contact, 
+        get_emergency_fullname,
+        get_emergency_relationship, 
+        get_emergency_address, 
+        get_emergency_contact_no, 
+        get_created_by, 
+        NOW(), 
+        1
+    );
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `query_tbl_student_info` ()   BEGIN
+	SELECT
+		student_id,
+        first_name,
+        middle_name,
+        last_name,
+        enroll_category,
+        date_created,
+        date_updated
+	FROM
+		tbl_student_info
+	WHERE
+		isactive = 1;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `remove_tbl_student_info` (IN `get_student_id` INT)   BEGIN
+    UPDATE 
+		tbl_student_info
+    SET 
+		isactive = 0
+    WHERE 
+		student_id = get_student_id;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `update_tbl_student_info` (IN `get_student_id` INT, IN `get_enrollment_info` VARCHAR(50), IN `get_schoolyear` VARCHAR(50), IN `get_last_name` VARCHAR(50), IN `get_first_name` VARCHAR(100), IN `get_middle_name` VARCHAR(50), IN `get_address` TEXT, IN `get_birthdate` DATE, IN `get_sex` VARCHAR(10), IN `get_parent1` VARCHAR(100), IN `get_parent1_contact` VARCHAR(20), IN `get_parent2` VARCHAR(100), IN `get_parent2_contact` VARCHAR(20), IN `get_emergency_fullname` VARCHAR(50), IN `get_emergency_relationship` VARCHAR(50), IN `get_emergency_address` TEXT, IN `get_emergency_contact_no` VARCHAR(20), IN `get_updated_by` INT, IN `get_isactive` TINYINT(1))   BEGIN
+	UPDATE
+		tbl_student_info
+	SET
+		enroll_category = get_enrollment_info,
+        schoolyear = get_schoolyear,
+        last_name = get_last_name,
+        first_name = get_first_name,
+        middle_name = get_middle_name,
+        address = get_address,
+        birthdate = get_birthdate,
+        sex = get_sex,
+        parent1 = get_parent1,
+        parent1_contact = get_parent1_contact,
+        parent2 = get_parent2,
+        parent2_contact = get_parent1_contact,
+        emergency_fullname = get_emergency_fullname,
+        emergency_relationship = get_emergency_fullname,
+        emergency_address = get_emergency_fullname,
+        emergency_contact_no = get_emergency_fullname,
+        updated_by = get_updated_by,
+        date_updated = NOW(),
+        isactive = get_isactive
+    WHERE
+		student_id = get_student_id;
+    
+END$$
+
+DELIMITER ;

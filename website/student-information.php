@@ -6,7 +6,7 @@ try {
         die("Database connection failed: " . $conn->error);
     }
 
-    $sql = "SELECT student_id, first_name, middle_inital, last_name, enroll_category, timestamp FROM tbl_student_info;";
+    $sql = "CALL query_tbl_student_info()";
     $result = $conn->query($sql);
 } catch (Exception $e) {
     echo "Error: " . $e->getMessage();
@@ -14,6 +14,7 @@ try {
 
 // Close database connection
 $conn->close();
+
 ?>
 
 <!DOCTYPE html>
@@ -51,194 +52,15 @@ $conn->close();
     <script src="../script/student-form-script.js"></script>
     
     <!-- STYLE FOR NAVBAR AND SIDEBAR -->
-    <style>
-        body {
-            background-color: #d3d7df;
-            margin: 0;
-            padding: 0;
-        }
-        .navbar-custom {
-            background-color: #00324e;
-            padding: 12px 20px;
-        }
-        .navbar-border {
-            height: 3px;
-            background-color: #0088cc;
-        }
-        .menu-icon, .profile-icon {
-            font-size: 30px;
-            color: white;
-            cursor: pointer;
-        }
-        .navbar-toggler {
-            border: none;
-            padding: 5px;
-        }
-        .navbar-toggler:focus {
-            box-shadow: none;
-        }
-        .offcanvas {
-            width: 255px;
-            background-color: #012641;
-            color: white;
-        }
-        .offcanvas .Logo {
-            text-align: center;
-            margin-bottom: 15px;
-        }
-        .offcanvas .Logo img {
-            width: 250px;
-            height: 200px;
-        }
-        .offcanvas ul {
-            padding: 0;
-            list-style: none;
-            margin-top: 20px;
-        }
-        .offcanvas ul li {
-            padding: 12px 20px;
-            font-size: 20px;
-        }
-        .offcanvas ul li a {
-            text-decoration: none;
-            color: white;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .offcanvas ul li:hover {
-            background-color: #02486b;
-        }
-        .divider {
-            width: 80%;
-            height: 2px;
-            background-color: white;
-            margin: 20px auto;
-        }
-        .container {
-            max-width: 1300px;
-            margin: auto;
-            padding: 30px;
-        }
-        .form-container {
-            background-color: #012641;
-            color: white;
-            padding: 20px;
-            border-radius: 10px;
-        }
-        .form-control {
-            background-color: white;
-            border: none;
-            padding: 10px;
-        }
-        .update-btn {
-            background-color: #32cd32;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .footer {
-            text-align: center;
-            padding: 10px;
-            color: white;
-            position: relative;
-            width: 100%;
-        }
-        .footer-img {
-            max-width: 100%;
-            height: auto;
-        }
-        .text-align{
-            font-family: Tinos;
-            font-size: 30px;
-        }
-        .form-container{
-            font-family: montserrat;
-        }
-        .radio-group {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        padding-top: 10px; 
-        }
-        .radio-group label {
-        margin-right: 60px; 
-        }
-        .dropdown-menu {
-        background-color: #023047; /* Blue background */
-        border: none; /* Remove border */
-        }
-
-        .dropdown-item {
-            color: white; /* White text */
-        }
-
-        .dropdown-item:hover {
-            background-color: #02486b; /* Darker blue on hover */
-            color: #fff; /* Ensure text stays white */
-        }
-        #student-information th, #student-missing-information th {
-        text-align: center;
-        }
-        #student-information td, #student-missing-information td {
-            text-align: center;
-            vertical-align: middle;
-        }
-    </style>
 </head>
 <body>
-    <!-- NAVBAR -->
-    <nav class="navbar navbar-custom d-flex align-items-center">
-        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar">
-            <i class="bi bi-list menu-icon"></i> 
-        </button>
-        <div class="ms-auto dropdown">
-            <a class="profile-icon" href="#" id="profileDropdown" data-bs-toggle="dropdown">
-                <i class="bi bi-person-circle"></i> 
-            </a>
-            <ul class="dropdown-menu dropdown-menu-end">
-                <li><a class="dropdown-item" href="#">Username</a></li>
-                <li><a class="dropdown-item" href="#">Logout</a></li>
-            </ul>
-        </div>
-    </nav>
-    <div class="navbar-border"></div>
 
-    <!-- SIDEBAR -->
-    <div class="offcanvas offcanvas-start" tabindex="-1" id="sidebar">
-        <div class="offcanvas-header">
-            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"></button>
-        </div>
-        <div class="offcanvas-body">
-            <div class="Logo">
-                <img type="images" src="../images/SCHOOL_LOGO.png" alt="Profile Image">
-            </div>
-            <ul>
-                <li><a href="#"><i class="bi bi-house-door"></i> Home</a></li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="enrollmentDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="bi bi-journal"></i> Enrollment
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="enrollmentDropdown">
-                        <li><a class="dropdown-item" href="#">Enroll Student</a></li>
-                        <li><a class="dropdown-item" href="#">Manage Students</a></li>
-                    </ul>
-                </li>
-                <li><a href="#"><i class="bi bi-cash-stack"></i> Payment</a></li>
-                <li><a href="#"><i class="bi bi-clock-history"></i> History</a></li>
-                <li><a href="#"><i class="bi bi-people"></i> Staff</a></li>
-            </ul>
-            <div class="divider"></div>
-        </div>
-    </div>
-
+    <!-- Navbar Layout -->
+    <?php include"../Layouts/navbar.php"?>
 
     <!-- ENROLLMENT FORM -->
     <div class="container mt-4">
         <h1 class="text-center">Student Information</h1>
-        <form METHOD="POST" action="../database/db_manage_student_query.php">
             <table id="student-information" class="table table-striped mt-3">
                 <thead>
                     <tr>
@@ -247,7 +69,8 @@ $conn->close();
                         <th>Middle Inital</th>
                         <th>Last Name</th>
                         <th>Grade Level</th>
-                        <th>Transact Date</th>
+                        <th>Date Created</th>
+                        <th>Date Updated</th>
                         <th>Action</th>
 
                     </tr>
@@ -258,15 +81,25 @@ $conn->close();
                         <tr>
                             <td> <?=$row['student_id']?> </td>
                             <td> <?=$row['first_name']?> </td>
-                            <td> <?=$row['middle_inital']?> </td>
+                            <td> <?=$row['middle_name']?> </td>
                             <td> <?=$row['last_name']?> </td>
                             <td> <?=$row['enroll_category']?> </td>
-                            <td> <?=$row['timestamp']?> </td>
+                            <td> <?=$row['date_created']?> </td>
+                            <td> <?=$row['date_updated']?> </td>
                             <td>
-                                <button class="btn btn-warning btn-sm edit-btn">Edit</button>
-                                <form action="" method="POST" class="d-inline">
-                                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                                </form>
+                                <a class="btn btn-warning btn-sm edit-btn" href="update-enrollment-form.php?student_id=<?= htmlspecialchars($row['student_id']); ?>">
+                                    Edit
+                                </a>
+                                
+                                <a class="btn btn-secondary btn-sm form1-btn">
+                                    Form 1
+                                </a>
+
+                                <form action="../database/db_delete_student.php" method="POST" onsubmit="return confirm('Are you sure you want to delete this student?');" class="d-inline">
+                                    <input type="hidden" name="student_id" value="<?= htmlspecialchars($row['student_id'], ENT_QUOTES, 'UTF-8'); ?>">
+                                    <button type="submit" class="btn btn-danger btn-sm" >Delete</button>
+                                </form>           
+                                                   
                             </td>
                         </tr>
                         <?php endwhile; ?>
@@ -277,13 +110,11 @@ $conn->close();
                     <?php endif; ?>
                 </tbody>
             </table>
-        </form>
     </div>
 
         <!-- MISSING FORM -->
         <div class="container mt-4">
         <h1 class="text-center">Missing Information</h1>
-        <form METHOD="POST" action="../database/db_manage_student_query.php">
             <table id="student-missing-information" class="table table-striped mt-3">
                 <thead>
                     <tr>
@@ -292,42 +123,62 @@ $conn->close();
                         <th>Middle Inital</th>
                         <th>Last Name</th>
                         <th>Grade Level</th>
-                        <th>Transact Date</th>
                         <th>Action</th>
 
                     </tr>
                 </thead>
                 <tbody>
-                    <?php if(isset($result) && $result->num_rows > 0): ?>
-                        <?php while($row = $result->fetch_assoc()): ?>
+                <?php if(isset($result) && $result->num_rows > 0): ?>
+                    <?php while($row = $result->fetch_assoc()): ?>
                         <tr>
-                            <td> <?=$row['student_id']?> </td>
-                            <td> <?=$row['first_name']?> </td>
-                            <td> <?=$row['middle_inital']?> </td>
-                            <td> <?=$row['last_name']?> </td>
-                            <td> <?=$row['enroll_category']?> </td>
-                            <td> <?=$row['timestamp']?> </td>
+                            <td> <?= htmlspecialchars($row['student_id'], ENT_QUOTES, 'UTF-8'); ?> </td>
+                            <td> <?= htmlspecialchars($row['first_name'], ENT_QUOTES, 'UTF-8'); ?> </td>
+                            <td> <?= htmlspecialchars($row['middle_inital'], ENT_QUOTES, 'UTF-8'); ?> </td>
+                            <td> <?= htmlspecialchars($row['last_name'], ENT_QUOTES, 'UTF-8'); ?> </td>
+                            <td> <?= htmlspecialchars($row['enroll_category'], ENT_QUOTES, 'UTF-8'); ?> </td>
                             <td>
-                                <button class="btn btn-warning btn-sm edit-btn">Edit</button>
-                                <form action="" method="POST" class="d-inline">
+                                <button class="btn btn-warning btn-sm edit-btn" 
+                                        onclick="window.location.href='update-enrollment-form.php?student_id=<?= htmlspecialchars($row['student_id'], ENT_QUOTES, 'UTF-8'); ?>'">
+                                        Edit
+                                </button>
+                                <a>
+                                <form action="../database/db_delete_student.php" method="POST" onsubmit="return confirm('Are you sure you want to delete this student?');">
+                                    <input type="hidden" name="student_id" value="<?= htmlspecialchars($row['student_id'], ENT_QUOTES, 'UTF-8'); ?>">
                                     <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                                 </form>
+                                </a>
+
                             </td>
                         </tr>
-                        <?php endwhile; ?>
-                    <?php else: ?>
-                        <tr>
-                            <td colspan="7" class="text-center">No students available</td>
-                        </tr>
-                    <?php endif; ?>
+                    <?php endwhile; ?>
+                <?php endif; ?>
                 </tbody>
             </table>
-        </form>
     </div>
 
     <div class="footer">
         <img src="FOOTER.png" alt="Footer" class="footer-img">
     </div>
-
 </body>
+    <style>
+        #student-information th, #student-missing-information th {
+        text-align: center;
+        }
+        #student-information td, #student-missing-information td {
+            text-align: center;
+            vertical-align: middle;
+        }
+    </style>
+
+    <script>
+        function confirmation() {
+            var result = confirm('Are you sure about this?');
+            if (result) {
+                window.location.href = '../website/student-information.php';
+            } else {
+                return false;
+            }
+        }
+    </script>
+
 </html>

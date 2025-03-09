@@ -1,6 +1,11 @@
+<?php
+include 'helpers/not_authenticated.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- LOGIN FORM -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
@@ -78,21 +83,24 @@
         <div class="right text-center">
             <img src="../images/SCHOOL_LOGO.png" alt="School Logo" class="logo">
             <h1>ADMIN</h1>
-            <div class="w-100 text-start">
-                <div class="form-group">
-                    <label for="username" class="form-label" text-left>Username</label>
-                    <input type="text" id="username" class="form-control">
+                <form action="../database/db_login.php" method="POST">
+                <div class="w-100 text-start">
+                    <div class="form-group">
+                        <label for="username" class="form-label" text-left>Username</label>
+                        <input type="text" id="username" name="username" class="form-control">
+                    </div>
+                    <div class="form-group my-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" id="password" name="password" class="form-control">
+                    </div>
                 </div>
-                <div class="form-group my-3">
-                    <label for="password" class="form-label">Password</label>
-                    <input type="password" id="password" class="form-control">
-                </div>
-            </div>
-            <div class="right text-center">
-                <button class="btn btn-custom w-100 my-1">LOGIN</button>
-                <div class="signup">
-                    <a href="#" class="text-white">Go to Signup</a>
-                </div>
+                <div class="right text-center">
+                    <button class="btn btn-custom w-100 my-1" type="submit" >LOGIN</button>
+                    <div class="signup">
+                        <a href="signin.php" class="text-white">Go to Signup</a>
+                    </div>
+                </form>
+
             </div>
         </div>
     </div>

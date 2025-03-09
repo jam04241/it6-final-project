@@ -189,63 +189,21 @@ $conn->close();
     </style>
 </head>
 <body>
-    <!-- NAVBAR -->
-    <nav class="navbar navbar-custom d-flex align-items-center">
-        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar">
-            <i class="bi bi-list menu-icon"></i> 
-        </button>
-        <div class="ms-auto dropdown">
-            <a class="profile-icon" href="#" id="profileDropdown" data-bs-toggle="dropdown">
-                <i class="bi bi-person-circle"></i> 
-            </a>
-            <ul class="dropdown-menu dropdown-menu-end">
-                <li><a class="dropdown-item" href="#">Username</a></li>
-                <li><a class="dropdown-item" href="#">Logout</a></li>
-            </ul>
-        </div>
-    </nav>
-    <div class="navbar-border"></div>
-
-    <!-- SIDEBAR -->
-    <div class="offcanvas offcanvas-start" tabindex="-1" id="sidebar">
-        <div class="offcanvas-header">
-            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"></button>
-        </div>
-        <div class="offcanvas-body">
-            <div class="Logo">
-                <img type="images" src="../images/SCHOOL_LOGO.png" alt="Profile Image">
-            </div>
-            <ul>
-                <li><a href="#"><i class="bi bi-house-door"></i> Home</a></li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="enrollmentDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="bi bi-journal"></i> Enrollment
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="enrollmentDropdown">
-                        <li><a class="dropdown-item" href="#">Enroll Student</a></li>
-                        <li><a class="dropdown-item" href="#">Manage Students</a></li>
-                    </ul>
-                </li>
-                <li><a href="#"><i class="bi bi-cash-stack"></i> Payment</a></li>
-                <li><a href="#"><i class="bi bi-clock-history"></i> History</a></li>
-                <li><a href="#"><i class="bi bi-people"></i> Staff</a></li>
-            </ul>
-            <div class="divider"></div>
-        </div>
-    </div>
+    <!-- Navbar Layout -->
+    <?php include"../Layouts/navbar.php"?>
 
 
     <!-- Transaction History -->
     <div class="container mt-4">
-        <h1 class="text-center">TRANSACTION DATE</h1>
+        <h1 class="text-center">TRACKING HISTORY</h1>
         <form METHOD="POST" action="">
             <table id="transaction-information" class="table table-striped mt-3">
                 <thead>
                     <tr>
-                        <th>TRANSACTION</th>
-                        <th>STUDENT ID</th>
+                        <th>EMPLOYEE_ID</th>
+                        <th>POSITION</th>
                         <th>DESCRIPTION</th>
-                        <th>AMMOUNT</th>
+                        <th>AMOUNT</th>
                         <th>TRANSACTION DATE</th>
                     </tr>
                 </thead>
@@ -269,7 +227,7 @@ $conn->close();
                         <?//php endwhile; ?>
                     <?//php else: ?>
                         <tr>
-                            <td colspan="7" class="text-center">No students available</td>
+                            <td colspan="5" class="text-center">No transaction available</td>
                         </tr>
                     <?//php endif; ?>
                 </tbody>

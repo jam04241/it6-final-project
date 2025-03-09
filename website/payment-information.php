@@ -1,18 +1,53 @@
+<?php 
+include "../database/dbconnect.php";
+
+try {
+    if (!$conn) {
+        die("Database connection failed: " . $conn->error);
+    }
+
+    $sql = "SELECT student_id, first_name, middle_inital, last_name, enroll_category, timestamp FROM tbl_student_info;";
+    $result = $conn->query($sql);
+} catch (Exception $e) {
+    echo "Error: " . $e->getMessage();
+}
+
+// Close database connection
+$conn->close();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
-    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Enrollment Form</title>
+
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="/DataTables/datatables.min.css">
+    <script src="/DataTables/datatables.min.js"></script>
+    <script src="bootstrap/js/bootstrap.js"></script>
+
+
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" defer></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet"> -->
-
-    <!-- <link rel="stylesheet" href="/style/index-style.css"> -->
-    <link rel="stylesheet" href="../bootstrap/css/bootstrap.css">
-    <script src="../bootstrap/js/bootstrap.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
+    <link rel="stylesheet" href="../DataTables/datatables.css">
+    <script src="../DataTables/datatables.js" defer></script>
+
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+
+    <!-- jQuery (Required for DataTables) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+    <script src="../script/payment-form-script.js"></script>
     <!-- STYLE FOR NAVBAR AND SIDEBAR -->
     <style>
         body {
@@ -142,72 +177,62 @@
             background-color: #02486b; /* Darker blue on hover */
             color: #fff; /* Ensure text stays white */
         }
+        #student-information th, #student-missing-information th {
+        text-align: center;
+        }
+        #student-information td, #student-missing-information td {
+            text-align: center;
+            vertical-align: middle;
+        }
     </style>
 </head>
 <body>
+    <!-- Navbar Layout -->
+    <?php include"../Layouts/navbar.php"?>
 
-     
-    <!-- NAVBAR NI-->
-    <nav class="navbar navbar-custom d-flex align-items-center">
-        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar">
-            <i class="bi bi-list menu-icon"></i> 
-        </button>
-        <div class="ms-auto dropdown">
-            <a class="profile-icon" href="#" id="profileDropdown" data-bs-toggle="dropdown">
-                <i class="bi bi-person-circle"></i> 
-            </a>
-            <ul class="dropdown-menu dropdown-menu-end">
-                <li><a class="dropdown-item" href="#">Username</a></li>
-                <li><a class="dropdown-item" href="#">Logout</a></li>
-            </ul>
-        </div>
-    </nav>
-    <div class="offcanvas offcanvas-start" tabindex="-1" id="sidebar">
-        <div class="offcanvas-header">
-            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"></button>
-        </div>
-        <div class="offcanvas-body">
-            <div class="Logo">
-                <img src="/images/SCHOOL_LOGO.png" alt="Profile Image">
-            </div>
-            <ul>
-                <li><a href="#"><i class="bi bi-house-door"></i> Home</a></li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="enrollmentDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="bi bi-journal"></i> Enrollment
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="enrollmentDropdown">
-                        <li><a class="dropdown-item" href="#">Enroll Student</a></li>
-                        <li><a class="dropdown-item" href="#">Manage Students</a></li>
-                    </ul>
-                </li>
-                <li><a href="#"><i class="bi bi-cash-stack"></i> Payment</a></li>
-                <li><a href="#"><i class="bi bi-clock-history"></i> History</a></li>
-                <li><a href="#"><i class="bi bi-people"></i> Staff</a></li>
-            </ul>
-            <div class="divider"></div>
-        </div>
-    </div>
 
-    <!-- DASHBOARD NI -->
-    <div class="container">
-        <h2 class="text-center mt-3">DASHBOARD</h2>
-        <div class="dashboard-container">
-            <div class="dashboard-left">
-                <img src="student_piechart.png" alt="Student Population">
-            </div>
-            <div class="dashboard-right">
-                <img src="staff used.png" alt="Staff Used">
-                <img src="poweredbyfigma.png" alt="Powered by Figma">
-                <img src="YEARLY REVENUE.png" alt="Yearly Revenue">
-                <img src="MONTHLY REVENUE.png" alt="Monthly Revenue">
-                <img src="MALE POPULATION.png" alt="Male Population">
-                <img src="FEMALE POPULATION.png" alt="Female Population">
-                <img src="ADMIN.png" alt="Admin">
-                <img src="STAFF POPULATION.png" alt="Staff Population">
-            </div>
-        </div>
-    </div>
+<!-- PAYMENT FORM -->
+<div class="container mt-4">
+    <h1 class="text-center">PAYMENT STATUS</h1>
+    <table id="student-payment-status" class="table table-striped mt-3">
+        <thead>
+            <tr>
+                <th>STUDENT ID</th>
+                <th>PAY</th>
+                <th>TOTAL</th>
+                <th>BALANCE</th>
+                <th>STATUS</th>
+                <th>TIMESTAMP</th>
+                <th>ACTION</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Dynamic Data Goes Here -->
+        </tbody>
+    </table>
+</div>
+
+<!-- DONE PAYMENT -->
+<div class="container mt-4">
+    <h1 class="text-center">Done Payment</h1>
+    <table id="student-done-payment" class="table table-striped mt-3">
+        <thead>
+            <tr>
+            <th>STUDENT ID</th>
+                <th>PAY</th>
+                <th>TOTAL</th>
+                <th>BALANCE</th>
+                <th>TIMESTAMP</th>
+                <th>STATUS</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Dynamic Data Goes Here -->
+        </tbody>
+    </table>
+</div>
+
+
 
     <div class="footer">
         <img src="FOOTER.png" alt="Footer" class="footer-img">
