@@ -6,7 +6,7 @@ try {
         die("Database connection failed: " . $conn->error);
     }
 
-    $sql = "SELECT student_id, first_name, middle_inital, last_name, enroll_category, timestamp FROM tbl_student_info;";
+    $sql = "SELECT student_id, pay, total, balance, date_created, date_updated FROM tbl_payment;";
     $result = $conn->query($sql);
 } catch (Exception $e) {
     echo "Error: " . $e->getMessage();
@@ -201,12 +201,43 @@ $conn->close();
                 <th>PAY</th>
                 <th>TOTAL</th>
                 <th>BALANCE</th>
-                <th>STATUS</th>
-                <th>TIMESTAMP</th>
+                <th>CREATED DATE</th>
+                <th>UPDATED DATE</th>
                 <th>ACTION</th>
             </tr>
         </thead>
         <tbody>
+        <?php if(isset($result) && $result->num_rows > 0): ?>
+            <?php while($row = $result->fetch_assoc()): ?>
+                <tr>
+                            <td> <?=$row['student_id']?> </td>
+                            <td> <?=$row['pay']?> </td>
+                            <td> <?=$row['total']?> </td>
+                            <td> <?=$row['balance']?> </td>
+                            <td> <?=$row['date_created']?> </td>
+                            <td> <?=$row['date_updated']?> </td>
+                            <td>
+                                <a class="btn btn-warning btn-sm edit-btn" href="payment-form.php?student_id=<?= htmlspecialchars($row['student_id']); ?>">
+                                    Edit
+                                </a>
+                                
+                                <a class="btn btn-secondary btn-sm form1-btn">
+                                    Form 1
+                                </a>
+
+                                <form action="../database/db_delete_student.php" method="POST" onsubmit="return confirm('Are you sure you want to delete this student?');" class="d-inline">
+                                    <input type="hidden" name="student_id" value="<?= htmlspecialchars($row['student_id'], ENT_QUOTES, 'UTF-8'); ?>">
+                                    <button type="submit" class="btn btn-danger btn-sm" >Delete</button>
+                                </form>           
+                                                   
+                            </td>
+                        </tr>
+                        <?php endwhile; ?>
+                    <?php else: ?>
+                        <tr>
+                            <td colspan="7" class="text-center">No students available</td>
+                        </tr>
+                    <?php endif; ?>
             <!-- Dynamic Data Goes Here -->
         </tbody>
     </table>

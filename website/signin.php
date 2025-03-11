@@ -1,6 +1,3 @@
-<?php
-include 'helpers/not_authenticated.php';
-?>
 
 <!DOCTYPE html>
 <html lang="en">

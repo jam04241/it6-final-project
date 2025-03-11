@@ -1,6 +1,54 @@
 <?php 
 
 include '../script/confirmation.php'; 
+include "../database/dbconnect.php";
+
+if(isset($_GET["student_id"])){
+    $student_id = $_GET["student_id"];
+
+    $stmt = $conn->prepare("	SELECT
+                                        enroll_category,
+                                        schoolyear,
+                                        last_name,
+                                        first_name, 
+                                        middle_name,
+                                        sex,
+                                        emergency_fullname,
+                                        emergency_relationship,
+                                        emergency_address,
+                                        emergency_contact_no
+                                    FROM 
+                                        tbl_student_info
+                                    WHERE
+                                        isactive = 1
+                                    AND
+                                        student_id = get_student_id;");
+
+    $stmt->bind_param("i", $student_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+    } else {
+        die("Student not found!");
+    }
+    $stmt->close();
+} else {
+    die("Invalid request!");
+}
+
+// Retrieve form data from POST
+$enroll_category = $row["enroll_category"];
+$schoolyear = $row["schoolyear"];
+$last_name = $row["last_name"];
+$first_name = $row["first_name"];
+$middle_name = $row["middle_name"];
+$sex = $row["sex"];
+$emergency_fullname = $row["emergency_fullname"];
+$emergency_relationship = $row["emergency_relationship"];
+$emergency_address = $row["emergency_address"];
+$emergency_contact_no = $row["emergency_contact_no"];
 
 ?>
 <!DOCTYPE html>
@@ -24,73 +72,56 @@ include '../script/confirmation.php';
     <!-- Navbar Layout -->
     <?php include"../Layouts/navbar.php"?>
     
-    <!-- ENROLLMENT FORM -->
+    <!-- REGISTRATION FORM -->
     <div class="container">
-        <h2 class="text-align">ENROLLMENT FORM</h2>
+        <h2 class="text-align">UPDATE ENROLLMENT FORM</h2>
         <div class="form-container">
-            <form method="POST" action="../database/db_add_student.php">
+            <form method="POST" action="../database/db_add_enrollment.php">
                 <div class="row mb-3">
                     <div class="col-4">
-                        <label>Enrolled to</label>
-                        <select class="form-control" id="enroll_category" name="enroll_category" required>
-                            <option value="" selected disabled>Grade Level</option>
-                            <option value="Nursery">Nursery</option>
-                            <option value="Kindergarten_1">Kindergarten 1</option>
-                            <option value="Kindergarten_2">Kindergarten 2</option>
-                            <option value="Tutor">Tutor</option>
+                    <!-- Hidden field to send student_id -->
+                    <input type="hidden" name="student_id" value="<?php echo $student_id; ?>">
+
+                    <label>Enrolled to</label>
+                        <select class="form-control" id="enroll_category" name="enroll_category">
+                            <option value="NULL" <?= ($enroll_category == "") ? 'selected' : ''; ?> disabled>Select</option>
+                            <option value="Nursery" <?= ($enroll_category == "Nursery") ? 'selected' : ''; ?>>Nursery</option>
+                            <option value="Kindergarten_1" <?= ($enroll_category == 'Kindergarten_1') ? 'selected' : ''; ?>>Kindergarten 1</option>
+                            <option value="Kindergarten_2" <?= ($enroll_category == 'Kindergarten_2') ? 'selected' : ''; ?>>Kindergarten 2</option>
+                            <option value="Tutor" <?= ($enroll_category == "Tutor") ? 'selected' : ''; ?>>Tutor</option>
                         </select>
                     </div>
                     <div class="col-2">
                         <label>School Year:</label>
-                        <input type="year" class="form-control" id="schoolyear" name="schoolyear" required>  
+                        <input type="text" class="form-control" id="schoolyear" name="schoolyear" value="<?php echo $schoolyear; ?>">  
                     </div>
                 </div>
 
                 <div class="row mb-3">
                     <div class="col">
                         <label>Last Name</label>
-                        <input type="text" class="form-control" id="last_name" name="last_name" required>
+                        <input type="text" class="form-control" id="last_name" name="last_name" value="<?php echo $last_name; ?>" disabled>
                     </div>
                     <div class="col">
                         <label>First Name</label>
-                        <input type="text" class="form-control" id="first_name" name="first_name" required>
+                        <input type="text" class="form-control" id="first_name" name="first_name" value="<?php echo $first_name; ?>" disabled>
                     </div>
                     <div class="col">
                         <label>Middle Name</label>
-                        <input type="text" class="form-control" id="middle_name" name="middle_name" required>
+                        <input type="text" class="form-control" id="middle_name" name="middle_name" value="<?php echo $middle_name; ?>" disabled>
                     </div>
                 </div>
 
-                <div class="row mb-3">
-                    <div class="col"><label>Home Address</label>
-                        <input type="text" class="form-control" id="address" name="address" required>
-                    </div>
-                    <div class="col"><label>Date of Birth</label>
-                        <input type="date" class="form-control" id="birthdate" name="birthdate" required>
-                    </div>
-                    <div class="col">
+                <div class="col">
                         <label>Sex</label>
                         <div class="radio-group">
-                            <input type="radio" value="male" id="male" name="sex">
-                            <label for="male">Male</label>                       
-                            <input type="radio" value="female" id="female" name="sex">
-                            <label for="female">Female</label>
+                        <input type="radio" id="male" name="sex" value="Male" <?= ($sex == "Male") ? 'checked' : ''; ?> disabled>
+                        <label for="male">Male</label>
+
+                        <input type="radio" id="female" name="sex" value="Female" <?= ($sex == "Female") ? 'checked' : ''; ?> disabled>
+                        <label for="female">Female</label>
+
                         </div>
-                    </div>
-                </div>
-
-                <div class="row mb-3">
-                    <div class="col"><label>Name of Father</label>
-                    <input type="text" class="form-control" id="parent1" name="parent1"></div>
-                    <div class="col"><label>Contact No.</label>
-                    <input type="text" class="form-control" id="parent1_contact" name="parent1_contact"></div>
-                </div>
-
-                <div class="row mb-3">
-                    <div class="col"><label>Name of Mother</label>
-                    <input type="text" class="form-control" id="parent2" name="parent2"></div>
-                    <div class="col"><label>Contact No.</label>
-                    <input type="text" class="form-control" id="parent2_contact" name="parent2_contact"></div>
                 </div>
 
                 <h5 class="text-align">Person to be notified in case of emergency:</h5>
@@ -98,27 +129,27 @@ include '../script/confirmation.php';
                 <div class="row mb-3">
                     <div class="col">
                         <label>Full Name</label>
-                        <input type="text" class="form-control" id="emergency_fullname" name="emergency_fullname" required>
+                        <input type="text" class="form-control" id="emergency_fullname" name="emergency_fullname" value="<?php echo $emergency_fullname; ?>" disabled>
                     </div>
                     <div class="col">
                         <label>Relationship</label>
-                        <input type="text" class="form-control" id="emergency_relationship" name="emergency_relationship" required>
+                        <input type="text" class="form-control" id="emergency_relationship" name="emergency_relationship" value="<?php echo $emergency_relationship; ?>" disabled>
                     </div>
                 </div>
                 
                 <div class="row mb-3">
                     <div class="col">
                         <label>Address</label>
-                        <input type="text" class="form-control" id="emergency_address" name="emergency_address" required>
+                        <input type="text" class="form-control" id="emergency_address" name="emergency_address" value="<?php echo $emergency_address; ?>" disabled>
                     </div>
                     <div class="col">
                         <label>Contact No.</label>
-                        <input type="text" class="form-control" id="emergency_contact_no" name="emergency_contact_no" required>
+                        <input type="text" class="form-control" id="emergency_contact_no" name="emergency_contact_no" value="<?php echo $emergency_contact_no; ?>" disabled>
                     </div>
                 </div>
 
                 <div class="text-end mt-3">
-                    <button type="submit" class="btn btn-success" onclick="return confirmation()">Submit</button>
+                    <button type="submit" class="btn btn-success" onclick="return confirmation()">ADD</button>
                 </div>
             </form>
         </div>

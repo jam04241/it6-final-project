@@ -65,13 +65,14 @@ $emergency_contact_no = $row["emergency_contact_no"];
         <h2 class="text-align">UPDATE ENROLLMENT FORM</h2>
         <div class="form-container">
             <form method="POST" action="../database/db_update-student.php">
+                
                 <!-- Hidden field to send student_id -->
                 <input type="hidden" name="student_id" value="<?php echo $student_id; ?>">
 
                 <div class="row mb-3">
                     <div class="col-4">
                         <label>Enrolled to</label>
-                        <select class="form-control" id="enroll_category" name="enroll_category">
+                        <select class="form-control" id="enroll_category" name="enroll_category" disabled>
                             <option value="NULL" <?= ($enroll_category == "") ? 'selected' : ''; ?> disabled>Select</option>
                             <option value="Nursery" <?= ($enroll_category == "Nursery") ? 'selected' : ''; ?>>Nursery</option>
                             <option value="Kindergarten_1" <?= ($enroll_category == 'Kindergarten_1') ? 'selected' : ''; ?>>Kindergarten 1</option>
@@ -81,7 +82,7 @@ $emergency_contact_no = $row["emergency_contact_no"];
                     </div>
                     <div class="col-2">
                         <label>School Year:</label>
-                        <input type="text" class="form-control" id="schoolyear" name="schoolyear" value="<?php echo $schoolyear; ?>">  
+                        <input type="text" class="form-control" id="schoolyear" name="schoolyear" value="<?php echo $schoolyear; ?>" disabled>  
                     </div>
 
                     <div class="col-2">

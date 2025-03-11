@@ -1,7 +1,8 @@
 <?php
-    include 'dbconnect.php';
 
     session_start();
+    include 'dbconnect.php';
+
     $username = $_POST['username'];
     $password = $_POST['password'];
     
@@ -12,15 +13,11 @@
         $user = verify_user($username, $password);
     
         if ($user) {
-    
-          // Generate a unique token
-          $token = bin2hex(random_bytes(32));
-    
-          // Store the token in the session
-          $_SESSION['access_token'] = $token;
-    
-          // Optionally store token in a cookie
-          // setcookie("access_token", $token, time() + (86400 * 7), "/", "", false, true); // Expires in 7 days
+          
+            // Store the username in the session
+            $_SESSION["username"] = $user['username']; 
+
+
           echo"
           <script>
             alert('✅ Welcome to School System');
@@ -32,7 +29,7 @@
             echo 
             "<script>
                 alert('❌ Credential Mismatch!');
-                window.location.href = '../website/signin.php';
+                window.location.href = '../website/index.php';
             </script>";
             exit;
         }

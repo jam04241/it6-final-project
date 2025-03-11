@@ -1,14 +1,10 @@
 <?php
-
+include "../helpers/session.php";
 session_start();
+session_unset();  // Unset all session variables
+session_destroy(); // Destroy the session
 
-// Remove the token from the session
-unset($_SESSION['access_token']);
-
-// Clear the cookie (expire it)
-setcookie("access_token", "", time() - 3600, "/"); // Expire the cookie by setting the time in the past
-
-session_destroy();
-
+// Redirect to the login page
 header("Location: ../website/index.php");
-exit;
+exit();
+?>

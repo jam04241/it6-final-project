@@ -1,3 +1,7 @@
+<?php
+
+?>
+
 
 <!-- NAVBAR -->
     <nav class="navbar navbar-custom d-flex align-items-center">
@@ -9,7 +13,7 @@
                 <i class="bi bi-person-circle"></i> 
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="enrollmentDropdown">
-                <li><a class="dropdown-item" href="#">Username</a></li>
+                <li><a class="dropdown-item" href="#" >Hi! <?php echo htmlspecialchars($username); ?></a></li>
                 <li><a class="dropdown-item" href="../helpers/logout_handler.php" onclick="return confirmation()">Logout</a></li>
             </ul>
         </div>
@@ -26,15 +30,16 @@
                 <img src="../images/SCHOOL_LOGO.png" alt="Profile Image">
             </div>
             <ul>
-                <li><a href="../website/dashboards.php"><i class="bi bi-house-door"></i> Home</a></li>
+                <li><a href="../website/dashboards.php"><i class="fa-solid fa-gauge"></i>Dashboard</a></li>
                  
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="enrollmentDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="bi bi-journal"></i> Enrollment
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="enrollmentDropdown">
-                        <li><a class="dropdown-item" href="../website/add-enrollment-form.php"><i class="fa-solid fa-clipboard"></i>Enroll Student</a></li>
-                        <li><a class="dropdown-item" href="../website/student-information.php"><i class="fa-solid fa-people-group"></i>Manage Students</a></li>
+                        <li><a class="dropdown-item" href="../website/add-registration-form.php"><i class="fa-solid fa-cash-register"></i>Registration</a></li>
+                        <li><a class="dropdown-item" href="../website/student-information.php"><i class="fa-solid fa-people-group"></i>Students information</a></li>
+                        <li><a class="dropdown-item" href="../website/student-listing.php"><i class="fa-solid fa-people-group"></i>Students List</a></li>
                     </ul>
                 </li>
                 <li><a href="../website/payment-information.php"><i class="bi bi-cash-stack"></i> Payment</a></li>
@@ -44,7 +49,7 @@
                         <i class="fa-solid fa-user-tie"></i>Admin
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="enrollmentDropdown">
-                        <li><a class="dropdown-item" href="../website/transaction-history.php"><i class="fa-solid fa-clock-rotate-left"></i>Tracking History</a></li>
+                        <li><a class="dropdown-item" href="../website/audit-log.php"><i class="fa-solid fa-clock-rotate-left"></i>Audit Log</a></li>
                         <li><a class="dropdown-item" href="#"><i class="bi bi-people"></i>Staff</a></li>
                     </ul>
                 </li>
@@ -73,8 +78,9 @@
             font-size: 30px;
             color: white;
             cursor: pointer;
+            margin: 180px;
         }
-        .navbar-toggler {
+        .navbar-toggler{
             border: none;
             padding: 5px;
         }

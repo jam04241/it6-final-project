@@ -6,8 +6,21 @@ try {
         die("Database connection failed: " . $conn->error);
     }
 
-    $sql = "CALL query_tbl_student_info()";
+    $sql = "	SELECT
+                    student_id,
+                    first_name,
+                    middle_name,
+                    last_name,
+                    enroll_category,
+                    date_created,
+                    date_updated
+                FROM
+                    tbl_student_info
+                WHERE
+                    isactive = 1;";
+                    
     $result = $conn->query($sql);
+
 } catch (Exception $e) {
     echo "Error: " . $e->getMessage();
 }
@@ -87,14 +100,14 @@ $conn->close();
                             <td> <?=$row['date_created']?> </td>
                             <td> <?=$row['date_updated']?> </td>
                             <td>
+                                <a class="btn btn-secondary btn-sm edit-btn" href="add-enrollment-form.php?student_id=<?= htmlspecialchars($row['student_id']); ?>">
+                                    Enroll
+                                </a>
+
                                 <a class="btn btn-warning btn-sm edit-btn" href="update-enrollment-form.php?student_id=<?= htmlspecialchars($row['student_id']); ?>">
                                     Edit
                                 </a>
                                 
-                                <a class="btn btn-secondary btn-sm form1-btn">
-                                    Form 1
-                                </a>
-
                                 <form action="../database/db_delete_student.php" method="POST" onsubmit="return confirm('Are you sure you want to delete this student?');" class="d-inline">
                                     <input type="hidden" name="student_id" value="<?= htmlspecialchars($row['student_id'], ENT_QUOTES, 'UTF-8'); ?>">
                                     <button type="submit" class="btn btn-danger btn-sm" >Delete</button>
@@ -113,7 +126,7 @@ $conn->close();
     </div>
 
         <!-- MISSING FORM -->
-        <div class="container mt-4">
+        <!-- <div class="container mt-4">
         <h1 class="text-center">Missing Information</h1>
             <table id="student-missing-information" class="table table-striped mt-3">
                 <thead>
@@ -153,7 +166,7 @@ $conn->close();
                     <?php endwhile; ?>
                 <?php endif; ?>
                 </tbody>
-            </table>
+            </table> -->
     </div>
 
     <div class="footer">

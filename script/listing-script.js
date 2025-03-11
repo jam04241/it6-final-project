@@ -1,6 +1,6 @@
 
     $(document).ready(function() {
-        $('#student-information').DataTable({
+        $('#nursery-list,#kindergarten1-list,#kindergarten2-list,#tutor-list').DataTable({
             "paging": true, // Enable pagination
             "searching": true, // Enable search box
             "ordering": true, // Enable sorting
