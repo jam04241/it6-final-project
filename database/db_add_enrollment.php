@@ -5,9 +5,11 @@ include "dbconnect.php";
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
 try {
-    // Hardcoded employee_id (Change this as needed)
-    $employee_id = 5672;
+    // SESSION EMPLOYEE ID
+    $employee_id = $_SESSION["employee_id"];
+
     $student_id = $_POST["student_id"];
+
     // Retrieve form data from POST
     $enroll_category = $_POST["enroll_category"] ?? '';
     $schoolyear = $_POST["schoolyear"] ?? '';
@@ -22,17 +24,15 @@ try {
                                    WHERE
                                      student_id = ?;");
 
-    $stmt->bind_param('iss',
-  $student_id,
- $enroll_category,
-        $schoolyear
+    $stmt->bind_param('ssi',
+  $enroll_category,
+ $schoolyear,
+        $student_id
         
     );
 
     $stmt->execute();
     $stmt->close();
-
-    sleep(2);
 
     echo "
     <script>

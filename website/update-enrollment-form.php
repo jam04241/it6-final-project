@@ -5,7 +5,32 @@ include('../database/dbconnect.php');
 if(isset($_GET["student_id"])){
     $student_id = $_GET["student_id"];
 
-    $stmt = $conn->prepare("CALL get_tbl_student_info(1,?)");
+    $stmt = $conn->prepare("	SELECT 
+                                        enroll_category, 
+                                        schoolyear,
+                                        isactive,
+                                        last_name,
+                                        first_name, 
+                                        middle_name,
+                                        street,
+                                        city,
+                                        zip_code, 
+                                        birthdate, 
+                                        sex,
+                                        parent1,
+                                        parent1_contact,
+                                        parent2,
+                                        parent2_contact,
+                                        emergency_fullname,
+                                        emergency_relationship,
+                                        emergency_address,
+                                        emergency_contact_no                                        
+                                    FROM 
+                                        tbl_student_info
+                                    WHERE
+                                        isactive = 1
+                                    AND
+                                        student_id= ?;");
     $stmt->bind_param("i", $student_id);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -26,7 +51,9 @@ $schoolyear = $row["schoolyear"];
 $last_name = $row["last_name"];
 $first_name = $row["first_name"];
 $middle_name = $row["middle_name"];
-$address = $row["address"];
+$street = $row["street"];
+$city = $row["city"];
+$zip_code = $row["zip_code"];
 $birthdate = $row["birthdate"];
 $sex = $row["sex"];
 $parent1 = $row["parent1"];
@@ -37,6 +64,7 @@ $emergency_fullname = $row["emergency_fullname"];
 $emergency_relationship = $row["emergency_relationship"];
 $emergency_address = $row["emergency_address"];
 $emergency_contact_no = $row["emergency_contact_no"];
+
 
 ?>
 <!DOCTYPE html>
@@ -65,13 +93,17 @@ $emergency_contact_no = $row["emergency_contact_no"];
         <h2 class="text-align">UPDATE ENROLLMENT FORM</h2>
         <div class="form-container">
             <form method="POST" action="../database/db_update-student.php">
-                
+
                 <!-- Hidden field to send student_id -->
-                <input type="hidden" name="student_id" value="<?php echo $student_id; ?>">
+                <input type="hidden" name="student_id" value="<?= htmlspecialchars($student_id); ?>">
 
                 <div class="row mb-3">
                     <div class="col-4">
-                        <label>Enrolled to</label>
+                        <label>Enrolled to <i>(NON EDITABLE)</i></label>
+
+                        <!-- Hidden input to store the value -->
+                        <input type="hidden" name="enroll_category" value="<?= htmlspecialchars($enroll_category); ?>">
+
                         <select class="form-control" id="enroll_category" name="enroll_category" disabled>
                             <option value="NULL" <?= ($enroll_category == "") ? 'selected' : ''; ?> disabled>Select</option>
                             <option value="Nursery" <?= ($enroll_category == "Nursery") ? 'selected' : ''; ?>>Nursery</option>
@@ -81,14 +113,14 @@ $emergency_contact_no = $row["emergency_contact_no"];
                         </select>
                     </div>
                     <div class="col-2">
-                        <label>School Year:</label>
-                        <input type="text" class="form-control" id="schoolyear" name="schoolyear" value="<?php echo $schoolyear; ?>" disabled>  
+                        <label style="font-size: 12px;">School Year: <i>(NON EDITABLE)</i></label>
+                        <input type="text" class="form-control" id="schoolyear" name="schoolyear" value="<?= htmlspecialchars($schoolyear); ?>" readonly> 
                     </div>
 
                     <div class="col-2">
                         <label>Status</label>
-                        <select type="update" class="form-control" id="" name="is_active" value="is_active" value="<?php echo $is_active; ?>">
-                            <option value="1"> Ongoing </option>
+                        <select class="form-control" id="" name="is_active">
+                            <option value="1" selected> Ongoing </option>
                             <option value="0"> Done </option>
                         </select>
                     </div>
@@ -97,34 +129,39 @@ $emergency_contact_no = $row["emergency_contact_no"];
                 <div class="row mb-3">
                     <div class="col">
                         <label>Last Name</label>
-                        <input type="text" class="form-control" id="last_name" name="last_name" value="<?php echo $last_name; ?>">
+                        <input type="text" class="form-control" id="last_name" name="last_name" value="<?= htmlspecialchars($last_name); ?>">
                     </div>
                     <div class="col">
                         <label>First Name</label>
-                        <input type="text" class="form-control" id="first_name" name="first_name" value="<?php echo $first_name; ?>">
+                        <input type="text" class="form-control" id="first_name" name="first_name" value="<?= htmlspecialchars($first_name); ?>">
                     </div>
                     <div class="col">
                         <label>Middle Name</label>
-                        <input type="text" class="form-control" id="middle_name" name="middle_name" value="<?php echo $middle_name; ?>">
+                        <input type="text" class="form-control" id="middle_name" name="middle_name" value="<?= htmlspecialchars($middle_name); ?>">
                     </div>
                 </div>
 
                 <div class="row mb-3">
-                    <div class="col"><label>Home Address</label>
-                        <input type="text" class="form-control" id="address" name="address" value="<?php echo $address; ?>">
+                    <div class="col"><label>Street</label>
+                        <input type="text" class="form-control" id="street" name="street" value="<?= htmlspecialchars($street); ?>" required>
+                    </div>
+                    <div class="col"><label>City</label>
+                        <input type="text" class="form-control" id="city" name="city" value="<?= htmlspecialchars($city); ?>" required>
+                    </div>
+                    <div class="col"><label>Zip Code</label>
+                        <input type="text" class="form-control" id="zip_code" name="zip_code" value="<?= htmlspecialchars($zip_code); ?>" required>
                     </div>
                     <div class="col"><label>Date of Birth</label>
-                        <input type="date" class="form-control" id="birthdate" name="birthdate" value="<?php echo $birthdate; ?>">
+                        <input type="date" class="form-control" id="birthdate" name="birthdate" value="<?= htmlspecialchars($birthdate); ?>">
                     </div>
                     <div class="col">
                         <label>Sex</label>
                         <div class="radio-group">
-                        <input type="radio" id="male" name="sex" value="Male" <?= ($sex == "Male") ? 'checked' : ''; ?>>
-                        <label for="male">Male</label>
+                            <input type="radio" id="male" name="sex" value="Male" <?= ($sex == "Male") ? 'checked' : ''; ?>>
+                            <label for="male">Male</label>
 
-                        <input type="radio" id="female" name="sex" value="Female" <?= ($sex == "Female") ? 'checked' : ''; ?>>
-                        <label for="female">Female</label>
-
+                            <input type="radio" id="female" name="sex" value="Female" <?= ($sex == "Female") ? 'checked' : ''; ?>>
+                            <label for="female">Female</label>
                         </div>
                     </div>
                 </div>
@@ -132,11 +169,11 @@ $emergency_contact_no = $row["emergency_contact_no"];
                 <div class="row mb-3">
                     <div class="col">
                         <label>Name of Father</label>
-                        <input type="text" class="form-control" id="parent1" name="parent1" value="<?php echo $parent1; ?>">
+                        <input type="text" class="form-control" id="parent1" name="parent1" value="<?= htmlspecialchars($parent1); ?>">
                     </div>
                     <div class="col">
                         <label>Contact No.</label>
-                        <input type="text" class="form-control" id="parent1_contact" name="parent1_contact" value="<?php echo $parent1_contact; ?>">
+                        <input type="text" class="form-control" id="parent1_contact" name="parent1_contact" value="<?= htmlspecialchars($parent1_contact); ?>">
                     </div>
 
                 </div>
@@ -144,11 +181,11 @@ $emergency_contact_no = $row["emergency_contact_no"];
                 <div class="row mb-3">
                     <div class="col">
                         <label>Name of Mother</label>
-                        <input type="text" class="form-control" id="parent2" name="parent2" value="<?php echo $parent2; ?>">
+                        <input type="text" class="form-control" id="parent2" name="parent2" value="<?= htmlspecialchars($parent2); ?>">
                     </div>
                     <div class="col">
                         <label>Contact No.</label>
-                        <input type="text" class="form-control" id="parent2_contact" name="parent2_contact" value="<?php echo $parent2_contact; ?>">
+                        <input type="text" class="form-control" id="parent2_contact" name="parent2_contact" value="<?= htmlspecialchars($parent2_contact); ?>">
                     </div>
                 </div>
 
@@ -157,22 +194,28 @@ $emergency_contact_no = $row["emergency_contact_no"];
                 <div class="row mb-3">
                     <div class="col">
                         <label>Full Name</label>
-                        <input type="text" class="form-control" id="emergency_fullname" name="emergency_fullname" value="<?php echo $emergency_fullname; ?>">
+                        <input type="text" class="form-control" id="emergency_fullname" name="emergency_fullname" value="<?= htmlspecialchars($emergency_fullname); ?>">
                     </div>
                     <div class="col">
                         <label>Relationship</label>
-                        <input type="text" class="form-control" id="emergency_relationship" name="emergency_relationship" value="<?php echo $emergency_relationship; ?>">
+                        <select class="form-control" id="emergency_relationship" name="emergency_relationship">
+                            <option value="NULL" <?= ($emergency_relationship == "") ? 'selected' : ''; ?> disabled>Select</option>
+                            <option value="mother" <?= ($emergency_relationship == 'mother') ? 'selected' : ''; ?>>Mother</option>
+                            <option value="father" <?= ($emergency_relationship == 'father') ? 'selected' : ''; ?>>Father</option>
+                            <option value="guardian" <?= ($emergency_relationship == 'guardian') ? 'selected' : ''; ?>>Guardian</option>
+                            <option value="others" <?= ($emergency_relationship == "others") ? 'selected' : ''; ?>>Others</option>
+                        </select>
                     </div>
                 </div>
-                
+
                 <div class="row mb-3">
                     <div class="col">
                         <label>Address</label>
-                        <input type="text" class="form-control" id="emergency_address" name="emergency_address" value="<?php echo $emergency_address; ?>">
+                        <input type="text" class="form-control" id="emergency_address" name="emergency_address" value="<?= htmlspecialchars($emergency_address); ?>">
                     </div>
                     <div class="col">
                         <label>Contact No.</label>
-                        <input type="text" class="form-control" id="emergency_contact_no" name="emergency_contact_no" value="<?php echo $emergency_contact_no; ?>">
+                        <input type="text" class="form-control" id="emergency_contact_no" name="emergency_contact_no" value="<?= htmlspecialchars($emergency_contact_no); ?>">
                     </div>
                 </div>
 
@@ -182,6 +225,7 @@ $emergency_contact_no = $row["emergency_contact_no"];
             </form>
         </div>
     </div>
+
 
     <div class="footer">
         <img src="FOOTER.png" alt="Footer" class="footer-img">

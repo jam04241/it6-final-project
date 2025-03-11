@@ -13,9 +13,33 @@ try {
 
     // Run each stored procedure separately with proper handling
     $queries = [
-        "CALL query_nursery_list()",
-        "CALL query_kindergarten_1_list()",
-        "CALL query_kindergarten_2_list()"
+        "SELECT
+            student_id,
+            first_name,
+            middle_name,
+            last_name
+	    FROM
+		    tbl_student_info
+	    WHERE
+		    enroll_category ='Nursery';",
+        "SELECT
+            student_id,
+            first_name,
+            middle_name,
+            last_name
+        FROM
+            tbl_student_info
+        WHERE
+            enroll_category ='Kindergarten_1';",
+        "SELECT
+            student_id,
+            first_name,
+            middle_name,
+            last_name
+        FROM
+            tbl_student_info
+        WHERE
+            enroll_category ='Kindergarten_2';"
     ];
 
     foreach ($queries as $index => $query) {
@@ -113,7 +137,7 @@ $conn->close();
                         <td><?= htmlspecialchars($row['last_name']) ?></td>
                             <td>
 
-                                <a class="btn btn-warning btn-sm edit-btn" href="update-enrollment-form.php?student_id=<?= htmlspecialchars($row['student_id']); ?>">
+                                <a class="btn btn-warning btn-sm edit-btn" href="update-listing.php?student_id=<?= htmlspecialchars($row['student_id']); ?>">
                                     Edit
                                 </a>
                                 

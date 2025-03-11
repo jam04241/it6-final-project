@@ -13,10 +13,8 @@
     $last_name = $_POST["last_name"];
     $first_name = $_POST["first_name"];
     $middle_name = $_POST["middle_name"];
-    $street = $_POST["street"];
     $city = $_POST["city"];
     $zip_code = $_POST["zip_code"];
-    $birthdate = $_POST["birthdate"];
     $birthdate = $_POST["birthdate"];
     $sex = $_POST["sex"];
     $parent1 = $_POST["parent1"];
@@ -88,7 +86,7 @@
         echo "
         <script>
             alert('✅ You successfully updated student');
-            window.location.href = '../website/student-information.php';
+            window.location.href = '../website/student-listing.php';
         </script>";
     } else {
         echo "Error: " . $stmt->error;

@@ -83,7 +83,26 @@ function create_account($employee_position, $username, $password, $last_name, $f
 
   $hashed_password = password_hash($password, PASSWORD_BCRYPT);
 
-  $stmt = $conn->prepare("CALL insert_tbl_employee(?,?,?,?,?,?,?);");
+  $stmt = $conn->prepare("	INSERT INTO tbl_employee(
+                                        employee_position,
+                                        username,
+                                        password,
+                                        last_name,
+                                        first_name,
+                                        middle_name,
+                                        verify_pass,
+                                        timestamp
+                                        )
+                                  VALUES(
+                                        ?,
+                                        ?,
+                                        ?,
+                                        ?,
+                                        ?,
+                                        ?,
+                                        ?,
+                                        NOW()
+                                        );");
   if (!$stmt) {
     return false;
   }

@@ -16,6 +16,7 @@
           
             // Store the username in the session
             $_SESSION["username"] = $user['username']; 
+            $_SESSION["employee_id"] = $user['employee_id']; 
 
 
           echo"
@@ -42,7 +43,13 @@
     {
       global $conn;
      
-      $stmt = $conn->prepare("CALL get_userpass(?)");
+      $stmt = $conn->prepare("	SELECT 
+                                        employee_id, username, password
+                                      FROM 
+                                        tbl_employee 
+                                      WHERE 
+                                        username = ?;");
+                                        
       $stmt->bind_param("s", $username);
       $stmt->execute();
       $result = $stmt->get_result();

@@ -8,7 +8,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['student_id'])) {
     echo "Received student ID: " . $student_id;
 
     // Prepare the SQL CALL statement
-    $stmt = $conn->prepare("CALL remove_tbl_student_info(?)");
+    
+    $stmt = $conn->prepare(" UPDATE 
+                                        tbl_student_info
+                                    SET 
+                                        isactive = 0
+                                    WHERE 
+                                        student_id = ?;");
+
     $stmt->bind_param('i', $student_id);
 
     if ($stmt->execute()) {

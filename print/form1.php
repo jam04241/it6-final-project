@@ -73,65 +73,30 @@
             bottom: 0;
             padding-top: 20px;
         }
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+        }
 </style>
 <body>
-        <!-- NAVBAR -->
-        <nav class="navbar navbar-custom d-flex align-items-center">
-            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar">
-                <i class="bi bi-list menu-icon"></i> 
-            </button>
-            <div class="ms-auto dropdown">
-                <a class="profile-icon" href="#" id="profileDropdown" data-bs-toggle="dropdown">
-                    <i class="bi bi-person-circle"></i> 
-                </a>
-                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="enrollmentDropdown">
-                    <li><a class="dropdown-item" href="#">Username</a></li>
-                    <li><a class="dropdown-item" href="../helpers/logout_handler.php" onclick="return confirmation()">Logout</a></li>
-                </ul>
-            </div>
-        </nav>
-        <div class="navbar-border"></div>
 
-        <!-- SIDEBAR -->
-        <div class="offcanvas offcanvas-start" tabindex="-1" id="sidebar">
-            <div class="offcanvas-header">
-                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"></button>
-            </div>
-            <div class="offcanvas-body">
-                <div class="Logo">
-                    <img src="../images/SCHOOL_LOGO.png" alt="Profile Image">
+
+        <!-- FORM 1 CONTAINER NI -->
+        <div class="print-section">
+        <div class="container">
+            <div class="row mb-3">
+                <div class="col">
+                    <h3 class="text-center"><strong>FORM 1</strong></h3>
                 </div>
-                <ul>
-                    <li><a href="../website/dashboards.php"><i class="bi bi-house-door"></i> Home</a></li>
-                    
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="enrollmentDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-journal"></i> Enrollment
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="enrollmentDropdown">
-                            <li><a class="dropdown-item" href="../website/add-enrollment-form.php"><i class="fa-solid fa-clipboard"></i>Enroll Student</a></li>
-                            <li><a class="dropdown-item" href="../website/student-information.php"><i class="fa-solid fa-people-group"></i>Manage Students</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="../website/payment-information.php"><i class="bi bi-cash-stack"></i> Payment</a></li>
-
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="enrollmentDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fa-solid fa-user-tie"></i>Admin
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="enrollmentDropdown">
-                            <li><a class="dropdown-item" href="../website/transaction-history.php"><i class="fa-solid fa-clock-rotate-left"></i>Tracking History</a></li>
-                            <li><a class="dropdown-item" href="#"><i class="bi bi-people"></i>Staff</a></li>
-                        </ul>
-                    </li>
-                    
-                </ul>
-                <div class="divider"></div>
+            </div>
+            <div class="row mb-3">
+                <div class="col d-flex justify-content-end gap-3">
+                    <button class="btn btn-dark no-print" onclick="window.print()">🖨️ PRINT</button>
+                    <a class="btn btn-dark no-print" href="../website/payment-form.php">↩️ BACK</a>
+                </div>  
             </div>
         </div>
-        <!-- FORM 1 CONTAINER NI -->
-        <h3><strong>PAYMENT RECEIPT</strong></h3>
-        <button class="btn btn-dark" onclick="window.print()">🖨️ PRINT</button>
     </div>
         <div class="container-fluid d-flex justify-content-center mt-3">
             <div class="p-4 bg-light border shadow-sm" style="max-width: 900px; width: 100%;">
@@ -158,7 +123,7 @@
                         <p>Smurf</p>
                     </div>
                     <div class="col-md-6 text-end">
-                        <img src="SCHOOL_LOGO.png" alt="School Logo" class="mb-2" style="max-width: 120px;">
+                        <img src="../images/SCHOOL_LOGO.png" alt="School Logo" class="mb-2" style="max-width: 120px;">
                         <h6 class="fw-bold mb-0">Buligen-Puentespina Learning Center</h6>
                         <p class="fw-bold mb-0">SPED, Bangkal, Davao City</p>
                         <p class="fw-bold mb-0">Philippines, 8000</p>
@@ -185,9 +150,6 @@
                 </table>
             </div>
         </div>
-    </div>
-    <div class="footer">
-        <img src="FOOTER.png" alt="Footer" class="footer-img">
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>

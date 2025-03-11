@@ -12,7 +12,6 @@ if(isset($_GET["student_id"])){
                                         last_name,
                                         first_name, 
                                         middle_name,
-                                        sex,
                                         emergency_fullname,
                                         emergency_relationship,
                                         emergency_address,
@@ -22,7 +21,7 @@ if(isset($_GET["student_id"])){
                                     WHERE
                                         isactive = 1
                                     AND
-                                        student_id = get_student_id;");
+                                        student_id = ?;");
 
     $stmt->bind_param("i", $student_id);
     $stmt->execute();
@@ -44,7 +43,6 @@ $schoolyear = $row["schoolyear"];
 $last_name = $row["last_name"];
 $first_name = $row["first_name"];
 $middle_name = $row["middle_name"];
-$sex = $row["sex"];
 $emergency_fullname = $row["emergency_fullname"];
 $emergency_relationship = $row["emergency_relationship"];
 $emergency_address = $row["emergency_address"];
@@ -84,11 +82,11 @@ $emergency_contact_no = $row["emergency_contact_no"];
 
                     <label>Enrolled to</label>
                         <select class="form-control" id="enroll_category" name="enroll_category">
-                            <option value="NULL" <?= ($enroll_category == "") ? 'selected' : ''; ?> disabled>Select</option>
+                            <option value="NULL" <?= ($enroll_category == "") ? 'selected' : ''; ?>>Select</option>
                             <option value="Nursery" <?= ($enroll_category == "Nursery") ? 'selected' : ''; ?>>Nursery</option>
-                            <option value="Kindergarten_1" <?= ($enroll_category == 'Kindergarten_1') ? 'selected' : ''; ?>>Kindergarten 1</option>
-                            <option value="Kindergarten_2" <?= ($enroll_category == 'Kindergarten_2') ? 'selected' : ''; ?>>Kindergarten 2</option>
-                            <option value="Tutor" <?= ($enroll_category == "Tutor") ? 'selected' : ''; ?>>Tutor</option>
+                            <option value="Kindergarten_1" <?= ($enroll_category == 'Kindergarten_1') ? 'selected' : ''; ?> >Kindergarten 1</option>
+                            <option value="Kindergarten_2" <?= ($enroll_category == 'Kindergarten_2') ? 'selected' : ''; ?> >Kindergarten 2</option>
+                            <option value="Tutor" <?= ($enroll_category == "Tutor") ? 'selected' : ''; ?> >Tutor</option>
                         </select>
                     </div>
                     <div class="col-2">
@@ -99,52 +97,40 @@ $emergency_contact_no = $row["emergency_contact_no"];
 
                 <div class="row mb-3">
                     <div class="col">
-                        <label>Last Name</label>
-                        <input type="text" class="form-control" id="last_name" name="last_name" value="<?php echo $last_name; ?>" disabled>
+                        <label>Last Name <i>(NON EDITABLE)</i></label>
+                        <input type="text" class="form-control" id="last_name" name="last_name" value="<?php echo $last_name; ?>" readonly>
                     </div>
                     <div class="col">
-                        <label>First Name</label>
-                        <input type="text" class="form-control" id="first_name" name="first_name" value="<?php echo $first_name; ?>" disabled>
+                        <label>First Name <i>(NON EDITABLE)</i></label>
+                        <input type="text" class="form-control" id="first_name" name="first_name" value="<?php echo $first_name; ?>" readonly>
                     </div>
                     <div class="col">
-                        <label>Middle Name</label>
-                        <input type="text" class="form-control" id="middle_name" name="middle_name" value="<?php echo $middle_name; ?>" disabled>
+                        <label>Middle Name <i>(NON EDITABLE)</i></label>
+                        <input type="text" class="form-control" id="middle_name" name="middle_name" value="<?php echo $middle_name; ?>" readonly>
                     </div>
-                </div>
-
-                <div class="col">
-                        <label>Sex</label>
-                        <div class="radio-group">
-                        <input type="radio" id="male" name="sex" value="Male" <?= ($sex == "Male") ? 'checked' : ''; ?> disabled>
-                        <label for="male">Male</label>
-
-                        <input type="radio" id="female" name="sex" value="Female" <?= ($sex == "Female") ? 'checked' : ''; ?> disabled>
-                        <label for="female">Female</label>
-
-                        </div>
                 </div>
 
                 <h5 class="text-align">Person to be notified in case of emergency:</h5>
 
                 <div class="row mb-3">
                     <div class="col">
-                        <label>Full Name</label>
-                        <input type="text" class="form-control" id="emergency_fullname" name="emergency_fullname" value="<?php echo $emergency_fullname; ?>" disabled>
+                        <label>Full Name <i>(NON EDITABLE)</i></label>
+                        <input type="text" class="form-control" id="emergency_fullname" name="emergency_fullname" value="<?php echo $emergency_fullname; ?>" readonly>
                     </div>
                     <div class="col">
-                        <label>Relationship</label>
-                        <input type="text" class="form-control" id="emergency_relationship" name="emergency_relationship" value="<?php echo $emergency_relationship; ?>" disabled>
+                        <label>Relationship <i>(NON EDITABLE)</i></label>
+                        <input type="text" class="form-control" id="emergency_relationship" name="emergency_relationship" value="<?php echo $emergency_relationship; ?>" readonly>
                     </div>
                 </div>
                 
                 <div class="row mb-3">
                     <div class="col">
-                        <label>Address</label>
-                        <input type="text" class="form-control" id="emergency_address" name="emergency_address" value="<?php echo $emergency_address; ?>" disabled>
+                        <label>Address <i>(NON EDITABLE)</i></label>
+                        <input type="text" class="form-control" id="emergency_address" name="emergency_address" value="<?php echo $emergency_address; ?>" readonly>
                     </div>
                     <div class="col">
-                        <label>Contact No.</label>
-                        <input type="text" class="form-control" id="emergency_contact_no" name="emergency_contact_no" value="<?php echo $emergency_contact_no; ?>" disabled>
+                        <label>Contact No. <i>(NON EDITABLE)</i></label>
+                        <input type="text" class="form-control" id="emergency_contact_no" name="emergency_contact_no" value="<?php echo $emergency_contact_no; ?>" readonly>
                     </div>
                 </div>
 

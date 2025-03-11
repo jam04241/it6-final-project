@@ -1,6 +1,6 @@
 <?php 
 include "../database/dbconnect.php";
-
+include "../Layouts/navbar.php";
 try {
     if (!$conn) {
         die("Database connection failed: " . $conn->error);
@@ -48,6 +48,92 @@ $conn->close();
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 
     <script src="../script/payment-form-script.js"></script>
+
+</head>
+<body>
+    <!-- Navbar Layout -->
+    <?php //include"../Layouts/navbar.php"?> <!--due to coflict of connection i put it above--> 
+
+
+<!-- PAYMENT FORM -->
+<div class="container mt-4">
+    <h1 class="text-center">PAYMENT STATUS</h1>
+    <table id="student-payment-status" class="table table-striped mt-3">
+        <thead>
+            <tr>
+                <th>STUDENT ID</th>
+                <th>PAY</th>
+                <th>TOTAL</th>
+                <th>BALANCE</th>
+                <th>CREATED DATE</th>
+                <th>UPDATED DATE</th>
+                <th>ACTION</th>
+            </tr>
+        </thead>
+        <tbody>
+        <?php if(isset($result) && $result->num_rows > 0): ?>
+            <?php while($row = $result->fetch_assoc()): ?>
+                <tr>
+                            <td> <?=$row['student_id']?> </td>
+                            <td> <?=$row['pay']?> </td>
+                            <td> <?=$row['total']?> </td>
+                            <td> <?=$row['balance']?> </td>
+                            <td> <?=$row['date_created']?> </td>
+                            <td> <?=$row['date_updated']?> </td>
+                            <td>
+                                <a class="btn btn-warning btn-sm edit-btn" href="payment-form.php?student_id=<?= htmlspecialchars($row['student_id']); ?>">
+                                    Pay
+                                </a>
+                                
+                                <a class="btn btn-secondary btn-sm form1-btn">
+                                    Form 1
+                                </a>
+
+                                <form action="../database/db_delete_student.php" method="POST" onsubmit="return confirm('Are you sure you want to delete this student?');" class="d-inline">
+                                    <input type="hidden" name="student_id" value="<?= htmlspecialchars($row['student_id'], ENT_QUOTES, 'UTF-8'); ?>">
+                                    <button type="submit" class="btn btn-danger btn-sm" >Delete</button>
+                                </form>           
+                                                   
+                            </td>
+                        </tr>
+                        <?php endwhile; ?>
+                    <?php else: ?>
+                        <tr>
+                            <td colspan="7" class="text-center">No students available</td>
+                        </tr>
+                    <?php endif; ?>
+            <!-- Dynamic Data Goes Here -->
+        </tbody>
+    </table>
+</div>
+
+<!-- DONE PAYMENT -->
+<div class="container mt-4">
+    <h1 class="text-center">Done Payment</h1>
+    <table id="student-done-payment" class="table table-striped mt-3">
+        <thead>
+            <tr>
+            <th>STUDENT ID</th>
+                <th>PAY</th>
+                <th>TOTAL</th>
+                <th>BALANCE</th>
+                <th>TIMESTAMP</th>
+                <th>STATUS</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Dynamic Data Goes Here -->
+        </tbody>
+    </table>
+</div>
+
+
+
+    <div class="footer">
+        <img src="FOOTER.png" alt="Footer" class="footer-img">
+    </div>
+
+</body>
     <!-- STYLE FOR NAVBAR AND SIDEBAR -->
     <style>
         body {
@@ -185,89 +271,4 @@ $conn->close();
             vertical-align: middle;
         }
     </style>
-</head>
-<body>
-    <!-- Navbar Layout -->
-    <?php include"../Layouts/navbar.php"?>
-
-
-<!-- PAYMENT FORM -->
-<div class="container mt-4">
-    <h1 class="text-center">PAYMENT STATUS</h1>
-    <table id="student-payment-status" class="table table-striped mt-3">
-        <thead>
-            <tr>
-                <th>STUDENT ID</th>
-                <th>PAY</th>
-                <th>TOTAL</th>
-                <th>BALANCE</th>
-                <th>CREATED DATE</th>
-                <th>UPDATED DATE</th>
-                <th>ACTION</th>
-            </tr>
-        </thead>
-        <tbody>
-        <?php if(isset($result) && $result->num_rows > 0): ?>
-            <?php while($row = $result->fetch_assoc()): ?>
-                <tr>
-                            <td> <?=$row['student_id']?> </td>
-                            <td> <?=$row['pay']?> </td>
-                            <td> <?=$row['total']?> </td>
-                            <td> <?=$row['balance']?> </td>
-                            <td> <?=$row['date_created']?> </td>
-                            <td> <?=$row['date_updated']?> </td>
-                            <td>
-                                <a class="btn btn-warning btn-sm edit-btn" href="payment-form.php?student_id=<?= htmlspecialchars($row['student_id']); ?>">
-                                    Edit
-                                </a>
-                                
-                                <a class="btn btn-secondary btn-sm form1-btn">
-                                    Form 1
-                                </a>
-
-                                <form action="../database/db_delete_student.php" method="POST" onsubmit="return confirm('Are you sure you want to delete this student?');" class="d-inline">
-                                    <input type="hidden" name="student_id" value="<?= htmlspecialchars($row['student_id'], ENT_QUOTES, 'UTF-8'); ?>">
-                                    <button type="submit" class="btn btn-danger btn-sm" >Delete</button>
-                                </form>           
-                                                   
-                            </td>
-                        </tr>
-                        <?php endwhile; ?>
-                    <?php else: ?>
-                        <tr>
-                            <td colspan="7" class="text-center">No students available</td>
-                        </tr>
-                    <?php endif; ?>
-            <!-- Dynamic Data Goes Here -->
-        </tbody>
-    </table>
-</div>
-
-<!-- DONE PAYMENT -->
-<div class="container mt-4">
-    <h1 class="text-center">Done Payment</h1>
-    <table id="student-done-payment" class="table table-striped mt-3">
-        <thead>
-            <tr>
-            <th>STUDENT ID</th>
-                <th>PAY</th>
-                <th>TOTAL</th>
-                <th>BALANCE</th>
-                <th>TIMESTAMP</th>
-                <th>STATUS</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Dynamic Data Goes Here -->
-        </tbody>
-    </table>
-</div>
-
-
-
-    <div class="footer">
-        <img src="FOOTER.png" alt="Footer" class="footer-img">
-    </div>
-
-</body>
 </html>

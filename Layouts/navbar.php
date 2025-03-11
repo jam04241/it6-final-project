@@ -1,7 +1,6 @@
 <?php
-
+    include "../helpers/session.php";
 ?>
-
 
 <!-- NAVBAR -->
     <nav class="navbar navbar-custom d-flex align-items-center">
@@ -13,7 +12,7 @@
                 <i class="bi bi-person-circle"></i> 
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="enrollmentDropdown">
-                <li><a class="dropdown-item" href="#" >Hi! <?php echo htmlspecialchars($username); ?></a></li>
+                <li><a class="dropdown-item" aria-disabled="true">Hi! <?php echo htmlspecialchars($username); ?></a></li>
                 <li><a class="dropdown-item" href="../helpers/logout_handler.php" onclick="return confirmation()">Logout</a></li>
             </ul>
         </div>
@@ -61,6 +60,11 @@
 
         <!-- STYLE FOR NAVBAR AND SIDEBAR -->
         <style>
+            .dropdown-item wowex.disabled {
+            pointer-events: none; /* Prevents clicking */
+            opacity: 1 !important; /* Ensures text is visible */
+            color: #000 !important; /* Keeps text dark */
+        }
         body {
             background-color: #d3d7df;
             margin: 0;

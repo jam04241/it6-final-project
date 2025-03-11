@@ -6,75 +6,21 @@
     <title>Enrollment Form</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" defer></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <link rel="stylesheet" href="../DataTables/datatables.css">
     <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #d3dce6;
-        }
-        .container{
-            width: 800px;
-            height: auto;
-        }
-        .container-box {
-            width: 1000px;
-            height: 650px;
-            padding: 30px;
-            background-color: #0b355c;
-            color: white;
-            border-radius: 20px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-        }
-        .form-group {
-            width: 100%;
-            color: #FFF;
-            font-family: Montserrat;
-            font-size: 15px;
-            font-weight: 500;
-        }
-        .form-label {
-            color: #FFF;
-            font-family: Montserrat;
-            font-size: 18px;
-            font-weight: 500;
-        }
-        .form-control {
-            border-radius: 8px;
-            background-color: #fff;
-            border: none;
-            padding: 8px;
-            width: 100%;
-            height: 36px;
-        }
-        .btn-custom {
-            background-color: #17a589;
-            color: white;
-            width: 20%;
-            border-radius: 10px;
-            padding: 10px;
-            font-weight: bold;
-            align-items: right;
-        }
-        .btn-custom:hover {
-            background-color: #148f77;
-        }
-        h1 {
-            text-align: left;
-            font-family: 'Tinos', serif;
-            font-size: 30px;
-            font-weight: bold;
-        }
-        h3 {
-            text-align: left;
-            font-family: 'Tinos', serif;
-            font-size: 20px;
-            font-weight: bold;
-        } 
+
     </style>
 </head>
 <body>
+        <!-- Navbar Layout -->
+        <?php include"../Layouts/navbar.php"?>
+
     <div>
         <h1>Tutorial Registration Form</h1>
         <div class="container-box">

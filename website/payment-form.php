@@ -1,3 +1,6 @@
+<?php
+    include "../database/dbconnect.php";
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,7 +10,58 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" defer></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-    <style>
+
+</head>
+<body>
+    <!-- Navbar Layout -->
+    <?php include"../Layouts/navbar.php";?>
+
+    <!-- CENTERED ENROLLMENT FORM -->
+    <div class="form-wrapper">
+        <div class="form-container">
+        <h2 class="payment-header">PAYMENT</h2>
+        <div class="container-form">
+            <div style="width: 45%">
+                <label>Enrolled to</label>
+                <input type="text" id="enroll_category" name="enroll_category">
+                <label>Student ID</label>
+                <input type="text" id="student_id" name="student_id">
+                <label>First Name</label>
+                <input type="text" id="first_name" name="first_name">
+                <label>Middle Name</label>
+                <input type="text" id="middle_name" name="middle_name">
+                <label>Last Name</label>
+                <input type="text" id="last_name" name="last_name">
+            </div>
+            <div style="width: 45%; text-align: center;">
+                <div class="card-icon">
+                    <img src="CARD_ICON.png" alt="Card Icon">
+                </div>
+                <div class="payment-fields">
+                    <label class="payment-label">Payment Method</label>
+                    <select class="form-control">
+                        <option value="NULL" selected disabled>SELECT</option>
+                        <option value="NULL" id="cash" name="cash">Cash</option>
+                        <option value="NULL" id="debit card" name="debit card">Debit Card</option>
+                        <option value="NULL" id="gcash" name="gcash">Gcash</option>
+                    </select>
+                    <label class="payment-label">Amount</label>
+                    <input class="payment-input" type="number">
+                    <br>
+                </div>
+                    <div style="margin-top: 18px">
+                        <button class="confirm-btn">Confirm</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <img src="FOOTER.png" alt="Footer" class="footer-img">
+    </div>
+</body>
+<style>
         body {
             background-color: #d3d7df;
             margin: 0;
@@ -162,49 +216,4 @@
             left: 0;
         }
     </style>
-</head>
-<body>
-    <!-- Navbar Layout -->
-    <?php include"../Layouts/navbar.php"?>
-
-    <!-- CENTERED ENROLLMENT FORM -->
-    <div class="form-wrapper">
-        <div class="form-container">
-        <h2 class="payment-header">PAYMENT</h2>
-        <div class="container-form">
-            <div style="width: 45%">
-                <label>Enrolled to</label>
-                <input type="text">
-                <label>Student ID</label>
-                <input type="text">
-                <label>First Name</label>
-                <input type="text">
-                <label>Middle Name</label>
-                <input type="text">
-                <label>Last Name</label>
-                <input type="text">
-            </div>
-            <div style="width: 45%; text-align: center;">
-                <div class="card-icon">
-                    <img src="CARD_ICON.png" alt="Card Icon">
-                </div>
-                <div class="payment-fields">
-                    <label class="payment-label">Payment Method</label>
-                    <input class="payment-input" type="text">
-                    <label class="payment-label">Amount</label>
-                    <input class="payment-input" type="text">
-                    <br>
-                </div>
-                    <div style="margin-top: 18px">
-                        <button class="confirm-btn">Confirm</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="footer">
-        <img src="FOOTER.png" alt="Footer" class="footer-img">
-    </div>
-</body>
 </html>

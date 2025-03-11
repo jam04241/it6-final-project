@@ -6,35 +6,16 @@ include "dbconnect.php";
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
 try {
-    $employee_id = 8;
-    // // Check if session exists
-    // if (!isset($_SESSION["username"])) {
-    //     echo "<script>
-    //         alert('❌ Session expired. Please log in again.');
-    //         window.location.href = '../website/index.php'; 
-    //     </script>";
-    //     exit();
-    // }
+    $employee_id = $_SESSION["employee_id"];
 
-    // //$username = $_SESSION["username"]; // Get the logged-in username
-
-    // // Fetch employee_id based on the logged-in username
-    // // $stmt_emp = $conn->prepare("SELECT employee_id FROM employees WHERE username = ?");
-    // // $stmt_emp->bind_param("s", $username);
-    // // $stmt_emp->execute();
-    // // $stmt_emp->bind_result($employee_id);
-    // // $stmt_emp->fetch();
-    // // $stmt_emp->close();
-
-    // // if (!$employee_id) {
-    // //     throw new Exception("❌ Error: Employee ID not found for user $username.");
-    // // }
 
     // Retrieve form data from POST
     $last_name = $_POST["last_name"] ?? '';
     $first_name = $_POST["first_name"] ?? '';
     $middle_name = $_POST["middle_name"] ?? '';
-    $address = $_POST["address"] ?? '';
+    $street = $_POST["street"] ?? '';
+    $city = $_POST["city"] ?? '';
+    $zip_code = $_POST["zip_code"] ?? '';
     $birthdate = $_POST["birthdate"] ?? '';
     $sex = $_POST["sex"] ?? '';
     $parent1 = $_POST["parent1"] ?? '';
@@ -53,7 +34,9 @@ try {
                                         last_name, 
                                         first_name,
                                         middle_name, 
-                                        address, 
+                                        street,
+                                        city,
+                                        zip_code, 
                                         birthdate, 
                                         sex, 
                                         parent1, 
@@ -94,7 +77,9 @@ try {
         $last_name,
         $first_name,
         $middle_name,
-        $address,
+        $street,
+        $city,
+        $zip_code,
         $birthdate,
         $sex,
         $parent1,
@@ -111,7 +96,7 @@ try {
     $stmt->execute();
     $stmt->close();
 
-    sleep(3);
+    sleep(1);
 
     // Fetch the last inserted student_id
     $stmt2 = $conn->prepare("SELECT 
@@ -137,7 +122,6 @@ try {
         throw new Exception("❌ Error: Unable to fetch student ID.");
     }
 
-    sleep(3);
 
     $stmt1 = $conn->prepare("    INSERT INTO 
                                             tbl_payment 

@@ -1,6 +1,6 @@
 <?php 
 include "../database/dbconnect.php";
-
+include"../Layouts/navbar.php";
 try {
     if (!$conn) {
         die("Database connection failed: " . $conn->error);
@@ -189,8 +189,9 @@ $conn->close();
     </style>
 </head>
 <body>
+
     <!-- Navbar Layout -->
-    <?php include"../Layouts/navbar.php"?>
+    <?php //include"../Layouts/navbar.php"?> <!--due to coflict of connection i put it above--> 
 
 
     <!-- Transaction History -->

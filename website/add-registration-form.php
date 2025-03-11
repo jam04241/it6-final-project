@@ -41,13 +41,19 @@ include '../script/confirmation.php';
                     </div>
                     <div class="col">
                         <label>Middle Name</label>
-                        <input type="text" class="form-control" id="middle_name" name="middle_name" required>
+                        <input type="text" class="form-control" id="middle_name" name="middle_name">
                     </div>
                 </div>
 
                 <div class="row mb-3">
-                    <div class="col"><label>Home Address</label>
-                        <input type="text" class="form-control" id="address" name="address" required>
+                    <div class="col"><label>Street</label>
+                        <input type="text" class="form-control" id="street" name="street" required>
+                    </div>
+                    <div class="col"><label>City</label>
+                        <input type="text" class="form-control" id="city" name="city" required>
+                    </div>
+                    <div class="col"><label>Zip Code</label>
+                        <input type="text" class="form-control" id="zip_code" name="zip_code" required>
                     </div>
                     <div class="col"><label>Date of Birth</label>
                         <input type="date" class="form-control" id="birthdate" name="birthdate" required>
@@ -85,9 +91,14 @@ include '../script/confirmation.php';
                         <input type="text" class="form-control" id="emergency_fullname" name="emergency_fullname" required>
                     </div>
                     <div class="col">
-                        <label>Relationship</label>
-                        <input type="text" class="form-control" id="emergency_relationship" name="emergency_relationship" required>
-                    </div>
+                    <label>Relationship</label>
+                    <select class="form-control" id="enroll_category" name="enroll_category">
+                            <option value="NULL">Select</option>
+                            <option value="mother">Mother</option>
+                            <option value="father">Father</option>
+                            <option value="guardian">Guardian</option>
+                            <option value="others">Others</option>
+                    </select>
                 </div>
                 
                 <div class="row mb-3">

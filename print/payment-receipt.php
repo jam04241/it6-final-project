@@ -9,20 +9,29 @@
 </head>
 <body>
     <div class="print-section">
-        <h3><strong>PAYMENT RECEIPT</strong></h3>
-        <button class="btn btn-dark" onclick="window.print()">🖨️ PRINT</button>
+        <div class="container">
+            <div class="row mb-3">
+                <div class="col">
+                    <h3 class="text-center"><strong>PAYMENT RECEIPT</strong></h3>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col d-flex justify-content-end gap-3">
+                    <button class="btn btn-dark no-print" onclick="window.print()">🖨️ PRINT</button>
+                    <a class="btn btn-dark no-print" href="../website/payment-form.php">↩️ BACK</a>
+                </div>  
+            </div>
+        </div>
     </div>
-
     <div class="container">
         <div class="receipt-card mt-3 p-4">
             <div class=" p-3 text-center">
-                <img src="logo.png" alt="School Logo" width="200">
+                <img src="../images/SCHOOL_LOGO.png" alt="School Logo" width="200">
                 <h5><strong>BULIGEN-PUENTESPINA LEARNING CENTER</strong></h5>
                 <h5><strong> SPED BANGKAL, DAVAO CITY </strong></h5>
             </div>
             <div class="text-center">
                 <h5><strong>RECEIPT DETAILS</strong></h5>
-
             </div>
 
             <div class="mt-3">
@@ -142,5 +151,10 @@
         margin-top: 30px;
         padding: 0 10px;
     }
+    @media print {
+    .no-print {
+        display: none !important;
+    }
+}
 </style>
 </html>
