@@ -1,0 +1,39 @@
+.dashboard-container {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    flex-wrap: wrap;
+}
+.dashboard-left {
+    flex: 1;
+    max-width: 35%;
+    display: flex;
+    justify-content: center;
+}
+.dashboard-left img {
+    width: 100%;
+    max-width: 350px;
+}
+.dashboard-right {
+    flex: 2;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    align-content: start;
+    max-width: 65%;
+}
+.dashboard-right img {
+    width: 100%;
+    height: auto;
+}
+.footer {
+    text-align: center;
+    padding: 10px;
+    color: white;
+    position: relative;
+    width: 100%;
+}
+.footer-img {
+    max-width: 100%;
+    height: auto;
+}
