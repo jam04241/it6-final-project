@@ -16,11 +16,11 @@ $employee_row = mysqli_fetch_assoc($employee_result);
 $total_employees = $employee_row['total_employees'];
 
 // Fetch yearly and monthly revenue
-$yearly_query = "SELECT SUM(total) AS yearly_revenue FROM tbl_payment WHERE YEAR(date_created) = YEAR(CURDATE())";
+$yearly_query = "SELECT SUM(total) AS yearly_revenue FROM tbl_payment WHERE YEAR(timestamp) = YEAR(CURDATE())";
 $yearly_result = mysqli_query($conn, $yearly_query);
 $yearly_revenue = mysqli_fetch_assoc($yearly_result)['yearly_revenue'] ?? 0;
 
-$monthly_query = "SELECT SUM(total) AS monthly_revenue FROM tbl_payment WHERE YEAR(date_created) = YEAR(CURDATE()) AND MONTH(date_created) = MONTH(CURDATE())";
+$monthly_query = "SELECT SUM(total) AS monthly_revenue FROM tbl_payment WHERE YEAR(timestamp) = YEAR(CURDATE()) AND MONTH(timestamp) = MONTH(CURDATE())";
 $monthly_result = mysqli_query($conn, $monthly_query);
 $monthly_revenue = mysqli_fetch_assoc($monthly_result)['monthly_revenue'] ?? 0;
 
@@ -32,14 +32,12 @@ $female_result = mysqli_query($conn, $female_query);
 $male_population = mysqli_fetch_assoc($male_result)['male_count'] ?? 0;
 $female_population = mysqli_fetch_assoc($female_result)['female_count'] ?? 0;
 
-// Fetch admin count
+// Fetch admin and staff count
 $admin_query = "SELECT COUNT(*) AS admin_count FROM tbl_employee WHERE employee_position = 'Administrator'";
-$admin_result = mysqli_query($conn, $admin_query);
-$admin_count = mysqli_fetch_assoc($admin_result)['admin_count'] ?? 0;
-
-// Fetch staff count
 $staff_query = "SELECT COUNT(*) AS staff_count FROM tbl_employee WHERE employee_position IN ('Cashier', 'Admission')";
+$admin_result = mysqli_query($conn, $admin_query);
 $staff_result = mysqli_query($conn, $staff_query);
+$admin_count = mysqli_fetch_assoc($admin_result)['admin_count'] ?? 0;
 $staff_count = mysqli_fetch_assoc($staff_result)['staff_count'] ?? 0;
 ?>
 
@@ -51,11 +49,8 @@ $staff_count = mysqli_fetch_assoc($staff_result)['staff_count'] ?? 0;
     <title>Dashboard</title>
     <link rel="stylesheet" href="../bootstrap/css/bootstrap.css">
     <script src="../bootstrap/js/bootstrap.js"></script>
-    <script src="../bootstrap/js/bootstrap.bundle.min.js"></script>
-
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <link rel="stylesheet" href="../style/dashboard-style.css">
 </head>

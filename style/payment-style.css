@@ -1,0 +1,89 @@
+.form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centers header and form */
+}
+.payment-header {
+    font-size: 50px;
+    font-family: Tinos;
+    font-weight: bold;
+    color: black;
+    margin-bottom: 10px; /* Keeps it close to the form */
+    text-align: center;
+}
+/* Centering the Form Container */
+.form-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    justify-content: flex-start; 
+    min-height: calc(100vh - 100px); 
+    padding-top: 90px; 
+    gap: 15px; 
+}
+.container-form {
+    background-color: #012641;
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 157%;
+    height: 537px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+.container-form label {
+    display: block;
+    width: 100%;
+    margin-top: 16px;
+    margin-left: 30px;
+    font-weight: bold;
+}
+.container-form input {
+    width: 100%;
+    padding: 8px;
+    border-radius: 5px;
+    border: none;
+    margin-top: 8px;
+    margin-bottom: 10px;
+    margin-left: 30px;
+}
+.payment-fields {
+    width: 65%;
+    max-width: 100%;
+    margin-left: 20px;
+    text-align: center;
+}
+.payment-label {
+    font-weight: bold;
+    display: block; /* Places label above input */
+    width: 100%; /* Ensures label spans full width */
+    text-align: center; /* Centers text inside the label */
+}
+.payment-input {
+    background-color: #ffffff;
+    padding: 8px;
+    border-radius: 5px;
+}
+.card-icon img{
+    width: 55%;
+    margin-right: 30px;
+}
+.confirm-btn {
+    background-color: #32cd32;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 26px;
+    margin-right: 50px;
+}
+.footer img {
+    width: 100%;
+    margin-top: auto; /* Pushes it down naturally */
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
