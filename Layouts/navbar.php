@@ -1,8 +1,6 @@
 <?php
 
 ?>
-
-
 <!-- NAVBAR -->
     <nav class="navbar navbar-custom d-flex align-items-center">
         <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar">
@@ -124,70 +122,6 @@
             height: 2px;
             background-color: white;
             margin: 20px auto;
-        }
-        .container {
-            max-width: 1300px;
-            margin: auto;
-            padding: 30px;
-        }
-        .form-container {
-            background-color: #012641;
-            color: white;
-            padding: 20px;
-            border-radius: 10px;
-        }
-        .form-control {
-            background-color: white;
-            border: none;
-            padding: 10px;
-        }
-        .update-btn {
-            background-color: #32cd32;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .footer {
-            text-align: center;
-            padding: 10px;
-            color: white;
-            position: relative;
-            width: 100%;
-        }
-        .footer-img {
-            max-width: 100%;
-            height: auto;
-        }
-        .text-align{
-            font-family: Tinos;
-            font-size: 30px;
-        }
-        .form-container{
-            font-family: montserrat;
-        }
-        .radio-group {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        padding-top: 10px; 
-        }
-        .radio-group label {
-        margin-right: 60px; 
-        }
-        .dropdown-menu {
-        background-color: #023047; /* Blue background */
-        border: none; /* Remove border */
-        }
-
-        .dropdown-item {
-            color: white; /* White text */
-        }
-
-        .dropdown-item:hover {
-            background-color: #02486b; /* Darker blue on hover */
-            color: #fff; /* Ensure text stays white */
         }
     </style>
     
