@@ -108,7 +108,7 @@ $conn->close();
     <table id="student-done-payment" class="table table-striped mt-3">
         <thead>
             <tr>
-            <th>STUDENT ID</th>
+                <th>STUDENT ID</th>
                 <th>PAY</th>
                 <th>TOTAL</th>
                 <th>BALANCE</th>

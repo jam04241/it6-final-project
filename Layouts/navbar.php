@@ -46,8 +46,8 @@
                         <i class="bi bi-journal"></i> Tutor
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="enrollmentDropdown">
-                        <li><a class="dropdown-item" href="../website/add-registration-form.php"><i class="fa-solid fa-cash-register"></i>Registration</a></li>
-                        <li><a class="dropdown-item" href="../website/student-enrollment.php"><i class="fa-solid fa-people-group"></i>List</a></li>
+                        <li><a class="dropdown-item" href="../website/tutorial-form.php"><i class="fa-solid fa-cash-register"></i>Registration</a></li>
+                        <li><a class="dropdown-item" href="../website/tutorial-listing.php"><i class="fa-solid fa-people-group"></i>List</a></li>
                     </ul>
                 </li>
 

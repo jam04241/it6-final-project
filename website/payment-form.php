@@ -71,24 +71,27 @@
                 <label>Last Name <i>(NON EDITABLE)</i></label>
                 <input type="text" id="last_name" name="last_name" value="<?= htmlspecialchars($last_name); ?>" readonly>
             </div>
+            <form action="../database/db_payment_student.php" method="POST">
             <div style="width: 45%; text-align: center;">
                 <div class="card-icon">
                     <img src="../images/SCHOOL_LOGO.png" alt="Card Icon">
                 </div>
                 <div class="payment-section">
-                    <label class="payment-label" for="payment-method">Payment Method</label>
-                    <select class="payment-input" id="payment-method" name="payment-method">
-                        <option value="" disabled selected>Select Payment Method</option>
-                        <option value="Cash">Cash</option>
-                        <option value="Gcash">Gcash</option>
-                        <option value="Bank Transfer">Bank Transfer</option>
-                    </select>
-                    <label class="payment-label" for="amount">Amount</label>
-                    <input class="payment-input" type="text" id="amount" name="amount">
+                    
+                        <label class="payment-label" for="payment-method">Payment Method</label>
+                        <select class="payment-input" id="payment-method" name="payment-method">
+                            <option value="" disabled selected>Select Payment Method</option>
+                            <option value="Cash">Cash</option>
+                            <option value="Gcash">Gcash</option>
+                            <option value="Bank Transfer">Bank Transfer</option>
+                        </select>
+                        <label class="payment-label" for="amount">Amount</label>
+                        <input class="payment-input" type="text" id="amount" name="amount">
                 </div>
-                    <div style="margin-top: 18px">
-                        <button class="confirm-btn">Confirm</button>
-                    </div>
+                        <div style="margin-top: 18px">
+                            <button class="confirm-btn">Confirm</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

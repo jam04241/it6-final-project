@@ -27,9 +27,9 @@ include '../script/confirmation.php';
     
     <!-- ENROLLMENT FORM -->
     <div class="container">
-        <h2 class="text-align">TUTOR REGISTRATION FORM</h2>
+        <h2 class="text-align">UPDATE TUTOR FORM</h2>
         <div class="form-container">
-            <form method="POST" action="../database/db_add_tutor.php">
+            <form method="POST" action="../database/db_add_registration.php">
                 <div class="row mb-3">
                      <div class="col-3"><label>Starting Date</label>
                         <input type="date" class="form-control" id="date_start" name="date_start" required>
