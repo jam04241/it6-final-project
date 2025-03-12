@@ -37,7 +37,7 @@ try {
     echo "
     <script>
         alert('✅ You successfully enrolled a student');
-        window.location.href = '../website/student-information.php'; 
+        window.location.href = '../website/student-enrollment.php'; 
     </script>";
 
 } catch (Exception $e) {

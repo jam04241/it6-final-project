@@ -85,15 +85,10 @@ $conn->close();
                                     Pay
                                 </a>
                                 
-                                <a class="btn btn-secondary btn-sm form1-btn">
+                                <a class="btn btn-secondary btn-sm form1-btn" href="../print/form1.php">
                                     Form 1
-                                </a>
+                                </a>         
 
-                                <form action="../database/db_delete_student.php" method="POST" onsubmit="return confirm('Are you sure you want to delete this student?');" class="d-inline">
-                                    <input type="hidden" name="student_id" value="<?= htmlspecialchars($row['student_id'], ENT_QUOTES, 'UTF-8'); ?>">
-                                    <button type="submit" class="btn btn-danger btn-sm" >Delete</button>
-                                </form>           
-                                                   
                             </td>
                         </tr>
                         <?php endwhile; ?>
@@ -130,7 +125,7 @@ $conn->close();
 
 
     <div class="footer">
-        <img src="FOOTER.png" alt="Footer" class="footer-img">
+        <img src="../images/FOOTER.png" alt="Footer" class="footer-img">
     </div>
 
 </body>

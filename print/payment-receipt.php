@@ -12,13 +12,13 @@
         <div class="container">
             <div class="row mb-3">
                 <div class="col">
-                    <h3 class="text-center"><strong>PAYMENT RECEIPT</strong></h3>
-                </div>
+                    <h1 class="text-center"><strong>PAYMENT RECEIPT</strong></h1>
+                </div>      
             </div>
             <div class="row mb-3">
                 <div class="col d-flex justify-content-end gap-3">
                     <button class="btn btn-dark no-print" onclick="window.print()">🖨️ PRINT</button>
-                    <a class="btn btn-dark no-print" href="../website/payment-form.php">↩️ BACK</a>
+                    <a class="btn btn-dark no-print" href="../website/payment-information.php">↩️ BACK</a>
                 </div>  
             </div>
         </div>
@@ -46,33 +46,33 @@
                 <div class="col-md-6">
                     <div class="mb-2 d-flex align-items-center">
                         <label for="student-id" class="me-2"><strong>Student ID:</strong></label>
-                        <input type="text" id="student-id" class="input-line">
+                        <input type="text" id="student-id" class="input-line" readonly>
                     </div>
                     <div class="mb-2 d-flex align-items-center">
                         <label for="name" class="me-2"><strong>Name:</strong></label>
-                        <input type="text" id="name" class="input-line">
+                        <input type="text" id="name" class="input-line" readonly>
                     </div>
                     <div class="mb-2 d-flex align-items-center">
                         <label for="contact" class="me-2"><strong>Contact #:</strong></label>
-                        <input type="text" id="contact" class="input-line">
+                        <input type="text" id="contact" class="input-line" readonly>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="mb-2 d-flex align-items-center">
                         <label for="receipt-no" class="me-2"><strong>Receipt No:</strong></label>
-                        <input type="text" id="receipt-no" class="input-line">
+                        <input type="text" id="receipt-no" class="input-line" readonly>
                     </div>
                     <div class="mb-2 d-flex align-items-center">
                         <label for="date" class="me-2"><strong>Date:</strong></label>
-                        <input type="text" id="date" class="input-line">
+                        <input type="text" id="date" class="input-line" readonly>
                     </div>
                     <div class="mb-2 d-flex align-items-center">
                         <label for="payment" class="me-2"><strong>Payment Method:</strong></label>
-                        <input type="text" id="payment" class="input-line">
+                        <input type="text" id="payment" class="input-line" readonly>
                     </div>
                     <div class="mb-2 d-flex align-items-center">
                         <label for="transaction" class="me-2"><strong>Transaction #:</strong></label>
-                        <input type="text" id="transaction" class="input-line">
+                        <input type="text" id="transaction" class="input-line" readonly>
                     </div>
                 </div>
             </div>
@@ -108,6 +108,10 @@
             </div>
         </div>
     </div>
+
+    <div class="footer">
+        <img src="../images/FOOTER.png" alt="Footer" class="footer-img">
+    </div>
 </body>
 <style>
     body {
@@ -142,6 +146,12 @@
         outline: none;
         height: 25px;
     }
+    .footer img {
+            position: relative;
+            width: 100%;
+            bottom: 0;
+            padding-top: 50px;
+        }
     .print-section {
         display: flex;
         justify-content: space-between;

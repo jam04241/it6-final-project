@@ -86,7 +86,13 @@ $conn->close();
     <script src="bootstrap/js/bootstrap.js"></script>
 
 
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
+    <!-- jQuery, Popper.js, Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" defer></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
@@ -136,16 +142,16 @@ $conn->close();
                         <td><?= htmlspecialchars($row['middle_name']) ?></td>
                         <td><?= htmlspecialchars($row['last_name']) ?></td>
                             <td>
-
-                                <a class="btn btn-warning btn-sm edit-btn" href="update-listing.php?student_id=<?= htmlspecialchars($row['student_id']); ?>">
+                            <button type="button" class="btn btn-primary btn-sm view-student-btn" data-id="<?= htmlspecialchars($row['student_id']) ?>" data-toggle="modal" data-target="#student-view">
+                                View
+                            </button>
+                            <a class="btn btn-warning btn-sm edit-btn" href="update-enrollment-form.php?student_id=<?= htmlspecialchars($row['student_id']); ?>">
                                     Edit
                                 </a>
-                                
                                 <form action="../database/db_delete_student.php" method="POST" onsubmit="return confirm('Are you sure you want to delete this student?');" class="d-inline">
                                     <input type="hidden" name="student_id" value="<?= htmlspecialchars($row['student_id'], ENT_QUOTES, 'UTF-8'); ?>">
                                     <button type="submit" class="btn btn-danger btn-sm" >Delete</button>
-                                </form>           
-                                                   
+                                </form>                        
                             </td>
                         </tr>
                         <?php endforeach; ?>
@@ -182,6 +188,10 @@ $conn->close();
                         <td><?= htmlspecialchars($row['last_name']) ?></td>
                             <td>
 
+                            <button type="button" class="btn btn-primary btn-sm view-student-btn" data-id="<?= htmlspecialchars($row['student_id']) ?>" data-toggle="modal" data-target="#student-view">
+                                View
+                            </button>
+                                </button>
                                 <a class="btn btn-warning btn-sm edit-btn" href="update-enrollment-form.php?student_id=<?= htmlspecialchars($row['student_id']); ?>">
                                     Edit
                                 </a>
@@ -226,6 +236,9 @@ $conn->close();
                             <td><?= htmlspecialchars($row['middle_name']) ?></td>
                             <td><?= htmlspecialchars($row['last_name']) ?></td>
                             <td>
+                            <button type="button" class="btn btn-primary btn-sm view-student-btn" data-id="<?= htmlspecialchars($row['student_id']) ?>" data-toggle="modal" data-target="#student-view">
+                                View
+                            </button>
                                 <a class="btn btn-warning btn-sm edit-btn" href="update-enrollment-form.php?student_id=<?= htmlspecialchars($row['student_id']); ?>">
                                     Edit
                                 </a>
@@ -246,9 +259,29 @@ $conn->close();
                 </tbody>
             </table>
     </div>
-    
+    <!-- Student View Modal -->
+<div class="modal fade" id="student-view" tabindex="-1" role="dialog" aria-labelledby="studentModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="studentModalLabel">Student Information</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-bordered">
+                    <tbody id="student-info-body">
+                        <!-- Student details will be inserted here via AJAX -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
     <div class="footer">
-        <img src="FOOTER.png" alt="Footer" class="footer-img">
+        <img src="../images/FOOTER.png" alt="Footer" class="footer-img">
     </div>
 </body>
     <style>
@@ -264,12 +297,23 @@ $conn->close();
     <script>
         function confirmation() {
             var result = confirm('Are you sure about this?');
-            if (result) {
-                window.location.href = '../website/student-information.php';
-            } else {
-                return false;
-            }
         }
-    </script>
 
+    </script>
+    <script>
+       $(document).ready(function() {
+    $(".view-student-btn").on("click", function() {
+        var studentId = $(this).data("id"); // Get student ID from button
+
+        $.ajax({
+            url: "db_fetch_student.php",
+            type: "POST",
+            data: { student_id: studentId },
+            success: function(response) {
+                $("#student-info-body").html(response); // Load student data into modal
+            }
+        });
+    });
+});
+    </script>
 </html>

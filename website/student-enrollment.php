@@ -104,9 +104,9 @@ $conn->close();
                                     Enroll
                                 </a>
 
-                                <a class="btn btn-warning btn-sm edit-btn" href="update-enrollment-form.php?student_id=<?= htmlspecialchars($row['student_id']); ?>">
+                                <!-- <a class="btn btn-warning btn-sm edit-btn" href="update-enrollment-form.php?student_id=<?= htmlspecialchars($row['student_id']); ?>">
                                     Edit
-                                </a>
+                                </a> -->
                                 
                                 <form action="../database/db_delete_student.php" method="POST" onsubmit="return confirm('Are you sure you want to delete this student?');" class="d-inline">
                                     <input type="hidden" name="student_id" value="<?= htmlspecialchars($row['student_id'], ENT_QUOTES, 'UTF-8'); ?>">
@@ -170,7 +170,7 @@ $conn->close();
     </div>
 
     <div class="footer">
-        <img src="FOOTER.png" alt="Footer" class="footer-img">
+        <img src="../images/FOOTER.png" alt="Footer" class="footer-img">
     </div>
 </body>
     <style>
@@ -187,7 +187,7 @@ $conn->close();
         function confirmation() {
             var result = confirm('Are you sure about this?');
             if (result) {
-                window.location.href = '../website/student-information.php';
+                window.location.href = '../website/student-enrollment.php';
             } else {
                 return false;
             }

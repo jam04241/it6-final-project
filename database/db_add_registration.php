@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 include "dbconnect.php";
 
 // Enable MySQLi exceptions
@@ -7,8 +7,6 @@ mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
 try {
     $employee_id = $_SESSION["employee_id"];
-
-
     // Retrieve form data from POST
     $last_name = $_POST["last_name"] ?? '';
     $first_name = $_POST["first_name"] ?? '';
@@ -68,12 +66,14 @@ try {
                                         ?, 
                                         ?, 
                                         ?, 
+                                        ?,
                                         ?, 
+                                        ?,
                                         NOW(), 
                                         1
                                     );");
 
-    $stmt->bind_param('ssssssssssssssi',
+    $stmt->bind_param('ssssssssssssssssi',
         $last_name,
         $first_name,
         $middle_name,
@@ -125,20 +125,21 @@ try {
 
     $stmt1 = $conn->prepare("    INSERT INTO 
                                             tbl_payment 
-                                        (student_id, date_created, status)
+                                        (student_id, created_by, date_created, status)
                                         VALUES(
+                                            ?,
                                             ?, 
                                             NOW(),
                                             1);");
 
-    $stmt1->bind_param("i", $student_id);
+    $stmt1->bind_param("ii", $student_id,$employee_id);
     $stmt1->execute();
     $stmt1->close();
 
     echo "
     <script>
         alert('✅ You successfully registered a student');
-        window.location.href = '../website/student-information.php'; 
+        window.location.href = '../website/student-enrollment.php'; 
     </script>";
 
 } catch (Exception $e) {

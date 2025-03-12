@@ -86,7 +86,6 @@ $emergency_contact_no = $row["emergency_contact_no"];
                             <option value="Nursery" <?= ($enroll_category == "Nursery") ? 'selected' : ''; ?>>Nursery</option>
                             <option value="Kindergarten_1" <?= ($enroll_category == 'Kindergarten_1') ? 'selected' : ''; ?> >Kindergarten 1</option>
                             <option value="Kindergarten_2" <?= ($enroll_category == 'Kindergarten_2') ? 'selected' : ''; ?> >Kindergarten 2</option>
-                            <option value="Tutor" <?= ($enroll_category == "Tutor") ? 'selected' : ''; ?> >Tutor</option>
                         </select>
                     </div>
                     <div class="col-2">
@@ -142,7 +141,7 @@ $emergency_contact_no = $row["emergency_contact_no"];
     </div>
 
     <div class="footer">
-        <img src="FOOTER.png" alt="Footer" class="footer-img">
+        <img src="../images/FOOTER.png" alt="Footer" class="footer-img">
     </div>
 
 

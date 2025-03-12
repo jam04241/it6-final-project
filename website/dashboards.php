@@ -2,7 +2,7 @@
 include '../database/dbconnect.php'; 
 
 // Fetch student population by category
-$student_query = "SELECT enroll_category, COUNT(*) AS count FROM tbl_student_info GROUP BY enroll_category";
+$student_query = "SELECT enroll_category, COUNT(*) AS count FROM tbl_student_info WHERE enroll_category IN ('Nursery', 'Kindergarten_1', 'Kindergarten_2') GROUP BY enroll_category;";
 $student_result = mysqli_query($conn, $student_query);
 $student_data = [];
 while ($row = mysqli_fetch_assoc($student_result)) {
@@ -16,11 +16,11 @@ $employee_row = mysqli_fetch_assoc($employee_result);
 $total_employees = $employee_row['total_employees'];
 
 // Fetch yearly and monthly revenue
-$yearly_query = "SELECT SUM(total) AS yearly_revenue FROM tbl_payment WHERE YEAR(timestamp) = YEAR(CURDATE())";
+$yearly_query = "SELECT SUM(total) AS yearly_revenue FROM tbl_payment WHERE YEAR(date_created) = YEAR(CURDATE())";
 $yearly_result = mysqli_query($conn, $yearly_query);
 $yearly_revenue = mysqli_fetch_assoc($yearly_result)['yearly_revenue'] ?? 0;
 
-$monthly_query = "SELECT SUM(total) AS monthly_revenue FROM tbl_payment WHERE YEAR(timestamp) = YEAR(CURDATE()) AND MONTH(timestamp) = MONTH(CURDATE())";
+$monthly_query = "SELECT SUM(total) AS monthly_revenue FROM tbl_payment WHERE YEAR(date_created) = YEAR(CURDATE()) AND MONTH(date_created) = MONTH(CURDATE())";
 $monthly_result = mysqli_query($conn, $monthly_query);
 $monthly_revenue = mysqli_fetch_assoc($monthly_result)['monthly_revenue'] ?? 0;
 
@@ -53,6 +53,8 @@ $staff_count = mysqli_fetch_assoc($staff_result)['staff_count'] ?? 0;
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <link rel="stylesheet" href="../style/dashboard-style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" defer></script>
 </head>
 <body>
     <?php include "../Layouts/navbar.php"?>

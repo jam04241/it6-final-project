@@ -73,6 +73,15 @@
             bottom: 0;
             padding-top: 20px;
         }
+        .print-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 800px;
+            margin: auto;
+            margin-top: 30px;
+            padding: 0 10px;
+        }
         @media print {
             .no-print {
                 display: none !important;
@@ -87,7 +96,7 @@
         <div class="container">
             <div class="row mb-3">
                 <div class="col">
-                    <h3 class="text-center"><strong>FORM 1</strong></h3>
+                    <h1 class="text-center"><strong>FORM 1</strong></h1>
                 </div>
             </div>
             <div class="row mb-3">
@@ -95,7 +104,7 @@
                     <button class="btn btn-dark no-print" onclick="window.print()">🖨️ PRINT</button>
                     <a class="btn btn-dark no-print" href="../website/payment-form.php">↩️ BACK</a>
                 </div>  
-            </div>
+            </div>      
         </div>
     </div>
         <div class="container-fluid d-flex justify-content-center mt-3">

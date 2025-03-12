@@ -19,7 +19,7 @@ include '../script/confirmation.php';
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" defer></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-    
+
 </head>
 <body>
     <!-- Navbar Layout -->
@@ -44,7 +44,6 @@ include '../script/confirmation.php';
                         <input type="text" class="form-control" id="middle_name" name="middle_name">
                     </div>
                 </div>
-
                 <div class="row mb-3">
                     <div class="col"><label>Street</label>
                         <input type="text" class="form-control" id="street" name="street" required>
@@ -60,7 +59,7 @@ include '../script/confirmation.php';
                     </div>
                     <div class="col">
                         <label>Sex</label>
-                        <div class="radio-group">
+                        <div class="radio-group" required>
                             <input type="radio" value="male" id="male" name="sex">
                             <label for="male">Male</label>                       
                             <input type="radio" value="female" id="female" name="sex">
@@ -68,7 +67,6 @@ include '../script/confirmation.php';
                         </div>
                     </div>
                 </div>
-
                 <div class="row mb-3">
                     <div class="col"><label>Name of Father</label>
                     <input type="text" class="form-control" id="parent1" name="parent1"></div>
@@ -100,7 +98,6 @@ include '../script/confirmation.php';
                             <option value="others">Others</option>
                     </select>
                 </div>
-                
                 <div class="row mb-3">
                     <div class="col">
                         <label>Address</label>
@@ -111,7 +108,6 @@ include '../script/confirmation.php';
                         <input type="text" class="form-control" id="emergency_contact_no" name="emergency_contact_no" required>
                     </div>
                 </div>
-
                 <div class="text-end mt-3">
                     <button type="submit" class="btn btn-success" onclick="return confirmation()">Submit</button>
                 </div>
@@ -120,16 +116,15 @@ include '../script/confirmation.php';
     </div>
 
     <div class="footer">
-        <img src="FOOTER.png" alt="Footer" class="footer-img">
+        <img src="../images/FOOTER.png" alt="Footer" class="footer-img">
     </div>
-
 
 </body>
     <script>
             function confirmation() {
             var result = confirm('Are you sure about this?');
             if (result) {
-                window.location.href = '../website/student-information.php';
+                window.location.href = '../website/student-enrollment.php';
             } else {
                 return false;
             }

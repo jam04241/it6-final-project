@@ -2,7 +2,6 @@
     include "../helpers/session.php";
 ?>
 
-
 <!-- NAVBAR -->
     <nav class="navbar navbar-custom d-flex align-items-center">
         <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar">
@@ -34,14 +33,24 @@
                  
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="enrollmentDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="bi bi-journal"></i> Enrollment
+                        <i class="bi bi-journal"></i> Student
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="enrollmentDropdown">
                         <li><a class="dropdown-item" href="../website/add-registration-form.php"><i class="fa-solid fa-cash-register"></i>Registration</a></li>
-                        <li><a class="dropdown-item" href="../website/student-information.php"><i class="fa-solid fa-people-group"></i>Students information</a></li>
-                        <li><a class="dropdown-item" href="../website/student-listing.php"><i class="fa-solid fa-people-group"></i>Students List</a></li>
+                        <li><a class="dropdown-item" href="../website/student-enrollment.php"><i class="fa-solid fa-file-contract"></i>Enrollment</a></li>
+                        <li><a class="dropdown-item" href="../website/student-listing.php"><i class="fa-solid fa-people-group"></i>List</a></li>
                     </ul>
                 </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="enrollmentDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-journal"></i> Tutor
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="enrollmentDropdown">
+                        <li><a class="dropdown-item" href="../website/add-registration-form.php"><i class="fa-solid fa-cash-register"></i>Registration</a></li>
+                        <li><a class="dropdown-item" href="../website/student-enrollment.php"><i class="fa-solid fa-people-group"></i>List</a></li>
+                    </ul>
+                </li>
+
                 <li><a href="../website/payment-information.php"><i class="bi bi-cash-stack"></i> Payment</a></li>
 
                 <li class="nav-item dropdown">
@@ -129,6 +138,19 @@
             height: 2px;
             background-color: white;
             margin: 20px auto;
+        }
+        .dropdown-menu {
+        background-color: #023047; /* Blue background */
+        border: none; /* Remove border */
+        }
+
+        .dropdown-item {
+            color: white; /* White text */
+        }
+
+        .dropdown-item:hover {
+            background-color: #02486b; /* Darker blue on hover */
+            color: #fff; /* Ensure text stays white */
         }
     </style>
     

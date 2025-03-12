@@ -238,7 +238,7 @@ $conn->close();
 
 
     <div class="footer">
-        <img src="FOOTER.png" alt="Footer" class="footer-img">
+        <img src="../images/FOOTER.png" alt="Footer" class="footer-img">
     </div>
 
 </body>

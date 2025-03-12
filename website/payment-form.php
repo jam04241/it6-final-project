@@ -1,174 +1,58 @@
 <?php
+    include "../helpers/session.php";
     include "../database/dbconnect.php";
+    if(isset($_GET["student_id"])){
+        $student_id = $_GET["student_id"];
+    
+        $stmt = $conn->prepare("	SELECT 
+                                            enroll_category, 
+                                            last_name,
+                                            first_name, 
+                                            middle_name                                     
+                                        FROM 
+                                            tbl_student_info
+                                        WHERE
+                                            isactive = 1
+                                        AND
+                                            student_id= ?;");
+        $stmt->bind_param("i", $student_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+        } else {
+            die("Student not found!");
+        }
+        $stmt->close();
+    } else {
+        die("Invalid request!");
+    }
+
+    $enroll_category = $row["enroll_category"];
+    $last_name = $row["last_name"];
+    $first_name = $row["first_name"];
+    $middle_name = $row["middle_name"];
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enrollment Form</title>
+    <title>Payment</title>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" defer></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-    <style>
-        body {
-            background-color: #d3d7df;
-            margin: 0;
-            padding: 0;
-        }
-        .navbar-custom {
-            background-color: #00324e;
-            padding: 12px 20px;
-        }
-        .navbar-border {
-            height: 3px;
-            background-color: #0088cc;
-        }
-        .menu-icon, .profile-icon {
-            font-size: 30px;
-            color: white;
-            cursor: pointer;
-            margin: 180px;
-        }
-        .navbar-toggler {
-            border: none;
-            padding: 5px;
-        }
-        .navbar-toggler:focus {
-            box-shadow: none;
-        }
-        .offcanvas {
-            width: 255px;
-            background-color: #012641;
-            color: white;
-        }
-        .offcanvas .Logo {
-            text-align: center;
-            margin-bottom: 15px;
-        }
-        .offcanvas .Logo img {
-            width: 250px;
-            height: 200px;
-        }
-        .offcanvas ul {
-            padding: 0;
-            list-style: none;
-            margin-top: 20px;
-        }
-        .offcanvas ul li {
-            padding: 12px 20px;
-            font-size: 20px;
-        }
-        .offcanvas ul li a {
-            text-decoration: none;
-            color: white;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .offcanvas ul li:hover {
-            background-color: #02486b;
-        }
-        .divider {
-            width: 80%;
-            height: 2px;
-            background-color: white;
-            margin: 20px auto;
-        }
-        .form-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center; /* Centers header and form */
-        }
-        .payment-header {
-            font-size: 50px;
-            font-family: Tinos;
-            font-weight: bold;
-            color: black;
-            margin-bottom: 10px; /* Keeps it close to the form */
-            text-align: center;
-        }
-        /* Centering the Form Container */
-        .form-wrapper {
-            display: flex;
-            flex-direction: column;
-            align-items: center; 
-            justify-content: flex-start; 
-            min-height: calc(100vh - 100px); 
-            padding-top: 90px; 
-            gap: 15px; 
-        }
-        .container-form {
-            background-color: #012641;
-            color: white;
-            padding: 20px;
-            border-radius: 10px;
-            width: 157%;
-            height: 537px;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        }
-        .container-form label {
-            display: block;
-            width: 100%;
-            margin-top: 16px;
-            margin-left: 30px;
-            font-weight: bold;
-        }
-        .container-form input {
-            width: 100%;
-            padding: 8px;
-            border-radius: 5px;
-            border: none;
-            margin-top: 8px;
-            margin-bottom: 10px;
-            margin-left: 30px;
-        }
-        .payment-fields {
-            width: 65%;
-            max-width: 100%;
-            margin-left: 20px;
-            text-align: center;
-        }
-        .payment-label {
-            font-weight: bold;
-            display: block; /* Places label above input */
-            width: 100%; /* Ensures label spans full width */
-            text-align: center; /* Centers text inside the label */
-        }
-        .payment-input {
-            background-color: #ffffff;
-            padding: 8px;
-            border-radius: 5px;
-        }
-        .card-icon img{
-            width: 55%;
-            margin-right: 30px;
-        }
-        .confirm-btn {
-            background-color: #32cd32;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 26px;
-            margin-right: 50px;
-        }
-        .footer img {
-            width: 100%;
-            margin-top: auto; /* Pushes it down naturally */
-            position: absolute;
-            bottom: 0;
-            left: 0;
-        }
-    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../bootstrap/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="../style/payment-style.css">
+
 </head>
 <body>
     <!-- Navbar Layout -->
-    <?php include"../Layouts/navbar.php"?>
+    <?php include"../Layouts/paymentnavbar.php"?>
 
     <!-- CENTERED ENROLLMENT FORM -->
     <div class="form-wrapper">
@@ -176,27 +60,31 @@
         <h2 class="payment-header">PAYMENT</h2>
         <div class="container-form">
             <div style="width: 45%">
-                <label>Enrolled to</label>
-                <input type="text">
-                <label>Student ID</label>
-                <input type="text">
-                <label>First Name</label>
-                <input type="text">
-                <label>Middle Name</label>
-                <input type="text">
-                <label>Last Name</label>
-                <input type="text">
+                <label>Enrolled to <i>(NON EDITABLE)</i></label>
+                <input type="text" id="enroll_category" name="enroll_category" value="<?= htmlspecialchars($enroll_category); ?>" readonly>
+                <label>Student ID <i>(NON EDITABLE)</i></label>
+                <input type="text" id="student_id" name="student_id" value="<?= htmlspecialchars($student_id); ?>" readonly>
+                <label>First Name <i>(NON EDITABLE)</i></label>
+                <input type="text" id="first_name" name="first_name" value="<?= htmlspecialchars($first_name); ?>" readonly>
+                <label>Middle Name <i>(NON EDITABLE)</i></label>
+                <input type="text" id="middle_name" name="middle_name" value="<?= htmlspecialchars($middle_name); ?>" readonly>
+                <label>Last Name <i>(NON EDITABLE)</i></label>
+                <input type="text" id="last_name" name="last_name" value="<?= htmlspecialchars($last_name); ?>" readonly>
             </div>
             <div style="width: 45%; text-align: center;">
                 <div class="card-icon">
-                    <img src="CARD_ICON.png" alt="Card Icon">
+                    <img src="../images/SCHOOL_LOGO.png" alt="Card Icon">
                 </div>
-                <div class="payment-fields">
-                    <label class="payment-label">Payment Method</label>
-                    <input class="payment-input" type="text">
-                    <label class="payment-label">Amount</label>
-                    <input class="payment-input" type="text">
-                    <br>
+                <div class="payment-section">
+                    <label class="payment-label" for="payment-method">Payment Method</label>
+                    <select class="payment-input" id="payment-method" name="payment-method">
+                        <option value="" disabled selected>Select Payment Method</option>
+                        <option value="Cash">Cash</option>
+                        <option value="Gcash">Gcash</option>
+                        <option value="Bank Transfer">Bank Transfer</option>
+                    </select>
+                    <label class="payment-label" for="amount">Amount</label>
+                    <input class="payment-input" type="text" id="amount" name="amount">
                 </div>
                     <div style="margin-top: 18px">
                         <button class="confirm-btn">Confirm</button>
@@ -207,7 +95,7 @@
     </div>
 
     <div class="footer">
-        <img src="FOOTER.png" alt="Footer" class="footer-img">
+        <img src="../images/FOOTER.png" alt="Footer" class="footer-img">
     </div>
 </body>
 </html>

@@ -88,7 +88,7 @@
         echo "
         <script>
             alert('✅ You successfully updated student');
-            window.location.href = '../website/student-information.php';
+            window.location.href = '../website/student-listing.php';
         </script>";
     } else {
         echo "Error: " . $stmt->error;

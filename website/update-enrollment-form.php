@@ -81,7 +81,7 @@ $emergency_contact_no = $row["emergency_contact_no"];
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" defer></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-
+    <link rel="stylesheet" href="../style/add-enrollment-form-style.css">
 </head>
 <body>
     
@@ -109,7 +109,6 @@ $emergency_contact_no = $row["emergency_contact_no"];
                             <option value="Nursery" <?= ($enroll_category == "Nursery") ? 'selected' : ''; ?>>Nursery</option>
                             <option value="Kindergarten_1" <?= ($enroll_category == 'Kindergarten_1') ? 'selected' : ''; ?>>Kindergarten 1</option>
                             <option value="Kindergarten_2" <?= ($enroll_category == 'Kindergarten_2') ? 'selected' : ''; ?>>Kindergarten 2</option>
-                            <option value="Tutor" <?= ($enroll_category == "Tutor") ? 'selected' : ''; ?>>Tutor</option>
                         </select>
                     </div>
                     <div class="col-2">
@@ -228,7 +227,7 @@ $emergency_contact_no = $row["emergency_contact_no"];
 
 
     <div class="footer">
-        <img src="FOOTER.png" alt="Footer" class="footer-img">
+        <img src="../images/FOOTER.png" alt="Footer" class="footer-img">
     </div>
 
 </body>
@@ -236,7 +235,7 @@ $emergency_contact_no = $row["emergency_contact_no"];
         function confirmation() {
             var result = confirm('Are you sure about this?');
             if (result) {
-                window.location.href = '../website/student-information.php';
+                window.location.href = '../website/student-listing.php';
             } else {
                 return false;
             }

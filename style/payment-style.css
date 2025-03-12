@@ -1,3 +1,7 @@
+.navbar {
+    position: relative;
+    z-index: 1000;
+}
 .form-container {
     display: flex;
     flex-direction: column;
@@ -49,22 +53,38 @@
     margin-bottom: 10px;
     margin-left: 30px;
 }
-.payment-fields {
-    width: 65%;
-    max-width: 100%;
-    margin-left: 20px;
-    text-align: center;
+.payment-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centers everything */
+    justify-content: center;
+    width: 70%;
+    margin-top: 12px;
+    margin-left: 30px   ;
+    
 }
 .payment-label {
+    text-align: center;
     font-weight: bold;
-    display: block; /* Places label above input */
-    width: 100%; /* Ensures label spans full width */
-    text-align: center; /* Centers text inside the label */
+    display: block;
+    margin-bottom: 5px;
 }
+
 .payment-input {
-    background-color: #ffffff;
+    width: 330px; /* Adjust as needed */
     padding: 8px;
+    text-align: center;
+    border: 1px solid #ccc;
     border-radius: 5px;
+    font-size: 16px;
+    margin-left: 30px;
+}
+
+/* Style the dropdown arrow */
+.payment-input select {
+    appearance: none; /* Removes default browser styles */
+    background-color: white;
+    cursor: pointer;
 }
 .card-icon img{
     width: 55%;
@@ -78,12 +98,12 @@
     border-radius: 5px;
     cursor: pointer;
     margin-top: 26px;
-    margin-right: 50px;
+    margin-right: 40px;
 }
 .footer img {
     width: 100%;
     margin-top: auto; /* Pushes it down naturally */
-    position: absolute;
-    bottom: 0;
+    position: relative; /* Change from absolute */
+    bottom: auto;
     left: 0;
 }
