@@ -125,10 +125,11 @@ try {
 
     $stmt1 = $conn->prepare("    INSERT INTO 
                                             tbl_payment 
-                                        (student_id, created_by, date_created, status)
+                                        (student_id, balance,created_by, date_created, status)
                                         VALUES(
                                             ?,
-                                            ?, 
+                                            DEFAULT,
+                                            ?,
                                             NOW(),
                                             1);");
 

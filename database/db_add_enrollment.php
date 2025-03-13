@@ -30,7 +30,7 @@ try {
         $student_id
         
     );
-
+    
     $stmt->execute();
     $stmt->close();
 

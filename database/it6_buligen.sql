@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 12, 2025 at 07:10 PM
+-- Generation Time: Mar 13, 2025 at 05:25 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -73,10 +73,10 @@ INSERT INTO `tbl_employee` (`employee_id`, `employee_position`, `username`, `pas
 CREATE TABLE `tbl_payment` (
   `payment_no` int(11) NOT NULL,
   `student_id` int(11) DEFAULT NULL,
-  `pay` decimal(5,2) DEFAULT NULL,
-  `total` decimal(5,2) DEFAULT NULL,
-  `balance` decimal(5,2) DEFAULT NULL,
-  `payment_method` varchar(10) NOT NULL,
+  `pay` decimal(10,2) DEFAULT 0.00,
+  `total` decimal(10,2) DEFAULT 0.00,
+  `balance` decimal(10,2) DEFAULT 24850.00,
+  `payment_method` enum('Cash','Gcash','Bank Transfer','Others') NOT NULL,
   `created_by` int(11) NOT NULL,
   `date_created` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_by` int(11) NOT NULL,
@@ -89,9 +89,10 @@ CREATE TABLE `tbl_payment` (
 --
 
 INSERT INTO `tbl_payment` (`payment_no`, `student_id`, `pay`, `total`, `balance`, `payment_method`, `created_by`, `date_created`, `updated_by`, `date_updated`, `status`) VALUES
-(1, 3, NULL, NULL, NULL, '', 0, '2025-03-11 14:34:29', 0, '2025-03-11 14:34:29', 1),
-(2, 5, NULL, NULL, NULL, '', 3, '2025-03-12 04:36:29', 0, '2025-03-12 04:36:29', 1),
-(3, 6, NULL, NULL, NULL, '', 1, '2025-03-12 11:26:24', 0, '2025-03-12 11:26:24', 1);
+(1, 3, 1000.00, 1524.00, 3476.00, 'Cash', 0, '2025-03-13 03:04:24', 1, '2025-03-13 03:11:48', 1),
+(2, 5, 0.00, 0.00, 24850.00, '', 3, '2025-03-12 04:36:29', 0, '2025-03-12 04:36:29', 1),
+(3, 6, 0.00, 0.00, 24850.00, '', 1, '2025-03-12 11:26:24', 0, '2025-03-12 11:26:24', 1),
+(5, 8, 0.00, 0.00, 24850.00, 'Cash', 1, '2025-03-13 04:16:36', 0, '2025-03-13 04:16:36', 1);
 
 -- --------------------------------------------------------
 
@@ -175,7 +176,8 @@ INSERT INTO `tbl_student_info` (`student_id`, `enroll_category`, `schoolyear`, `
 (2, 'Kindergarten_1', '2023-2024', 'Magcalas', 'Josh Andrei', 'Mosqueda', 'mintal', 'davao city', 8000, '2004-06-04', 'Male', 'Maria Betsy M. Magalas', 954364521, 'Jonas B. Magcalas', 954364521, 'Maria Betsy M. Magcalas', '', 'Maria Betsy M. Magcalas', 0, NULL, '2025-03-11 15:22:48', 342, '2025-03-11 13:57:21', 1),
 (3, 'Kindergarten_2', '2025-2026', 'Inday', 'Charlize Jane ', '', 'mintal', 'DAVAO CITY', 8000, '2025-03-30', 'Female', 'Papa Lloyd', 9876, 'mama John Lloyd', 987, 'Boss Stephen', 'others', 'Catalunan Grande', 9876, NULL, '2025-03-12 11:00:06', 3, '2025-03-12 11:00:06', 1),
 (5, 'Nursery', NULL, 'Obaob', 'Einstein', '', 'Sasa', 'Davao city', 8000, '2025-03-12', 'Female', 'Dad', 675475, 'Mon', 765, 'dad', '', 'mintal', 643, 3, '2025-03-12 06:44:34', NULL, '2025-03-12 04:36:28', 1),
-(6, 'Kindergarten_2', '2025-2026', 'Magcalas', 'Andrea Isabella', '', 'Mintal', 'Davao City', 8000, '2025-03-21', 'Male', 'jonas', 234453, 'maria', 3456456, 'Josh Andrei M. magcalas', 'guardian', 'Mintal', 2147483647, 1, '2025-03-12 13:45:00', 1, '2025-03-12 13:48:44', 1);
+(6, 'Kindergarten_2', '2025-2026', 'Magcalas', 'Andrea Isabella', '', 'Mintal', 'Davao City', 8000, '2025-03-21', 'Male', 'jonas', 234453, 'maria', 3456456, 'Josh Andrei M. magcalas', 'guardian', 'Mintal', 2147483647, 1, '2025-03-12 13:45:00', 1, '2025-03-12 13:48:44', 0),
+(8, NULL, NULL, 'Magcalashy', 'asd', 'kj', 'dsa', 'fds', 800, '2025-03-30', 'Male', 'ds', 345, 'adsads', 2345, 'dgfdfg', '', 'dfsdfs', 534, 1, '2025-03-13 04:16:35', NULL, '2025-03-13 04:16:35', 1);
 
 -- --------------------------------------------------------
 
@@ -194,7 +196,7 @@ CREATE TABLE `tbl_tutor_info` (
   `first_name` varchar(80) NOT NULL,
   `middle_name` varchar(50) DEFAULT NULL,
   `birthdate` date NOT NULL,
-  `sex` enum('male','female') NOT NULL,
+  `sex` enum('Male','Female') NOT NULL,
   `street` text NOT NULL,
   `city` varchar(50) NOT NULL,
   `zip_code` int(4) NOT NULL,
@@ -214,7 +216,8 @@ CREATE TABLE `tbl_tutor_info` (
 --
 
 INSERT INTO `tbl_tutor_info` (`tutorial_id`, `date_start`, `school`, `grade_level`, `time_arrival`, `focus_subject`, `last_name`, `first_name`, `middle_name`, `birthdate`, `sex`, `street`, `city`, `zip_code`, `emergency_fullname`, `emergency_relationship`, `emergency_address`, `emergency_contact_no`, `created_by`, `date_created`, `updated_by`, `date_updated`, `isactive`) VALUES
-(1, '2025-03-12', 'Mintal Comprehensive High School', 'Grade 1', '23:00:00', 'Science', 'Magcalas', 'Josh Andrei', 'Mosqueda', '2004-06-04', 'male', 'Purok 20', 'Davao city', 8000, 'JOsh', 'Others', 'Mintal', 932143221, 645, '2025-03-12 15:03:33', 342, '2025-03-12 15:03:33', 1);
+(1, '2025-03-12', 'Mintal Comprehensive High School', 'Grade 1', '23:00:00', 'Science', 'Magcalas', 'Josh Andrei', 'Mosqueda', '2004-06-04', 'Male', 'Purok 20', 'Davao city', 8000, 'JOsh', 'Others', 'Mintal', 932143221, 645, '2025-03-12 15:03:33', 342, '2025-03-12 15:03:33', 1),
+(2, '2025-03-23', 'ass', 'Grade 6', '23:00:00', 'Science', 'dsadsa', 'asd', 'fdgs', '2025-03-01', 'Female', 'ads', 'dfgv', 8000, 'adsads', 'Others', 'adsadsads', 576567, 432, '2025-03-13 01:19:41', 123, '2025-03-13 01:19:41', 1);
 
 --
 -- Indexes for dumped tables
@@ -282,7 +285,7 @@ ALTER TABLE `tbl_employee`
 -- AUTO_INCREMENT for table `tbl_payment`
 --
 ALTER TABLE `tbl_payment`
-  MODIFY `payment_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `payment_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tbl_receipt`
@@ -300,13 +303,13 @@ ALTER TABLE `tbl_schoolyear`
 -- AUTO_INCREMENT for table `tbl_student_info`
 --
 ALTER TABLE `tbl_student_info`
-  MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `tbl_tutor_info`
 --
 ALTER TABLE `tbl_tutor_info`
-  MODIFY `tutorial_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `tutorial_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

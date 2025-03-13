@@ -57,7 +57,7 @@ $conn->close();
 
 <!-- PAYMENT FORM -->
 <div class="container mt-4">
-    <h1 class="text-center">PAYMENT STATUS</h1>
+    <h1 class="text-center">STUDENT PAYMENT STATUS</h1>
     <table id="student-payment-status" class="table table-striped mt-3">
         <thead>
             <tr>
@@ -86,7 +86,7 @@ $conn->close();
                                 </a>
                                 
                                 <a class="btn btn-secondary btn-sm form1-btn" href="../print/form1.php">
-                                    Form 1
+                                    receipt
                                 </a>         
 
                             </td>
@@ -104,19 +104,43 @@ $conn->close();
 
 <!-- DONE PAYMENT -->
 <div class="container mt-4">
-    <h1 class="text-center">Done Payment</h1>
-    <table id="student-done-payment" class="table table-striped mt-3">
+    <h1 class="text-center">FULL PAID</h1>
+    <table id="done-status" class="table table-striped mt-3">
         <thead>
             <tr>
                 <th>STUDENT ID</th>
-                <th>PAY</th>
-                <th>TOTAL</th>
+                <th>TOTAL/th>
                 <th>BALANCE</th>
-                <th>TIMESTAMP</th>
-                <th>STATUS</th>
+                <th>UPDATED DATE</th>
+                <th>ACTION</th>
             </tr>
         </thead>
         <tbody>
+        <?php if(isset($result) && $result->num_rows > 0): ?>
+            <?php while($row = $result->fetch_assoc()): ?>
+                <tr>
+                            <td> <?=$row['student_id']?> </td>
+                            <td> <?=$row['total']?> </td>
+                            <td> <?=$row['balance']?> </td>
+                            <td> <?=$row['date_created']?> </td>
+                            <td> <?=$row['date_updated']?> </td>
+                            <td>
+                                <a class="btn btn-warning btn-sm edit-btn" href="payment-form.php?student_id=<?= htmlspecialchars($row['student_id']); ?>">
+                                    Pay
+                                </a>
+                                
+                                <a class="btn btn-secondary btn-sm form1-btn" href="../print/form1.php">
+                                    receipt
+                                </a>         
+
+                            </td>
+                        </tr>
+                        <?php endwhile; ?>
+                    <?php else: ?>
+                        <tr>
+                            <td colspan="7" class="text-center">No students available</td>
+                        </tr>
+                    <?php endif; ?>
             <!-- Dynamic Data Goes Here -->
         </tbody>
     </table>

@@ -2,7 +2,16 @@
 include '../database/dbconnect.php'; 
 
 // Fetch student population by category
-$student_query = "SELECT enroll_category, COUNT(*) AS count FROM tbl_student_info WHERE enroll_category IN ('Nursery', 'Kindergarten_1', 'Kindergarten_2') GROUP BY enroll_category;";
+$student_query = "  SELECT 'Student' AS category, enroll_category, COUNT(*) AS count 
+                    FROM tbl_student_info 
+                    WHERE enroll_category IN ('Nursery', 'Kindergarten_1', 'Kindergarten_2') 
+                    GROUP BY enroll_category
+
+                    UNION ALL
+
+                    SELECT 'Tutor' AS category, 'Tutor Students' AS enroll_category, COUNT(*) AS count 
+                    FROM tbl_tutor_info;
+";
 $student_result = mysqli_query($conn, $student_query);
 $student_data = [];
 while ($row = mysqli_fetch_assoc($student_result)) {
@@ -24,12 +33,18 @@ $monthly_query = "SELECT SUM(total) AS monthly_revenue FROM tbl_payment WHERE YE
 $monthly_result = mysqli_query($conn, $monthly_query);
 $monthly_revenue = mysqli_fetch_assoc($monthly_result)['monthly_revenue'] ?? 0;
 
-// Fetch male and female population
-$male_query = "SELECT COUNT(*) AS male_count FROM tbl_student_info WHERE sex = 'Male'";
-$female_query = "SELECT COUNT(*) AS female_count FROM tbl_student_info WHERE sex = 'Female'";
+// Fetch male population
+$male_query = "SELECT 
+                (SELECT COUNT(*) FROM tbl_student_info WHERE sex = 'Male') +
+                (SELECT COUNT(*) FROM tbl_tutor_info WHERE sex = 'Male') AS male_count;";
 $male_result = mysqli_query($conn, $male_query);
-$female_result = mysqli_query($conn, $female_query);
 $male_population = mysqli_fetch_assoc($male_result)['male_count'] ?? 0;
+
+// fetch female population
+$female_query = "SELECT 
+                    (SELECT COUNT(*) FROM tbl_student_info WHERE sex = 'Female') +
+                    (SELECT COUNT(*) FROM tbl_tutor_info WHERE sex = 'Female') AS female_count;";
+$female_result = mysqli_query($conn, $female_query);
 $female_population = mysqli_fetch_assoc($female_result)['female_count'] ?? 0;
 
 // Fetch admin and staff count
@@ -118,7 +133,7 @@ $staff_count = mysqli_fetch_assoc($staff_result)['staff_count'] ?? 0;
                 labels: <?php echo json_encode(array_keys($student_data)); ?>,
                 datasets: [{
                     data: <?php echo json_encode(array_values($student_data)); ?>,
-                    backgroundColor: ['#007bff', '#ffc107', '#ff5722']
+                    backgroundColor: ['#007bff', '#ffc107', '#ff5722','#008000']
                 }]
             }
         });

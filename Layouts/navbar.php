@@ -39,6 +39,8 @@
                         <li><a class="dropdown-item" href="../website/add-registration-form.php"><i class="fa-solid fa-cash-register"></i>Registration</a></li>
                         <li><a class="dropdown-item" href="../website/student-enrollment.php"><i class="fa-solid fa-file-contract"></i>Enrollment</a></li>
                         <li><a class="dropdown-item" href="../website/student-listing.php"><i class="fa-solid fa-people-group"></i>List</a></li>
+                        <li><a class="dropdown-item" href="../website/payment-information.php"><i class="bi bi-cash-stack"></i> Payment</a></li>
+
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -50,8 +52,6 @@
                         <li><a class="dropdown-item" href="../website/tutorial-listing.php"><i class="fa-solid fa-people-group"></i>List</a></li>
                     </ul>
                 </li>
-
-                <li><a href="../website/payment-information.php"><i class="bi bi-cash-stack"></i> Payment</a></li>
 
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="enrollmentDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">

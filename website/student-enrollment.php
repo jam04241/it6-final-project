@@ -124,49 +124,6 @@ $conn->close();
                 </tbody>
             </table>
     </div>
-
-        <!-- MISSING FORM -->
-        <!-- <div class="container mt-4">
-        <h1 class="text-center">Missing Information</h1>
-            <table id="student-missing-information" class="table table-striped mt-3">
-                <thead>
-                    <tr>
-                        <th>Student ID</th>
-                        <th>First Name</th>
-                        <th>Middle Inital</th>
-                        <th>Last Name</th>
-                        <th>Grade Level</th>
-                        <th>Action</th>
-
-                    </tr>
-                </thead>
-                <tbody>
-                <?php if(isset($result) && $result->num_rows > 0): ?>
-                    <?php while($row = $result->fetch_assoc()): ?>
-                        <tr>
-                            <td> <?= htmlspecialchars($row['student_id'], ENT_QUOTES, 'UTF-8'); ?> </td>
-                            <td> <?= htmlspecialchars($row['first_name'], ENT_QUOTES, 'UTF-8'); ?> </td>
-                            <td> <?= htmlspecialchars($row['middle_inital'], ENT_QUOTES, 'UTF-8'); ?> </td>
-                            <td> <?= htmlspecialchars($row['last_name'], ENT_QUOTES, 'UTF-8'); ?> </td>
-                            <td> <?= htmlspecialchars($row['enroll_category'], ENT_QUOTES, 'UTF-8'); ?> </td>
-                            <td>
-                                <button class="btn btn-warning btn-sm edit-btn" 
-                                        onclick="window.location.href='update-enrollment-form.php?student_id=<?= htmlspecialchars($row['student_id'], ENT_QUOTES, 'UTF-8'); ?>'">
-                                        Edit
-                                </button>
-                                <a>
-                                <form action="../database/db_delete_student.php" method="POST" onsubmit="return confirm('Are you sure you want to delete this student?');">
-                                    <input type="hidden" name="student_id" value="<?= htmlspecialchars($row['student_id'], ENT_QUOTES, 'UTF-8'); ?>">
-                                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                                </form>
-                                </a>
-
-                            </td>
-                        </tr>
-                    <?php endwhile; ?>
-                <?php endif; ?>
-                </tbody>
-            </table> -->
     </div>
 
     <div class="footer">

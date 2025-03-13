@@ -13,7 +13,7 @@ try {
 
     // Run each stored procedure separately with proper handling
     $queries = [
-        "SELECT * FROM tbl_tutor_info;",
+        "SELECT * FROM tbl_tutor_info WHERE isactive = 1;",
         "SELECT * FROM tbl_tutor_info;",
         "SELECT * FROM tbl_tutor_info"
     ];

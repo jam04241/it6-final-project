@@ -27,7 +27,7 @@ include '../script/confirmation.php';
     
     <!-- ENROLLMENT FORM -->
     <div class="container">
-        <h2 class="text-align">REGISTRATION FORM</h2>
+        <h2 class="text-align">STUDENT REGISTRATION FORM</h2>
         <div class="form-container">
             <form method="POST" action="../database/db_add_registration.php">
                 <div class="row mb-3">

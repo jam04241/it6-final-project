@@ -1,6 +1,6 @@
 
     $(document).ready(function() {
-        $('#transaction-information').DataTable({
+        $('#transaction-information,#tracking-list').DataTable({
             "paging": true, // Enable pagination
             "searching": true, // Enable search box
             "ordering": true, // Enable sorting

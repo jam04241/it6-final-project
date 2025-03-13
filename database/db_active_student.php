@@ -1,5 +1,7 @@
 <?php
+session_start();
 include "dbconnect.php";
+$employee_id = $_SESSION["employee_id"];
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['student_id'])) {
     $student_id = $_POST['student_id'];
@@ -9,8 +11,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['student_id'])) {
 
     // Prepare the SQL CALL statement
     
-    $stmt = $conn->prepare(" DELETE FROM
+    $stmt = $conn->prepare(" UPDATE 
                                         tbl_student_info
+                                    SET 
+                                        isactive = 1
                                     WHERE 
                                         student_id = ?;");
 

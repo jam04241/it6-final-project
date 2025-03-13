@@ -1,5 +1,5 @@
 <?php
-    include "../helpers/session.php";
+
     include "../database/dbconnect.php";
     if(isset($_GET["student_id"])){
         $student_id = $_GET["student_id"];
@@ -41,23 +41,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Payment</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
     <script src="../bootstrap/js/bootstrap.js"></script>
     <link rel="stylesheet" href="../style/payment-style.css">
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap 5 Bundle with Popper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
 
 </head>
 <body>
     <!-- Navbar Layout -->
-    <?php include"../Layouts/paymentnavbar.php"?>
+    <?php include"../Layouts/navbar.php"?>
 
     <!-- CENTERED ENROLLMENT FORM -->
     <div class="form-wrapper">
+    <form action="../database/db_payment_student.php" method="POST">
         <div class="form-container">
-        <h2 class="payment-header">PAYMENT</h2>
+        <h2 class="payment-header">STUDENT PAYMENT</h2>
         <div class="container-form">
             <div style="width: 45%">
                 <label>Enrolled to <i>(NON EDITABLE)</i></label>
@@ -71,7 +78,6 @@
                 <label>Last Name <i>(NON EDITABLE)</i></label>
                 <input type="text" id="last_name" name="last_name" value="<?= htmlspecialchars($last_name); ?>" readonly>
             </div>
-            <form action="../database/db_payment_student.php" method="POST">
             <div style="width: 45%; text-align: center;">
                 <div class="card-icon">
                     <img src="../images/SCHOOL_LOGO.png" alt="Card Icon">
@@ -79,14 +85,14 @@
                 <div class="payment-section">
                     
                         <label class="payment-label" for="payment-method">Payment Method</label>
-                        <select class="payment-input" id="payment-method" name="payment-method">
+                        <select class="form-control" id="payment_method" name="payment_method" required>
                             <option value="" disabled selected>Select Payment Method</option>
                             <option value="Cash">Cash</option>
                             <option value="Gcash">Gcash</option>
                             <option value="Bank Transfer">Bank Transfer</option>
                         </select>
                         <label class="payment-label" for="amount">Amount</label>
-                        <input class="payment-input" type="text" id="amount" name="amount">
+                        <input class="payment-input" type="number" id="pay" name="pay" required>
                 </div>
                         <div style="margin-top: 18px">
                             <button class="confirm-btn">Confirm</button>

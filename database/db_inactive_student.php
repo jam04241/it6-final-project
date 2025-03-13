@@ -9,8 +9,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['student_id'])) {
 
     // Prepare the SQL CALL statement
     
-    $stmt = $conn->prepare(" DELETE FROM
+    $stmt = $conn->prepare(" UPDATE 
                                         tbl_student_info
+                                    SET 
+                                        isactive = 0
                                     WHERE 
                                         student_id = ?;");
 
@@ -19,6 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['student_id'])) {
     if ($stmt->execute()) {
         // Redirect after deletion
         header("Location: ../website/student-listing.php");
+
         exit();
     } else {
         echo "❌ Error: " . $stmt->error;

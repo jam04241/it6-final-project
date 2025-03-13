@@ -10,9 +10,13 @@ try {
     $nursery_students = [];
     $kindergarten1_students = [];
     $kindergarten2_students = [];
+    $active_students = [];
+    $inactive_students = [];
 
     // Run each stored procedure separately with proper handling
     $queries = [
+        
+        // Nursery
         "SELECT
             student_id,
             first_name,
@@ -22,6 +26,8 @@ try {
 		    tbl_student_info
 	    WHERE
 		    enroll_category ='Nursery';",
+
+        // Kindergarten 1
         "SELECT
             student_id,
             first_name,
@@ -31,6 +37,8 @@ try {
             tbl_student_info
         WHERE
             enroll_category ='Kindergarten_1';",
+
+        // Kindergarten 2
         "SELECT
             student_id,
             first_name,
@@ -39,7 +47,29 @@ try {
         FROM
             tbl_student_info
         WHERE
-            enroll_category ='Kindergarten_2';"
+            enroll_category ='Kindergarten_2';",
+
+        // active status
+        "SELECT
+            student_id,
+            first_name,
+            middle_name,
+            last_name
+        FROM
+            tbl_student_info
+        WHERE
+            isactive = 1;",
+
+        // inactive status
+        "SELECT
+            student_id,
+            first_name,
+            middle_name,
+            last_name
+        FROM
+            tbl_student_info
+        WHERE
+            isactive = 0;"
     ];
 
     foreach ($queries as $index => $query) {
@@ -53,6 +83,10 @@ try {
                             $kindergarten1_students[] = $row;
                         } elseif ($index == 2) {
                             $kindergarten2_students[] = $row;
+                        } elseif ($index == 3) {
+                            $active_students[] = $row;
+                        } elseif ($index == 4) {
+                            $inactive_students[] = $row;
                         }
                     }
                     $result->free(); // Free result set
@@ -259,6 +293,83 @@ $conn->close();
                 </tbody>
             </table>
     </div>
+
+        <!-- ACTIVE FORM -->
+        <div class="container mt-4">
+        <h1 class="text-center">ACTIVE STUDENT</h1>
+            <table id="nursery-list" class="table table-striped mt-3">
+                <thead>
+                    <tr>
+                        <th>Student ID</th>
+                        <th>First Name</th>
+                        <th>Middle Inital</th>
+                        <th>Last Name</th>
+                        <th>ACTION</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <?php if (!empty($active_students)): ?>
+                    <?php foreach ($active_students as $row): ?>
+                        <tr>
+                            <td><?= htmlspecialchars($row['student_id']) ?></td>
+                            <td><?= htmlspecialchars($row['first_name']) ?></td>
+                            <td><?= htmlspecialchars($row['middle_name']) ?></td>
+                            <td><?= htmlspecialchars($row['last_name']) ?></td>
+                            <td>
+                                <form action="../database/db_inactive_student.php" method="POST" onsubmit="return deactive('Are you sure you want to deactive this student?');" class="d-inline">
+                                    <input type="hidden" name="student_id" value="<?= htmlspecialchars($row['student_id'], ENT_QUOTES, 'UTF-8'); ?>">
+                                    <button type="submit" class="btn btn-danger btn-sm" > Deactive </button>
+                                </form>                        
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <tr>
+                        <td colspan="7" class="text-center">No students available</td>
+                    </tr>
+                <?php endif; ?>
+                </tbody>
+            </table>
+    </div>
+
+        <!-- DEACTIVE FORM -->
+        <div class="container mt-4">
+        <h1 class="text-center">INACTIVE STUDENT</h1>
+            <table id="nursery-list" class="table table-striped mt-3">
+                <thead>
+                    <tr>
+                        <th>Student ID</th>
+                        <th>First Name</th>
+                        <th>Middle Inital</th>
+                        <th>Last Name</th>
+                        <th>ACTION</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <?php if (!empty($inactive_students)): ?>
+                    <?php foreach ($inactive_students as $row): ?>
+                        <tr>
+                            <td><?= htmlspecialchars($row['student_id']) ?></td>
+                            <td><?= htmlspecialchars($row['first_name']) ?></td>
+                            <td><?= htmlspecialchars($row['middle_name']) ?></td>
+                            <td><?= htmlspecialchars($row['last_name']) ?></td>
+                            <td>
+                                <form action="../database/db_active_student.php" method="POST" onsubmit="return active('Are you sure you want to active this student?');" class="d-inline">
+                                    <input type="hidden" name="student_id" value="<?= htmlspecialchars($row['student_id'], ENT_QUOTES, 'UTF-8'); ?>">
+                                    <button type="submit" class="btn btn-success btn-sm" > Active </button>
+                                </form>                        
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <tr>
+                        <td colspan="7" class="text-center">No students available</td>
+                    </tr>
+                <?php endif; ?>
+                </tbody>
+            </table>
+    </div>
+
     <!-- Student View Modal -->
 <div class="modal fade" id="student-view" tabindex="-1" role="dialog" aria-labelledby="studentModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
@@ -298,8 +409,8 @@ $conn->close();
         function confirmation() {
             var result = confirm('Are you sure about this?');
         }
-
     </script>
+
     <script>
        $(document).ready(function() {
     $(".view-student-btn").on("click", function() {

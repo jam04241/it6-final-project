@@ -1,7 +1,7 @@
 
 
     $(document).ready(function() {
-        $('#student-payment-status, #student-done-payment').DataTable({
+        $('#student-payment-status, #done-status').DataTable({
             "paging": true, // Enable pagination
             "searching": true, // Enable search box
             "ordering": true, // Enable sorting

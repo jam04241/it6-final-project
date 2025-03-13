@@ -6,7 +6,7 @@ try {
         die("Database connection failed: " . $conn->error);
     }
 
-    $sql = "SELECT student_id, first_name, middle_inital, last_name, enroll_category, timestamp FROM tbl_student_info;";
+    $sql = "SELECT * FROM tbl_audit_log;";
     $result = $conn->query($sql);
 } catch (Exception $e) {
     echo "Error: " . $e->getMessage();
@@ -47,8 +47,6 @@ $conn->close();
 
     <!-- DataTables JS -->
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-
-    <script src="../script/transaction-form-script.js"></script>
     
     <!-- STYLE FOR NAVBAR AND SIDEBAR -->
     <style>
@@ -194,52 +192,46 @@ $conn->close();
     <?php //include"../Layouts/navbar.php"?> <!--due to coflict of connection i put it above--> 
 
 
-    <!-- Transaction History -->
+    <!-- Audit History -->
     <div class="container mt-4">
         <h1 class="text-center">TRACKING HISTORY</h1>
-        <form METHOD="POST" action="">
-            <table id="transaction-information" class="table table-striped mt-3">
+            <table id="tracking-list" class="table table-striped mt-3">
                 <thead>
                     <tr>
+                        <th>Audit log number</th>
                         <th>EMPLOYEE_ID</th>
                         <th>POSITION</th>
                         <th>DESCRIPTION</th>
-                        <th>AMOUNT</th>
-                        <th>TRANSACTION DATE</th>
+                        <th>DATE</th>
+
                     </tr>
                 </thead>
-                <!-- <tbody>
-                    <?php //if(isset($result) && $result->num_rows > 0): ?>
-                        <?//php while($row = $result->fetch_assoc()): ?>
+                <tbody>
+                <?php if (!empty($result)): ?>
+                    <?php foreach ($result as $row): ?>
                         <tr>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td>
-                                <!-- <button class="btn btn-warning btn-sm edit-btn">Edit</button>
-                                <form action="" method="POST" class="d-inline">
-                                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                                </form> -->
-                            </td>
+                        <td><?= htmlspecialchars($row['audit_no']) ?></td>
+                        <td><?= htmlspecialchars($row['employee_id']) ?></td>
+                        <td><?= htmlspecialchars($row['position']) ?></td>
+                        <td><?= htmlspecialchars($row['description']) ?></td>
+                        <td><?= htmlspecialchars($row['timestamp']) ?></td>
                         </tr>
-                        <?//php endwhile; ?>
-                    <?//php else: ?>
+                        <?php endforeach; ?>
+                    <?php else: ?>
                         <tr>
-                            <td colspan="5" class="text-center">No transaction available</td>
+                            <td colspan="7" class="text-center">No tracking history</td>
                         </tr>
-                    <?//php endif; ?>
+                    <?php endif; ?>
                 </tbody>
             </table>
-        </form>
     </div>
-
 
     <div class="footer">
         <img src="../images/FOOTER.png" alt="Footer" class="footer-img">
     </div>
 
 </body>
+
+    <script src="../script/transaction-form-script.js"></script>
+
 </html>
