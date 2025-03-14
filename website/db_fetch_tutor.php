@@ -1,12 +1,12 @@
 <?php
 require '../database/dbconnect.php'; // Adjust this based on your setup
 
-if (isset($_POST['student_id'])) {
-    $student_id = $_POST['student_id'];
+if (isset($_POST['tutorial_id'])) {
+    $tutorial_id = $_POST['tutorial_id'];
 
     $query = "SELECT * FROM tbl_tutor_info WHERE tutorial_id = ?";
     $stmt = mysqli_prepare($conn, $query);
-    mysqli_stmt_bind_param($stmt, "i", $student_id);
+    mysqli_stmt_bind_param($stmt, "i", $tutorial_id);
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
     
@@ -25,7 +25,7 @@ if (isset($_POST['student_id'])) {
         echo "<tr><th>Emergency Contact No.</th><td>{$row['emergency_contact_no']}</td></tr>";
         
     } else {
-        echo "<tr><td colspan='2' class='text-center'>No student data found</td></tr>";
+        echo "<tr><td colspan='2' class='text-center'>No tutor student data found</td></tr>";
     }
     
     mysqli_stmt_close($stmt);

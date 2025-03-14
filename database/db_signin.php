@@ -91,7 +91,7 @@ function create_account($employee_position, $username, $password, $last_name, $f
                                         first_name,
                                         middle_name,
                                         verify_pass,
-                                        timestamp
+                                        date_created
                                         )
                                   VALUES(
                                         ?,

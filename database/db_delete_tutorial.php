@@ -3,14 +3,14 @@
 include "../helpers/session.php";
 include "dbconnect.php";
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['student_id'])) {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['tutorial_id'])) {
     
     //RETRIVE EMPLOYEE_ID
     $employee_id = $_SESSION["employee_id"];
-    $student_id = $_POST['student_id'];
+    $tutorial_id = $_POST['tutorial_id'];
 
     // Debugging: Check if student_id is received
-    echo "Received student ID: " . $student_id;
+    echo "Received student ID: " . $tutorial_id;
 
     // Prepare the SQL CALL statement
     
@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['student_id'])) {
                                     WHERE 
                                         tutorial_id = ?;");
 
-    $stmt->bind_param('i', $student_id);
+    $stmt->bind_param('i', $tutorial_id);
 
     // Prepare the SQL statement
     $stmt1 = $conn->prepare("SELECT employee_position FROM tbl_employee WHERE employee_id = ?");

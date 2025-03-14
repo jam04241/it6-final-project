@@ -18,7 +18,7 @@ try {
         "SELECT student_id, pay, total, balance, date_created, date_updated FROM tbl_payment WHERE balance > 0.00;",
 
         // WHEN BALANCE is FULL PAY
-        "SELECT student_id, pay, total, balance, date_created, date_updated FROM tbl_payment WHERE balance = 0.00;",
+        "SELECT student_id, total, balance, date_created, date_updated FROM tbl_payment WHERE balance = 0.00;",
     ];
 
     foreach ($queries as $index => $query) {
@@ -71,14 +71,15 @@ $conn->close();
     <link rel="stylesheet" href="../DataTables/datatables.css">
     <script src="../DataTables/datatables.js" defer></script>
 
-    <!-- DataTables CSS -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
-
     <!-- jQuery (Required for DataTables) -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+
     <!-- DataTables JS -->
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
 
     <script src="../script/payment-form-script.js"></script>
 
@@ -88,10 +89,10 @@ $conn->close();
     <?php //include"../Layouts/navbar.php"?> <!--due to coflict of connection i put it above--> 
 
 
-            <!-- PAYMENT FORM -->
-            <div class="container mt-4">
-                <h1 class="text-center">STUDENT PAYMENT STATUS</h1>
-                <table id="student-payment-status" class="table table-striped mt-3">
+        <!-- PAYMENT FORM -->
+        <div class="container mt-4">
+            <h1 class="text-center">STUDENT PAYMENT STATUS</h1>
+            <table id="student-payment-status" class="table table-striped mt-3">
                     <thead>
                         <tr>
                             <th>STUDENT ID</th>
@@ -138,12 +139,13 @@ $conn->close();
 <!-- DONE PAYMENT -->
 <div class="container mt-4">
     <h1 class="text-center">FULL PAID</h1>
-    <table id="done-status" class="table table-striped mt-3">
+    <table id="student-payment-status" class="table table-striped mt-3">
         <thead>
             <tr>
                 <th>STUDENT ID</th>
                 <th>TOTAL</th>
                 <th>BALANCE</th>
+                <th>CREATED DATE</th>
                 <th>UPDATED DATE</th>
                 <th>ACTION</th>
             </tr>
@@ -157,11 +159,7 @@ $conn->close();
                             <td> <?=$row['balance']?> </td>
                             <td> <?=$row['date_created']?> </td>
                             <td> <?=$row['date_updated']?> </td>
-                            <td>
-                                <a class="btn btn-warning btn-sm edit-btn" href="payment-form.php?student_id=<?= htmlspecialchars($row['student_id']); ?>">
-                                    Pay
-                                </a>
-                                
+                            <td>                               
                                 <a class="btn btn-secondary btn-sm form1-btn" href="../print/form1.php">
                                     receipt
                                 </a>         

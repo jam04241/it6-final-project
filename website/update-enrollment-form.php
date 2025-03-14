@@ -24,12 +24,11 @@ if(isset($_GET["student_id"])){
                                         emergency_fullname,
                                         emergency_relationship,
                                         emergency_address,
-                                        emergency_contact_no                                        
+                                        emergency_contact_no,
+                                        isactive    
                                     FROM 
                                         tbl_student_info
                                     WHERE
-                                        isactive = 1
-                                    AND
                                         student_id= ?;");
     $stmt->bind_param("i", $student_id);
     $stmt->execute();
@@ -64,6 +63,7 @@ $emergency_fullname = $row["emergency_fullname"];
 $emergency_relationship = $row["emergency_relationship"];
 $emergency_address = $row["emergency_address"];
 $emergency_contact_no = $row["emergency_contact_no"];
+$isactive = $row["isactive"];
 
 
 ?>
@@ -119,8 +119,8 @@ $emergency_contact_no = $row["emergency_contact_no"];
                     <div class="col-2">
                         <label>Status</label>
                         <select class="form-control" id="" name="is_active">
-                            <option value="1" selected> Ongoing </option>
-                            <option value="0"> Done </option>
+                            <option value="1" <?= ($isactive == 1) ? 'selected' : ''; ?> > Ongoing </option>
+                            <option value="0" <?= ($isactive == 0) ? 'selected' : ''; ?> > Done </option>
                         </select>
                     </div>
 

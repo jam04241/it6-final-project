@@ -1,5 +1,5 @@
 <?php
-session_start();
+include "../helpers/session.php";
 include "dbconnect.php";
 
 // Enable MySQLi exceptions
@@ -97,20 +97,20 @@ try {
     $stmt->close();
 
     sleep(1);
-
+    
     // Fetch the last inserted student_id
     $stmt2 = $conn->prepare("SELECT 
-                                        student_id FROM tbl_student_info 
-                                    WHERE 
-                                        last_name = ? 
-                                    AND 
-                                        first_name = ? 
-                                    AND 
-                                        middle_name = ? 
-                                    ORDER BY 
-                                        student_id 
-                                    DESC LIMIT 
-                                        1;");
+    student_id FROM tbl_student_info 
+    WHERE 
+    last_name = ? 
+    AND 
+    first_name = ? 
+    AND 
+    middle_name = ? 
+    ORDER BY 
+    student_id 
+    DESC LIMIT 
+    1;");
 
     $stmt2->bind_param('sss', $last_name, $first_name, $middle_name);
     $stmt2->execute();
@@ -119,19 +119,19 @@ try {
     $stmt2->close();
 
     if (!$student_id) {
-        throw new Exception("❌ Error: Unable to fetch student ID.");
+    throw new Exception("❌ Error: Unable to fetch student ID.");
     }
 
 
     $stmt1 = $conn->prepare("    INSERT INTO 
-                                            tbl_payment 
-                                        (student_id, balance,created_by, date_created, status)
-                                        VALUES(
-                                            ?,
-                                            DEFAULT,
-                                            ?,
-                                            NOW(),
-                                            1);");
+    tbl_payment 
+    (student_id, balance,created_by, date_created, status)
+    VALUES(
+        ?,
+        DEFAULT,
+        ?,
+        NOW(),
+        1);");
 
     $stmt1->bind_param("ii", $student_id,$employee_id);
     $stmt1->execute();
@@ -146,17 +146,16 @@ try {
     // Fetch the result
     $result = $stmt1->get_result();
     if ($row = $result->fetch_assoc()) {
-        $employee_position = $row['employee_position'];
+    $employee_position = $row['employee_position'];
     } else {
-        die("❌ Error: Employee position not found!");
+    die("❌ Error: Employee position not found!");
     }
 
     // ✅ Call stored procedure for audit logging
     $stmt2 = $conn->prepare("CALL audit_register_student(?, ?)");
     $stmt2->bind_param('is', $employee_id, $employee_position);
     $stmt2->execute();
-    $stmt2->close();
-    
+    $stmt2->close();  
     echo "
     <script>
         alert('✅ You successfully registered a student');

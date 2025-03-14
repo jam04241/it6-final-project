@@ -60,10 +60,11 @@ include '../script/confirmation.php';
                     <div class="col">
                         <label>Sex</label>
                         <div class="radio-group" required>
-                            <input type="radio" value="male" id="male" name="sex">
-                            <label for="male">Male</label>                       
-                            <input type="radio" value="female" id="female" name="sex">
-                            <label for="female">Female</label>
+
+                            <input type="radio" value="Male" id="male" name="sex" required>
+                                <label for="male">Male</label>                       
+                            <input type="radio" value="Female" id="female" name="sex" required>
+                                <label for="female">Female</label>
                         </div>
                     </div>
                 </div>
@@ -90,7 +91,7 @@ include '../script/confirmation.php';
                     </div>
                     <div class="col">
                     <label>Relationship</label>
-                    <select class="form-control" id="enroll_category" name="enroll_category">
+                    <select class="form-control" id="emergency_relationship" name="emergency_relationship">
                             <option value="NULL">Select</option>
                             <option value="mother">Mother</option>
                             <option value="father">Father</option>

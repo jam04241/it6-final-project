@@ -1,5 +1,5 @@
 <?php
-session_start();
+include "../helpers/session.php";
 include "dbconnect.php";
 
 // Enable MySQLi exceptions
@@ -21,13 +21,15 @@ try {
                                    SET
                                      enroll_category = ?, 
                                      schoolyear = ?,
-                                     date_updated = NOW() 
+                                     updated_by = ?,
+                                     date_updated = NOW()
                                    WHERE
                                      student_id = ?;");
 
-        $stmt->bind_param('ssi',
+        $stmt->bind_param('ssii',
   $enroll_category,
  $schoolyear,
+        $employee_id,
         $student_id
         
     );
@@ -35,6 +37,21 @@ try {
     $stmt->execute();
     $stmt->close();
 
+    // Calibrate the table
+    $stmt = $conn->prepare(" UPDATE 
+                                        tbl_payment
+                                    SET
+                                        pay = 0.00, 
+                                        total = 0.00,
+                                        balance = DEFAULT,
+                                        updated_by = ?,
+                                        date_updated = NOW()
+                                    WHERE
+                                        student_id = ?;");
+    
+    $stmt->bind_param('ii',$employee_id,$student_id);
+    $stmt->execute();
+    $stmt->close();
 
     // Prepare the SQL statement
     $stmt = $conn->prepare("SELECT employee_position FROM tbl_employee WHERE employee_id = ?");

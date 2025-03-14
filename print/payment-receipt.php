@@ -108,10 +108,6 @@
             </div>
         </div>
     </div>
-
-    <div class="footer">
-        <img src="../images/FOOTER.png" alt="Footer" class="footer-img">
-    </div>
 </body>
 <style>
     body {

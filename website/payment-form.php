@@ -22,7 +22,7 @@
         if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
         } else {
-            die("Student not found!");
+            die("Student is inactive or fullpay found!");
         }
         $stmt->close();
     } else {

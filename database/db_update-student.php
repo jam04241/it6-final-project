@@ -27,7 +27,7 @@
     $emergency_relationship = $_POST["emergency_relationship"];
     $emergency_address = $_POST["emergency_address"];
     $emergency_contact_no = $_POST["emergency_contact_no"];
-    $is_active = isset($_POST["is_active"]) ? $_POST["is_active"] : 1;
+    $is_active = $_POST["is_active"];
 
     // Prepare the SQL CALL statement
     $stmt = $conn->prepare("	UPDATE

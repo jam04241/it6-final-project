@@ -16,23 +16,23 @@ try {
     $employee_id = $_SESSION["employee_id"];
 
     // Retrieve form data from POST
-    $date_start = $_POST["date_start"] ?? '';
-    $school = $_POST["school"] ?? '';
-    $grade_level = $_POST["grade_level"] ?? '';
-    $time_arrival = $_POST["time_arrival"] ?? '';
-    $focus_subject = $_POST["focus_subject"] ?? '';
-    $last_name = $_POST["last_name"] ?? '';
-    $first_name = $_POST["first_name"] ?? '';
+    $date_start = $_POST["date_start"];
+    $school = $_POST["school"];
+    $grade_level = $_POST["grade_level"];
+    $time_arrival = $_POST["time_arrival"];
+    $focus_subject = $_POST["focus_subject"];
+    $last_name = $_POST["last_name"];
+    $first_name = $_POST["first_name"];
     $middle_name = $_POST["middle_name"] ?? '';
-    $birthdate = $_POST["birthdate"] ?? '';
-    $sex = $_POST["sex"] ?? '';
-    $street = $_POST["street"] ?? '';
-    $city = $_POST["city"] ?? '';
-    $zip_code = $_POST["zip_code"] ?? '';
-    $emergency_fullname = $_POST["emergency_fullname"] ?? '';
-    $emergency_relationship = $_POST["emergency_relationship"] ?? '';
-    $emergency_address = $_POST["emergency_address"] ?? '';
-    $emergency_contact_no = $_POST["emergency_contact_no"] ?? '';
+    $birthdate = $_POST["birthdate"];
+    $sex = $_POST["sex"];
+    $street = $_POST["street"];
+    $city = $_POST["city"];
+    $zip_code = $_POST["zip_code"];
+    $emergency_fullname = $_POST["emergency_fullname"];
+    $emergency_relationship = $_POST["emergency_relationship"];
+    $emergency_address = $_POST["emergency_address"];
+    $emergency_contact_no = $_POST["emergency_contact_no"];
 
     // Ensure the connection is valid
     if ($conn->connect_error) {
@@ -95,7 +95,7 @@ try {
 
     if ($stmt->execute()) {
         echo "<script>
-        alert('✅ You successfully registered a student');
+        alert('✅ You successfully registered a tutor student');
         window.location.href = '../website/tutorial-listing.php'; 
     </script>";
     } else {
