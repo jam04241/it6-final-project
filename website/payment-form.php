@@ -14,7 +14,7 @@
                                         WHERE
                                             isactive = 1
                                         AND
-                                            student_id= ?;");
+                                            student_id= ?");
         $stmt->bind_param("i", $student_id);
         $stmt->execute();
         $result = $stmt->get_result();

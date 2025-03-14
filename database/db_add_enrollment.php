@@ -1,4 +1,5 @@
 <?php
+session_start();
 include "dbconnect.php";
 
 // Enable MySQLi exceptions
@@ -24,7 +25,7 @@ try {
                                    WHERE
                                      student_id = ?;");
 
-    $stmt->bind_param('ssi',
+        $stmt->bind_param('ssi',
   $enroll_category,
  $schoolyear,
         $student_id
@@ -34,12 +35,32 @@ try {
     $stmt->execute();
     $stmt->close();
 
+
+    // Prepare the SQL statement
+    $stmt = $conn->prepare("SELECT employee_position FROM tbl_employee WHERE employee_id = ?");
+    $stmt->bind_param('i', $employee_id);
+    $stmt->execute();
+
+    // Fetch the result
+    $result = $stmt->get_result();
+    if ($row = $result->fetch_assoc()) {
+        $employee_position = $row['employee_position'];
+    } else {
+        die("❌ Error: Employee position not found!");
+    }
+
+    // ✅ Call stored procedure for audit logging
+    $stmt2 = $conn->prepare("CALL audit_enroll_student(?, ?)");
+    $stmt2->bind_param('is', $employee_id, $employee_position);
+    $stmt2->execute();
+    $stmt2->close();
+
+    // ✅ Redirect with success message
     echo "
     <script>
         alert('✅ You successfully enrolled a student');
         window.location.href = '../website/student-enrollment.php'; 
     </script>";
-
 } catch (Exception $e) {
     // Catch and display error message
     echo "❌ Error: " . $e->getMessage();

@@ -82,7 +82,24 @@
         $is_active,
         $student_id
     );
+    
+    $stmt1 = $conn->prepare("SELECT employee_position FROM tbl_employee WHERE employee_id = ?");
+    $stmt1->bind_param('i', $employee_id);
+    $stmt1->execute();
 
+    // Fetch the result
+    $result = $stmt1->get_result();
+    if ($row = $result->fetch_assoc()) {
+        $employee_position = $row['employee_position'];
+    } else {
+        die("❌ Error: Employee position not found!");
+    }
+
+    // ✅ Call stored procedure for audit logging
+    $stmt2 = $conn->prepare("CALL audit_update_student(?, ?)");
+    $stmt2->bind_param('is', $employee_id, $employee_position);
+    $stmt2->execute();
+    
     // Execute the statement
     if ($stmt->execute()) {
         echo "

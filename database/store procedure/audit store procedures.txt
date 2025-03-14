@@ -1,0 +1,91 @@
+DELIMITER $$
+--
+-- Procedures
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `audit_active_student` (IN `get_employee_id` INT(11), IN `get_position` VARCHAR(20))   BEGIN
+	INSERT INTO tbl_audit_log
+    (employee_id, position, description,timestamp)
+    VALUE
+    (get_employee_id,get_position,'Reactive Student',NOW());
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `audit_delete_student` (IN `get_employee_id` INT(11), IN `get_position` VARCHAR(20))   BEGIN
+	INSERT INTO tbl_audit_log
+    (employee_id, position, description,timestamp)
+    VALUE
+    (get_employee_id,get_position,'Delete Student',NOW());
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `audit_delete_tutor` (IN `get_employee_id` INT(11), IN `get_position` VARCHAR(20))   BEGIN
+	INSERT INTO tbl_audit_log
+    (employee_id, position, description,timestamp)
+    VALUE
+    (get_employee_id,get_position,'Delete Tutor Student',NOW());
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `audit_enroll_student` (IN `get_employee_id` INT(11), IN `get_position` VARCHAR(20))   BEGIN
+	INSERT INTO tbl_audit_log
+    (employee_id, position, description,timestamp)
+    VALUE
+    (get_employee_id,get_position,'Enroll Student',NOW());
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `audit_inactive_student` (IN `get_employee_id` INT(11), IN `get_position` VARCHAR(20))   BEGIN
+	INSERT INTO tbl_audit_log
+    (employee_id, position, description,timestamp)
+    VALUE
+    (get_employee_id,get_position,'Deactivate Student',NOW());
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `audit_login_employee` (IN `get_employee_id` INT(11), IN `get_position` VARCHAR(20))   BEGIN
+	INSERT INTO tbl_audit_log
+    (employee_id, position, description,timestamp)
+    VALUE
+    (get_employee_id,get_position,'Login Employee',NOW());
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `audit_logout_employee` (IN `get_employee_id` INT(11), IN `get_position` VARCHAR(20))   BEGIN
+	INSERT INTO tbl_audit_log
+    (employee_id, position, description,timestamp)
+    VALUE
+    (get_employee_id,get_position,'Logout Employee',NOW());
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `audit_pay_student` (IN `get_employee_id` INT(11), IN `get_position` VARCHAR(20))   BEGIN
+	INSERT INTO tbl_audit_log
+    (employee_id, position, description,timestamp)
+    VALUE
+    (get_employee_id,get_position,'Student Payment',NOW());
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `audit_register_student` (IN `get_employee_id` INT(11), IN `get_position` VARCHAR(20))   BEGIN
+	INSERT INTO tbl_audit_log
+    (employee_id, position, description,timestamp)
+    VALUE
+    (get_employee_id,get_position,'Register Student',NOW());
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `audit_register_tutor` (IN `get_employee_id` INT(11), IN `get_position` VARCHAR(20))   BEGIN
+	INSERT INTO tbl_audit_log
+    (employee_id, position, description,timestamp)
+    VALUE
+    (get_employee_id,get_position,'Register tutor',NOW());
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `audit_update_student` (IN `get_employee_id` INT(11), IN `get_position` VARCHAR(20))   BEGIN
+	INSERT INTO tbl_audit_log
+    (employee_id, position, description,timestamp)
+    VALUE
+    (get_employee_id,get_position,'Update Student Information',NOW());
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `audtit_enroll_student` (IN `get_employee_id` INT(11), IN `get_position` VARCHAR(20))   BEGIN
+	INSERT INTO tbl_audit_log
+    (employee_id, position, description,timestamp)
+    VALUE
+    (get_employee_id,get_position,'Insert Student',NOW());
+END$$
+
+DELIMITER ;
+
+-- --------------------------------------------------------

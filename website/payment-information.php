@@ -1,13 +1,45 @@
 <?php 
-include "../database/dbconnect.php";
 include "../Layouts/navbar.php";
+include "../database/dbconnect.php";
+
 try {
     if (!$conn) {
         die("Database connection failed: " . $conn->error);
     }
 
-    $sql = "SELECT student_id, pay, total, balance, date_created, date_updated FROM tbl_payment;";
-    $result = $conn->query($sql);
+    // Array to store query results
+    $payment_status = [];
+    $full_pay_status = [];
+
+    // Run each stored procedure separately with proper handling
+    $queries = [
+        
+        // WHEN ONGOING PAYMENT
+        "SELECT student_id, pay, total, balance, date_created, date_updated FROM tbl_payment WHERE balance > 0.00;",
+
+        // WHEN BALANCE is FULL PAY
+        "SELECT student_id, pay, total, balance, date_created, date_updated FROM tbl_payment WHERE balance = 0.00;",
+    ];
+
+    foreach ($queries as $index => $query) {
+        if ($conn->multi_query($query)) {
+            do {
+                if ($result = $conn->store_result()) {
+                    while ($row = $result->fetch_assoc()) {
+                        if ($index == 0) {
+                            $payment_status[] = $row;
+                        } elseif ($index == 1) {
+                            $full_pay_status[] = $row;
+                        }
+                    }
+                    $result->free(); // Free result set
+                }
+            } while ($conn->next_result()); // Move to the next result set
+        } else {
+            throw new Exception("Query Failed: " . $conn->error);
+        }
+    }
+
 } catch (Exception $e) {
     echo "Error: " . $e->getMessage();
 }
@@ -15,6 +47,7 @@ try {
 // Close database connection
 $conn->close();
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -55,48 +88,48 @@ $conn->close();
     <?php //include"../Layouts/navbar.php"?> <!--due to coflict of connection i put it above--> 
 
 
-<!-- PAYMENT FORM -->
-<div class="container mt-4">
-    <h1 class="text-center">STUDENT PAYMENT STATUS</h1>
-    <table id="student-payment-status" class="table table-striped mt-3">
-        <thead>
-            <tr>
-                <th>STUDENT ID</th>
-                <th>PAY</th>
-                <th>TOTAL</th>
-                <th>BALANCE</th>
-                <th>CREATED DATE</th>
-                <th>UPDATED DATE</th>
-                <th>ACTION</th>
-            </tr>
-        </thead>
-        <tbody>
-        <?php if(isset($result) && $result->num_rows > 0): ?>
-            <?php while($row = $result->fetch_assoc()): ?>
-                <tr>
-                            <td> <?=$row['student_id']?> </td>
-                            <td> <?=$row['pay']?> </td>
-                            <td> <?=$row['total']?> </td>
-                            <td> <?=$row['balance']?> </td>
-                            <td> <?=$row['date_created']?> </td>
-                            <td> <?=$row['date_updated']?> </td>
-                            <td>
-                                <a class="btn btn-warning btn-sm edit-btn" href="payment-form.php?student_id=<?= htmlspecialchars($row['student_id']); ?>">
-                                    Pay
-                                </a>
-                                
-                                <a class="btn btn-secondary btn-sm form1-btn" href="../print/form1.php">
-                                    receipt
-                                </a>         
-
-                            </td>
-                        </tr>
-                        <?php endwhile; ?>
-                    <?php else: ?>
+            <!-- PAYMENT FORM -->
+            <div class="container mt-4">
+                <h1 class="text-center">STUDENT PAYMENT STATUS</h1>
+                <table id="student-payment-status" class="table table-striped mt-3">
+                    <thead>
                         <tr>
-                            <td colspan="7" class="text-center">No students available</td>
+                            <th>STUDENT ID</th>
+                            <th>PAY</th>
+                            <th>TOTAL</th>
+                            <th>BALANCE</th>
+                            <th>CREATED DATE</th>
+                            <th>UPDATED DATE</th>
+                            <th>ACTION</th>
                         </tr>
-                    <?php endif; ?>
+                    </thead>
+                    <tbody>
+                    <?php if (!empty($payment_status)): ?>
+                <?php foreach ($payment_status as $row): ?>
+                    <tr>
+                        <td> <?=$row['student_id']?> </td>
+                        <td> <?=$row['pay']?> </td>
+                        <td> <?=$row['total']?> </td>
+                        <td> <?=$row['balance']?> </td>
+                        <td> <?=$row['date_created']?> </td>
+                        <td> <?=$row['date_updated']?> </td>
+                        <td>
+                            <a class="btn btn-warning btn-sm edit-btn" href="payment-form.php?student_id=<?= htmlspecialchars($row['student_id']); ?>">
+                                Pay
+                            </a>
+                            
+                            <a class="btn btn-secondary btn-sm form1-btn" href="../print/form1.php">
+                                Receipt
+                            </a>         
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <tr>
+                    <td colspan="7" class="text-center">No students available</td>
+                </tr>
+            <?php endif; ?>
+
             <!-- Dynamic Data Goes Here -->
         </tbody>
     </table>
@@ -109,15 +142,15 @@ $conn->close();
         <thead>
             <tr>
                 <th>STUDENT ID</th>
-                <th>TOTAL/th>
+                <th>TOTAL</th>
                 <th>BALANCE</th>
                 <th>UPDATED DATE</th>
                 <th>ACTION</th>
             </tr>
         </thead>
         <tbody>
-        <?php if(isset($result) && $result->num_rows > 0): ?>
-            <?php while($row = $result->fetch_assoc()): ?>
+        <?php if (!empty($full_pay_status)): ?>
+            <?php foreach ($full_pay_status as $row): ?>
                 <tr>
                             <td> <?=$row['student_id']?> </td>
                             <td> <?=$row['total']?> </td>
@@ -135,12 +168,12 @@ $conn->close();
 
                             </td>
                         </tr>
-                        <?php endwhile; ?>
-                    <?php else: ?>
-                        <tr>
-                            <td colspan="7" class="text-center">No students available</td>
-                        </tr>
-                    <?php endif; ?>
+                        <?php endforeach; ?>
+                <?php else: ?>
+                    <tr>
+                        <td colspan="7" class="text-center">No students available</td>
+                    </tr>
+                <?php endif; ?>
             <!-- Dynamic Data Goes Here -->
         </tbody>
     </table>

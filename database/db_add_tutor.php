@@ -1,13 +1,20 @@
 <?php
-session_start();
+
+include "../helpers/session.php";
 include "dbconnect.php";
 
 // Enable MySQLi exceptions
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
 try {
+    // Check if employee_id is set
+    if (!isset($_SESSION["employee_id"])) {
+        throw new Exception("❌ Error: Employee ID not set in session.");
+    }
+
     // SESSION EMPLOYEE ID
-    $employee_id = $_SESSION["tutorial_id"];
+    $employee_id = $_SESSION["employee_id"];
+
     // Retrieve form data from POST
     $date_start = $_POST["date_start"] ?? '';
     $school = $_POST["school"] ?? '';
@@ -27,8 +34,13 @@ try {
     $emergency_address = $_POST["emergency_address"] ?? '';
     $emergency_contact_no = $_POST["emergency_contact_no"] ?? '';
 
+    // Ensure the connection is valid
+    if ($conn->connect_error) {
+        throw new Exception("❌ Connection failed: " . $conn->connect_error);
+    }
+
     // Insert into student table
-    $stmt = $conn->prepare("INSERT INTO tbl_tutorial_info (
+    $stmt = $conn->prepare("INSERT INTO tbl_tutor_info (
                                         date_start,
                                         school,
                                         grade_level,
@@ -51,60 +63,49 @@ try {
                                         isactive
                                     ) 
                                     VALUES (
-                                        ?, 
-                                        ?, 
-                                        ?, 
-                                        ?, 
-                                        ?, 
-                                        ?, 
-                                        ?, 
-                                        ?, 
-                                        ?, 
-                                        ?, 
-                                        ?,  
-                                        ?, 
-                                        ?, 
-                                        ?, 
-                                        ?, 
-                                        ?, 
-                                        ?,
-                                        ?, 
-                                        NOW(), 
-                                        1
-                                    );");
+                                         ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), 1
+                                    )");
 
-    $stmt->bind_param('ssssssssssssssssi',
-        $last_name,
-        $first_name,
-        $middle_name,
-        $street,
-        $city,
-        $zip_code,
-        $birthdate,
-        $sex,
-        $parent1,
-        $parent1_contact,
-        $parent2,
-        $parent2_contact,
-        $emergency_fullname,
-        $emergency_relationship,
-        $emergency_address,
-        $emergency_contact_no,
+    $stmt->bind_param('sssssssssssssssssi',
+        $date_start, $school, $grade_level, $time_arrival, $focus_subject,
+        $last_name, $first_name, $middle_name, $birthdate, $sex, 
+        $street, $city, $zip_code, $emergency_fullname, 
+        $emergency_relationship, $emergency_address, $emergency_contact_no, 
         $employee_id
     );
 
-    $stmt->execute();
-    $stmt->close();
-    
+    // Prepare the SQL statement
+    $stmt1 = $conn->prepare("SELECT employee_position FROM tbl_employee WHERE employee_id = ?");
+    $stmt1->bind_param('i', $employee_id);
+    $stmt1->execute();
 
-    echo "
-    <script>
+    // Fetch the result
+    $result = $stmt1->get_result();
+    if ($row = $result->fetch_assoc()) {
+        $employee_position = $row['employee_position'];
+    } else {
+        die("❌ Error: Employee position not found!");
+    }
+
+    // ✅ Call stored procedure for audit logging
+    $stmt2 = $conn->prepare("CALL audit_register_tutor(?, ?)");
+    $stmt2->bind_param('is', $employee_id, $employee_position);
+    $stmt2->execute();
+    $stmt2->close();
+
+    if ($stmt->execute()) {
+        echo "<script>
         alert('✅ You successfully registered a student');
-        window.location.href = '../website/student-enrollment.php'; 
+        window.location.href = '../website/tutorial-listing.php'; 
     </script>";
+    } else {
+        echo "❌ Error: " . $e->getMessage();
+
+        return false;
+    }
+    exit();
 
 } catch (Exception $e) {
-    // Catch and display error message
     echo "❌ Error: " . $e->getMessage();
 }
 ?>

@@ -6,7 +6,7 @@ try {
         die("Database connection failed: " . $conn->error);
     }
 
-    $sql = "SELECT * FROM tbl_audit_log;";
+    $sql = "SELECT * FROM tbl_audit_log ORDER BY timestamp DESC;";
     $result = $conn->query($sql);
 } catch (Exception $e) {
     echo "Error: " . $e->getMessage();

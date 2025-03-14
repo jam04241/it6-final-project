@@ -37,8 +37,8 @@ try {
         exit;
     }
 
-    
     if (create_account($employee_position, $username, $password, $last_name, $first_name, $middle_name, $verify_pass)) {
+      
         echo"
         <script>
             alert('✅ Account successfully created!');

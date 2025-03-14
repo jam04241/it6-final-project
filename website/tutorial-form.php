@@ -39,11 +39,11 @@ include '../script/confirmation.php';
                 <div class="row mb-3">
                     <div class="col-3">
                         <label>School</label>
-                        <input type="text" class="form-control" id="last_name" name="last_name" required>
+                        <input type="text" class="form-control" id="school" name="school" required>
                     </div>
                     <div class="col-2">
                         <label>Grade level</label>
-                        <select class="form-control" id="enroll_category" name="enroll_category" required>
+                        <select class="form-control" id="grade_level" name="grade_level" required>
                             <option value="NULL" selected disabled>Select Grade Level</option>
                             <option value="Grade 1">1</option>
                             <option value="Grade 2">2</option>
@@ -55,11 +55,11 @@ include '../script/confirmation.php';
                     </div>
                     <div class="col-3">
                         <label>Focus Subject</label>
-                        <input type="text" class="form-control" id="first_name" name="first_name" required>
+                        <input type="text" class="form-control" id="focus_subject" name="focus_subject" required>
                     </div>
                     <div class="col-3">
                         <label>Time Arrival</label>
-                        <input type="time" class="form-control" id="first_name" name="first_name" required>
+                        <input type="time" class="form-control" id="time_arrival" name="time_arrival" required>
                     </div>
                 </div>
 
@@ -92,7 +92,7 @@ include '../script/confirmation.php';
                     </div>
                     <div class="col">
                         <label>Sex</label>
-                        <div class="radio-group" required>
+                        <div class="radio-group" id="sex" name="sex" required>
                             <input type="radio" value="male" id="male" name="sex">
                             <label for="male">Male</label>                       
                             <input type="radio" value="female" id="female" name="sex">
@@ -110,7 +110,7 @@ include '../script/confirmation.php';
                     </div>
                     <div class="col">
                     <label>Relationship</label>
-                    <select class="form-control" id="enroll_category" name="enroll_category">
+                    <select class="form-control" id="enroll_category" name="enroll_category" required>
                             <option value="NULL">Select</option>
                             <option value="mother">Mother</option>
                             <option value="father">Father</option>
@@ -144,7 +144,7 @@ include '../script/confirmation.php';
             function confirmation() {
             var result = confirm('Are you sure about this?');
             if (result) {
-                window.location.href = '../website/student-enrollment.php';
+                window.location.href = '../website/tutorial-listing.php';
             } else {
                 return false;
             }

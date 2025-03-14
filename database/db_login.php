@@ -13,11 +13,34 @@
         $user = verify_user($username, $password);
     
         if ($user) {
-          
             // Store the username in the session
             $_SESSION["username"] = $user['username']; 
             $_SESSION["employee_id"] = $user['employee_id']; 
 
+              // Prepare the SQL statement
+            if (isset($_SESSION["employee_id"])) {
+                $employee_id = $_SESSION["employee_id"];
+            } else {
+                die("❌ Error: Employee ID not found in session!");
+            }
+            
+            $stmt1 = $conn->prepare("SELECT employee_position FROM tbl_employee WHERE employee_id = ?");
+            $stmt1->bind_param('i', $employee_id);
+            $stmt1->execute();
+
+            // Fetch the result
+            $result = $stmt1->get_result();
+            if ($row = $result->fetch_assoc()) {
+                $employee_position = $row['employee_position'];
+            } else {
+                die("❌ Error: Employee position not found!");
+            }
+
+            // ✅ Call stored procedure for audit logging
+            $stmt2 = $conn->prepare("CALL audit_login_employee(?, ?)");
+            $stmt2->bind_param('is', $employee_id, $employee_position);
+            $stmt2->execute();
+            $stmt2->close();
 
           echo"
           <script>
@@ -53,7 +76,8 @@
       $stmt->bind_param("s", $username);
       $stmt->execute();
       $result = $stmt->get_result();
-    
+      
+
       if ($row = $result->fetch_assoc()) {
         if (password_verify($password, $row['password'])) {
           return $row; // Return user info
