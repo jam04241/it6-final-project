@@ -1,3 +1,7 @@
+--
+-- Database: `it6_buligen`
+--
+
 DELIMITER $$
 --
 -- Procedures
@@ -77,6 +81,13 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `audit_update_student` (IN `get_empl
     (employee_id, position, description,timestamp)
     VALUE
     (get_employee_id,get_position,'Update Student Information',NOW());
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `audit_update_tutor` (IN `get_employee_id` INT(11), IN `get_position` VARCHAR(20))   BEGIN
+	INSERT INTO tbl_audit_log
+    (employee_id, position, description,timestamp)
+    VALUE
+    (get_employee_id,get_position,'Update Tutor Information',NOW());
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `audtit_enroll_student` (IN `get_employee_id` INT(11), IN `get_position` VARCHAR(20))   BEGIN

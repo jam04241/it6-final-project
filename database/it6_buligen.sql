@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 13, 2025 at 11:35 AM
+-- Generation Time: Mar 14, 2025 at 09:14 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -102,6 +102,13 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `audit_update_student` (IN `get_empl
     (get_employee_id,get_position,'Update Student Information',NOW());
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `audit_update_tutor` (IN `get_employee_id` INT(11), IN `get_position` VARCHAR(20))   BEGIN
+	INSERT INTO tbl_audit_log
+    (employee_id, position, description,timestamp)
+    VALUE
+    (get_employee_id,get_position,'Update Tutor Information',NOW());
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `audtit_enroll_student` (IN `get_employee_id` INT(11), IN `get_position` VARCHAR(20))   BEGIN
 	INSERT INTO tbl_audit_log
     (employee_id, position, description,timestamp)
@@ -150,7 +157,58 @@ INSERT INTO `tbl_audit_log` (`audit_no`, `employee_id`, `position`, `description
 (18, 1, 'administrator', 'Student Payment', '2025-03-13 09:59:01'),
 (19, 1, 'administrator', 'Update Student Information', '2025-03-13 10:20:37'),
 (20, 1, 'administrator', 'Update Student Information', '2025-03-13 10:32:45'),
-(21, 1, 'administrator', 'Delete Tutor Student', '2025-03-13 10:34:42');
+(21, 1, 'administrator', 'Delete Tutor Student', '2025-03-13 10:34:42'),
+(22, 1, 'administrator', 'Update Student Information', '2025-03-13 10:37:36'),
+(23, 1, 'administrator', 'Logout Employee', '2025-03-13 10:40:51'),
+(24, 3, 'cashier', 'Login Employee', '2025-03-14 00:30:20'),
+(25, 3, 'cashier', 'Deactivate Student', '2025-03-14 00:34:23'),
+(26, 3, 'cashier', 'Reactive Student', '2025-03-14 00:34:59'),
+(27, 3, 'cashier', 'Reactive Student', '2025-03-14 00:35:00'),
+(28, 3, 'cashier', 'Update Student Information', '2025-03-14 00:36:39'),
+(29, 3, 'cashier', 'Update Student Information', '2025-03-14 00:42:44'),
+(30, 3, 'cashier', 'Update Student Information', '2025-03-14 00:44:57'),
+(31, 3, 'cashier', 'Update Student Information', '2025-03-14 00:49:15'),
+(32, 3, 'cashier', 'Enroll Student', '2025-03-14 00:51:16'),
+(33, 3, 'cashier', 'Enroll Student', '2025-03-14 00:51:38'),
+(34, 3, 'cashier', 'Enroll Student', '2025-03-14 00:51:53'),
+(35, 3, 'cashier', 'Enroll Student', '2025-03-14 01:06:44'),
+(36, 3, 'cashier', 'Delete Student', '2025-03-14 01:09:36'),
+(37, 3, 'cashier', 'Student Payment', '2025-03-14 01:11:19'),
+(38, 3, 'cashier', 'Register tutor', '2025-03-14 01:45:49'),
+(39, 3, 'cashier', 'Deactivate Student', '2025-03-14 01:48:01'),
+(40, 5, 'admission', 'Login Employee', '2025-03-14 03:44:39'),
+(41, 5, 'admission', 'Register Student', '2025-03-14 03:49:25'),
+(42, 5, 'admission', 'Enroll Student', '2025-03-14 03:49:53'),
+(43, 5, 'admission', 'Enroll Student', '2025-03-14 03:50:06'),
+(44, 5, 'admission', 'Enroll Student', '2025-03-14 03:51:07'),
+(45, 5, 'admission', 'Update Student Information', '2025-03-14 03:51:26'),
+(46, 5, 'admission', 'Update Student Information', '2025-03-14 04:42:20'),
+(47, 5, 'admission', 'Update Student Information', '2025-03-14 04:48:53'),
+(48, 5, 'admission', 'Update Student Information', '2025-03-14 05:13:50'),
+(49, 5, 'admission', 'Deactivate Student', '2025-03-14 05:14:03'),
+(50, 5, 'admission', 'Reactive Student', '2025-03-14 05:14:13'),
+(51, 5, 'admission', 'Update Student Information', '2025-03-14 06:01:23'),
+(52, 5, 'admission', 'Update Student Information', '2025-03-14 06:02:37'),
+(53, 5, 'admission', 'Delete Tutor Student', '2025-03-14 06:04:37'),
+(54, 5, 'admission', 'Enroll Student', '2025-03-14 06:37:54'),
+(55, 5, 'admission', 'Enroll Student', '2025-03-14 06:38:05'),
+(56, 5, 'admission', 'Enroll Student', '2025-03-14 06:38:25'),
+(57, 5, 'admission', 'Enroll Student', '2025-03-14 06:39:02'),
+(58, 5, 'admission', 'Enroll Student', '2025-03-14 06:40:33'),
+(59, 5, 'admission', 'Enroll Student', '2025-03-14 06:40:46'),
+(60, 5, 'admission', 'Enroll Student', '2025-03-14 06:42:16'),
+(61, 5, 'admission', 'Enroll Student', '2025-03-14 06:42:36'),
+(62, 5, 'admission', 'Update Student Information', '2025-03-14 07:19:52'),
+(63, 5, 'admission', 'Student Payment', '2025-03-14 07:22:56'),
+(64, 5, 'admission', 'Logout Employee', '2025-03-14 07:43:39'),
+(65, 1, 'administrator', 'Login Employee', '2025-03-14 07:43:41'),
+(66, 1, 'administrator', 'Update Student Information', '2025-03-14 07:44:34'),
+(67, 1, 'administrator', 'Logout Employee', '2025-03-14 07:54:05'),
+(68, 3, 'cashier', 'Login Employee', '2025-03-14 07:54:09'),
+(69, 3, 'cashier', 'Register Student', '2025-03-14 07:54:34'),
+(70, 3, 'cashier', 'Register tutor', '2025-03-14 07:58:44'),
+(71, 3, 'cashier', 'Update Tutor Information', '2025-03-14 08:09:23'),
+(72, 3, 'cashier', 'Logout Employee', '2025-03-14 08:13:14');
 
 -- --------------------------------------------------------
 
@@ -180,7 +238,8 @@ INSERT INTO `tbl_employee` (`employee_id`, `employee_position`, `username`, `pas
 (1, 'Administrator', 'jam04241', '$2y$10$.RfmVG9yII.hoc7x/VSreuLOqFSvwIFkEJUbJf1jPN4.NLcxQ8e/W', 'Magcalas', 'Josh Andrei', 'Mosqueda', '123', '2025-03-09 21:08:30', 1, '2025-03-13 06:45:27'),
 (2, 'Admission', 'Inday123', '$2y$10$CRyWaHpS3VHwnlbm5R1qW.YTdIZ1rUcz1lINhTW5Ai/WeqJZlxQpO', 'Inday', 'Charlize Jane', 'Secret', '123', '2025-03-09 21:08:35', 1, '2025-03-13 06:45:27'),
 (3, 'Cashier', 'lloyd123', '$2y$10$3WZrPj3QZy81tZihgQsAxe20oHGl5X1Ke4OTthNVZuRrePpHXurwi', 'Girozaga', 'John Lloyd', 'Secret', '123', '2025-03-09 21:08:39', 1, '2025-03-13 06:45:27'),
-(4, 'Administrator', 'sherjay123', '$2y$10$GkpbDOCNHa.IXEWCEHr1m.5yTHGGhA4DEgpDtkZfFNFZgPkIX68ti', 'Pasayloon', 'Sherjay', 'Buhat', '123', '2025-03-10 16:19:28', 1, '2025-03-13 10:13:45');
+(4, 'Administrator', 'sherjay123', '$2y$10$GkpbDOCNHa.IXEWCEHr1m.5yTHGGhA4DEgpDtkZfFNFZgPkIX68ti', 'Pasayloon', 'Sherjay', 'Buhat', '123', '2025-03-10 16:19:28', 1, '2025-03-13 10:13:45'),
+(5, 'Admission', 'gilger123', '$2y$10$cNGW1F7CxIH0594s6mIeBeoew6/QxJbm1ny4CWeLBsCsw5jDQ3WEm', 'Mantilla', 'Gilgre Gene', 'Gavia', '123', '2025-03-14 03:44:08', 0, '2025-03-14 03:44:08');
 
 -- --------------------------------------------------------
 
@@ -207,11 +266,11 @@ CREATE TABLE `tbl_payment` (
 --
 
 INSERT INTO `tbl_payment` (`payment_no`, `student_id`, `pay`, `total`, `balance`, `payment_method`, `created_by`, `date_created`, `updated_by`, `date_updated`, `status`) VALUES
-(1, 3, 1000.00, 1524.00, 3476.00, 'Cash', 0, '2025-03-13 03:04:24', 1, '2025-03-13 03:11:48', 1),
-(2, 5, 200.00, 500.00, 24350.00, 'Gcash', 3, '2025-03-12 04:36:29', 1, '2025-03-13 09:59:01', 1),
-(3, 6, 0.00, 0.00, 24850.00, '', 1, '2025-03-12 11:26:24', 0, '2025-03-12 11:26:24', 1),
-(5, 8, 0.00, 0.00, 24850.00, 'Cash', 1, '2025-03-13 04:16:36', 0, '2025-03-13 04:16:36', 1),
-(6, 9, 0.00, 0.00, 24850.00, 'Cash', 1, '2025-03-13 09:16:50', 0, '2025-03-13 09:16:50', 1);
+(1, 3, 0.00, 0.00, 24850.00, 'Cash', 0, '2025-03-13 03:04:24', 5, '2025-03-14 06:42:36', 1),
+(2, 5, 0.00, 0.00, 24850.00, 'Gcash', 3, '2025-03-12 04:36:29', 5, '2025-03-14 06:42:16', 1),
+(6, 9, 0.00, 0.00, 24850.00, 'Cash', 1, '2025-03-13 09:16:50', 3, '2025-03-14 06:40:46', 1),
+(7, 10, 24850.00, 24850.00, 0.00, 'Bank Transfer', 5, '2025-03-14 03:49:25', 5, '2025-03-14 07:22:56', 1),
+(8, 11, 0.00, 0.00, 24850.00, 'Cash', 3, '2025-03-14 07:54:34', 0, '2025-03-14 07:54:34', 1);
 
 -- --------------------------------------------------------
 
@@ -291,12 +350,13 @@ CREATE TABLE `tbl_student_info` (
 --
 
 INSERT INTO `tbl_student_info` (`student_id`, `enroll_category`, `schoolyear`, `last_name`, `first_name`, `middle_name`, `street`, `city`, `zip_code`, `birthdate`, `sex`, `parent1`, `parent1_contact`, `parent2`, `parent2_contact`, `emergency_fullname`, `emergency_relationship`, `emergency_address`, `emergency_contact_no`, `created_by`, `date_created`, `updated_by`, `date_updated`, `isactive`) VALUES
-(1, 'Nursery', '2025-2026', 'Mantilla', 'Gilgre GENE', 'Sheesh', 'Bangkal', 'Davao City', 8000, '2025-03-23', 'Male', 'Daddy', 909090, 'Mommy', 9090, 'Maria Betsy M. Magcalas', 'mother', 'mintal', 987, NULL, '2025-03-12 11:29:17', 1, '2025-03-13 10:22:17', 1),
-(2, 'Kindergarten_1', '2023-2024', 'Magcalas', 'Josh Andrei', 'Mosqueda', 'mintal', 'davao city', 8000, '2004-06-04', 'Male', 'Maria Betsy M. Magalas', 954364521, 'Jonas B. Magcalas', 954364521, 'Maria Betsy M. Magcalas', '', 'Maria Betsy M. Magcalas', 0, NULL, '2025-03-11 15:22:48', 1, '2025-03-13 10:32:45', 1),
-(3, 'Kindergarten_2', '2025-2026', 'Inday', 'Charlize Jane ', '', 'mintal', 'DAVAO CITY', 8000, '2025-03-30', 'Female', 'Papa Lloyd', 9876, 'mama John Lloyd', 987, 'Boss Stephen', 'others', 'Catalunan Grande', 9876, NULL, '2025-03-12 11:00:06', 3, '2025-03-12 11:00:06', 1),
-(5, 'Nursery', '', 'Obaob', 'Einstein', '', 'Sasa', 'Davao city', 8000, '2025-03-12', 'Female', 'Dad', 123123, 'Mon', 765, 'dad', '', 'mintal', 643, 3, '2025-03-12 06:44:34', 1, '2025-03-13 10:22:08', 1),
-(6, 'Kindergarten_2', '2025-2026', 'Magcalas', 'Andrea Isabella', '', 'Mintal', 'Davao City', 8000, '2025-03-21', 'Male', 'jonas', 234453, 'maria', 3456456, 'Josh Andrei M. magcalas', 'guardian', 'Mintal', 2147483647, 1, '2025-03-12 13:45:00', 1, '2025-03-12 13:48:44', 0),
-(9, 'Kindergarten_1', '2023-2024', 'Bert', 'aS', '', 'ghg', 'Davao City', 8000, '2025-03-13', 'Female', 'fghhfg', 6757, 'fghhfgghf', 85768654, 'Maria Betsy M. Magcalas', '', 'mintal', 123123, 1, '2025-03-13 09:16:49', NULL, '2025-03-13 09:17:13', 1);
+(1, 'Kindergarten_2', '2024-2025', 'Mantilla', 'Gilgre GENE', 'Sheesh', 'Bangkal', 'Davao City', 8000, '2025-03-23', 'Male', 'Daddy', 909090, 'Mommy', 9090, 'Maria Betsy M. Magcalas', 'mother', 'mintal', 987, NULL, '2025-03-12 11:29:17', 5, '2025-03-14 06:38:05', 1),
+(2, 'Kindergarten_1', '2020-2021', 'Magcalas', 'Josh Andrei', 'Mosqueda', 'mintal', 'davao city', 8000, '2004-06-04', 'Male', 'Maria Betsy M. Magalas', 954364521, 'Jonas B. Magcalas', 954364521, 'Maria Betsy M. Magcalas', '', 'Maria Betsy M. Magcalas', 0, NULL, '2025-03-11 15:22:48', 5, '2025-03-14 06:37:54', 1),
+(3, 'Kindergarten_1', '2025-2026', 'Inday', 'Charlize Jane ', 'oten', 'mintal', 'DAVAO CITY', 8000, '2025-03-30', 'Female', 'Papa Lloyd', 9876, 'mama John Lloyd', 987, 'Boss Stephen', 'others', 'Catalunan Grande', 9876, NULL, '2025-03-12 11:00:06', 5, '2025-03-14 06:42:36', 1),
+(5, 'Nursery', '2025-2026', 'Obaob', 'Einstein', 'Mosqueda', 'sss', 'Davao city', 8000, '2025-03-12', 'Female', 'Dad', 123123, 'Mon', 98765, 'dad', '', 'mintal', 643, 3, '2025-03-12 06:44:34', 1, '2025-03-14 07:44:34', 1),
+(9, 'Kindergarten_1', '2023-2024', 'Latog', 'Emerson', '', 'Boulevard', 'Davao City', 8000, '2025-03-24', 'Male', 'Emerson Daddy', 976525435, 'Emerson Mommy', 123123, 'Daddy Aldren', 'others', 'Tugbok Dist., Davao City, 8000', 97555623, 1, '2025-03-13 09:16:49', 5, '2025-03-14 06:40:46', 1),
+(10, 'Kindergarten_2', '2023-2024', 'vsdfs', 'dfsdg', 'hgjghjgh', 'hgjghj', 'ghjhgj', 8000, '2025-03-19', 'Male', 'kuyjgtgr', 9876543, 'opoliyujtgref', 87654, 'ewrsgfd', 'father', 'asddsa', 87654, 5, '2025-03-14 03:49:24', 5, '2025-03-14 06:40:33', 1),
+(11, NULL, NULL, 'sda', 'asd', 'asd', 'Bangkal', 'Davao City', 8000, '2025-03-28', 'Male', 'Daddy', 6543, 'Mommy', 654, 'Maria Betsy M. Magcalas', 'mother', 'mintal', 123123, 3, '2025-03-14 07:54:33', NULL, '2025-03-14 07:54:33', 1);
 
 -- --------------------------------------------------------
 
@@ -308,7 +368,7 @@ CREATE TABLE `tbl_tutor_info` (
   `tutorial_id` int(11) NOT NULL,
   `date_start` date NOT NULL,
   `school` text NOT NULL,
-  `grade_level` enum('Grade 1','Grade 2','Grade 3','Grade 4','Grade 5','Grade 6') NOT NULL,
+  `grade_level` enum('Nursery','Kindergarten 1','Kindergarten 2','Grade 1','Grade 2','Grade 3','Grade 4','Grade 5','Grade 6') NOT NULL,
   `time_arrival` time NOT NULL,
   `focus_subject` varchar(12) NOT NULL,
   `last_name` varchar(50) NOT NULL,
@@ -329,6 +389,15 @@ CREATE TABLE `tbl_tutor_info` (
   `date_updated` timestamp NOT NULL DEFAULT current_timestamp(),
   `isactive` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_tutor_info`
+--
+
+INSERT INTO `tbl_tutor_info` (`tutorial_id`, `date_start`, `school`, `grade_level`, `time_arrival`, `focus_subject`, `last_name`, `first_name`, `middle_name`, `birthdate`, `sex`, `street`, `city`, `zip_code`, `emergency_fullname`, `emergency_relationship`, `emergency_address`, `emergency_contact_no`, `created_by`, `date_created`, `updated_by`, `date_updated`, `isactive`) VALUES
+(3, '2025-03-14', 'Mintala', 'Nursery', '09:33:00', 'sda', 'das', 'asd', NULL, '0000-00-00', 'Male', 'das', 'asd', 334, 'asd', 'Mother', 'asd', 0, 3, '2025-03-14 01:36:46', 5, '2025-03-14 06:02:37', 1),
+(4, '2025-03-27', 'Mintala', 'Grade 3', '09:33:00', 'sda', 'das', 'asd', 'sad', '2025-03-21', 'Female', 'das', 'asd', 334, 'asd', 'Mother', 'asd', 0, 3, '2025-03-14 01:42:52', 3, '2025-03-14 08:09:23', 1),
+(6, '2025-03-29', 'das', 'Nursery', '03:59:00', 'asadassad', 'sadsaddas', 'asdsadsad', 'asdasd', '2025-04-05', 'Male', 'dasdas', 'sadassad', 8000, 'asdasdds', 'Mother', 'dasdasasda', 123123, 3, '2025-03-14 07:58:44', 0, '2025-03-14 07:58:44', 1);
 
 --
 -- Indexes for dumped tables
@@ -384,19 +453,19 @@ ALTER TABLE `tbl_tutor_info`
 -- AUTO_INCREMENT for table `tbl_audit_log`
 --
 ALTER TABLE `tbl_audit_log`
-  MODIFY `audit_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `audit_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
 
 --
 -- AUTO_INCREMENT for table `tbl_employee`
 --
 ALTER TABLE `tbl_employee`
-  MODIFY `employee_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `employee_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tbl_payment`
 --
 ALTER TABLE `tbl_payment`
-  MODIFY `payment_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `payment_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `tbl_receipt`
@@ -414,13 +483,13 @@ ALTER TABLE `tbl_schoolyear`
 -- AUTO_INCREMENT for table `tbl_student_info`
 --
 ALTER TABLE `tbl_student_info`
-  MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `tbl_tutor_info`
 --
 ALTER TABLE `tbl_tutor_info`
-  MODIFY `tutorial_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `tutorial_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
