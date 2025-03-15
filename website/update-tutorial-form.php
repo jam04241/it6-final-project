@@ -189,7 +189,7 @@
                         <div class="col">
                         <label>Relationship</label>
                             <select class="form-control" id="emergency_relationship" name="emergency_relationship">
-                                <option value="NULL" <?= ($emergency_relationship == "") ? 'selected' : ''; ?> disabled>Select</option>
+                                <option value="" <?= ($emergency_relationship == "") ? 'selected' : ''; ?> disabled>Select</option>
                                 <option value="mother" <?= ($emergency_relationship == 'mother') ? 'selected' : ''; ?>>Mother</option>
                                 <option value="father" <?= ($emergency_relationship == 'father') ? 'selected' : ''; ?>>Father</option>
                                 <option value="guardian" <?= ($emergency_relationship == 'guardian') ? 'selected' : ''; ?>>Guardian</option>

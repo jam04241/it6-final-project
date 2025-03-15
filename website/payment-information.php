@@ -15,10 +15,10 @@ try {
     $queries = [
         
         // WHEN ONGOING PAYMENT
-        "SELECT student_id, pay, total, balance, date_created, date_updated FROM tbl_payment WHERE balance > 0.00;",
+        "SELECT payment_no, student_id, pay, total, balance, date_created, date_updated FROM tbl_payment WHERE balance > 0.00;",
 
         // WHEN BALANCE is FULL PAY
-        "SELECT student_id, total, balance, date_created, date_updated FROM tbl_payment WHERE balance = 0.00;",
+        "SELECT payment_no, student_id, total, balance, date_created, date_updated FROM tbl_payment WHERE balance = 0.00;",
     ];
 
     foreach ($queries as $index => $query) {
@@ -95,6 +95,7 @@ $conn->close();
             <table id="student-payment-status" class="table table-striped mt-3">
                     <thead>
                         <tr>
+                            <th>PAYMENT NO.</th>
                             <th>STUDENT ID</th>
                             <th>PAY</th>
                             <th>TOTAL</th>
@@ -108,6 +109,7 @@ $conn->close();
                     <?php if (!empty($payment_status)): ?>
                 <?php foreach ($payment_status as $row): ?>
                     <tr>
+                        <td> <?=$row['payment_no']?> </td>
                         <td> <?=$row['student_id']?> </td>
                         <td> <?=$row['pay']?> </td>
                         <td> <?=$row['total']?> </td>
@@ -119,7 +121,7 @@ $conn->close();
                                 Pay
                             </a>
                             
-                            <a class="btn btn-secondary btn-sm form1-btn" href="../print/form1.php">
+                            <a class="btn btn-secondary btn-sm form1-btn" href="../print/payment-receipt(1).php?student_id=<?= htmlspecialchars($row['student_id']); ?>">
                                 Receipt
                             </a>         
                         </td>
@@ -139,32 +141,27 @@ $conn->close();
 <!-- DONE PAYMENT -->
 <div class="container mt-4">
     <h1 class="text-center">FULL PAID</h1>
-    <table id="student-payment-status" class="table table-striped mt-3">
+    <table id="S" class="table table-striped mt-3">
         <thead>
             <tr>
+                <th>PAYMENT NO.</th>
                 <th>STUDENT ID</th>
                 <th>TOTAL</th>
                 <th>BALANCE</th>
                 <th>CREATED DATE</th>
                 <th>UPDATED DATE</th>
-                <th>ACTION</th>
             </tr>
         </thead>
         <tbody>
         <?php if (!empty($full_pay_status)): ?>
             <?php foreach ($full_pay_status as $row): ?>
                 <tr>
+                            <td> <?=$row['payment_no']?> </td>
                             <td> <?=$row['student_id']?> </td>
                             <td> <?=$row['total']?> </td>
                             <td> <?=$row['balance']?> </td>
                             <td> <?=$row['date_created']?> </td>
                             <td> <?=$row['date_updated']?> </td>
-                            <td>                               
-                                <a class="btn btn-secondary btn-sm form1-btn" href="../print/form1.php">
-                                    receipt
-                                </a>         
-
-                            </td>
                         </tr>
                         <?php endforeach; ?>
                 <?php else: ?>

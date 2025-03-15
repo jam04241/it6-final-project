@@ -8,14 +8,10 @@
 
         // Array to store query results
         $tutorial_student = [];
-        $kindergarten1_students = [];
-        $kindergarten2_students = [];
 
         // Run each stored procedure separately with proper handling
         $queries = [
-            "SELECT * FROM tbl_tutor_info WHERE isactive = 1;",
-            "SELECT * FROM tbl_tutor_info;",
-            "SELECT * FROM tbl_tutor_info"
+            "SELECT * FROM tbl_tutor_info WHERE isactive = 1;"
         ];
 
         foreach ($queries as $index => $query) {

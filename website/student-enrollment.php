@@ -73,7 +73,7 @@ $conn->close();
 
     <!-- ENROLLMENT FORM -->
     <div class="container mt-4">
-        <h1 class="text-center">Student Information</h1>
+        <h1 class="text-center">Enrollment Information</h1>
             <table id="student-information" class="table table-striped mt-3">
                 <thead>
                     <tr>

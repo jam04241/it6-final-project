@@ -27,6 +27,7 @@
             $stmt1 = $conn->prepare("SELECT employee_position FROM tbl_employee WHERE employee_id = ?");
             $stmt1->bind_param('i', $employee_id);
             $stmt1->execute();
+            
 
             // Fetch the result
             $result = $stmt1->get_result();
@@ -36,12 +37,25 @@
                 die("❌ Error: Employee position not found!");
             }
 
+            //✅ Access tiem for employee
+            $stmt3 = $conn->prepare("UPDATE 
+                                              tbl_employee 
+                                            SET 
+                                              access_time = NOW()  
+                                            WHERE 
+                                              employee_id = ?");
+            $stmt3->bind_param('i', $employee_id);
+            $stmt3->execute();
+            
+
             // ✅ Call stored procedure for audit logging
             $stmt2 = $conn->prepare("CALL audit_login_employee(?, ?)");
             $stmt2->bind_param('is', $employee_id, $employee_position);
             $stmt2->execute();
+            
+            $stmt1->close();
             $stmt2->close();
-
+            $stmt3->close();
           echo"
           <script>
             alert('✅ Welcome to School System');
